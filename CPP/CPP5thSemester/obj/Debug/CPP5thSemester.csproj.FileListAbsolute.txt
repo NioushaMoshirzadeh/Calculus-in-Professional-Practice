@@ -1,0 +1,9 @@
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\bin\Debug\CPP5thSemester.exe.config
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\bin\Debug\CPP5thSemester.exe
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\bin\Debug\CPP5thSemester.pdb
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.csprojResolveAssemblyReference.cache
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.Form1.resources
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.Properties.Resources.resources
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.csproj.GenerateResource.Cache
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.exe
+D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.pdb
