@@ -7,3 +7,13 @@ D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\De
 D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.csproj.GenerateResource.Cache
 D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.exe
 D:\5thsemseter-firstBlock\CPP-Joris-3rdweek\CPP5thSemester\CPP5thSemester\obj\Debug\CPP5thSemester.pdb
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.csprojAssemblyReference.cache
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.Form1.resources
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.Properties.Resources.resources
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.csproj.GenerateResource.cache
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.csproj.CoreCompileInputs.cache
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\bin\Debug\CPP5thSemester.exe.config
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\bin\Debug\CPP5thSemester.exe
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\bin\Debug\CPP5thSemester.pdb
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.exe
+C:\Users\nisha\Documents\my-git-project\CPP\CPP5thSemester\obj\Debug\CPP5thSemester.pdb

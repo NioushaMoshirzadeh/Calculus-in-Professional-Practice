@@ -6,7 +6,46 @@ using System.Threading.Tasks;
 
 namespace CPP5thSemester
 {
-    class AddFunction : IFunction
+    class AddFunction :AbstractClass, IFunction
     {
+        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        // public string left { get; set; }
+        //public string right { get; set; }
+        // public IFunction Toleft { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        //public IFunction toRight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+         public IFunction Toleft { get; set; }
+         public IFunction ToRight { get; set; }
+        
+        public AddFunction():base() { }
+        public  AddFunction(IFunction toleft, IFunction toright):base()
+        {
+            this.Toleft = toleft;
+            this.ToRight = toright;
+            
+
+        }
+        
+
+        public double add()
+        {
+            string left =Toleft.ToInfix();
+            string right = ToRight.ToPrefix();
+            double value1 = Convert.ToDouble(left);
+            double value2 = Convert.ToDouble(right);
+            double result = value1 + value2;
+            return result;
+        }
+
+        public override string ToInfix()
+        {
+            string toprefixvalue = Toleft.ToInfix() + ToRight.ToInfix();
+            return toprefixvalue;
+        }
+
+        public override string ToPrefix()
+        {
+            string toprefixvalue = Toleft.ToPrefix() + ToRight.ToPrefix();
+            return toprefixvalue;
+        }
     }
 }

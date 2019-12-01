@@ -32,11 +32,16 @@ namespace CPP5thSemester
         {
             string s = tbParse.Text;
             parsing = new Parsing();
-            parsing.fpa(ref s);
+            
+            _ = parsing.fpa(ref s);
             tbParse.Text = s;
-
+           // AddFunction a = new AddFunction();
+            //double result = a.add();
+            //string result2 = result.ToString();
+            //tbResult.Text = result2.ToString();
             //fpa(ref s);
 
+            //create a binary tree 
 
         }
 

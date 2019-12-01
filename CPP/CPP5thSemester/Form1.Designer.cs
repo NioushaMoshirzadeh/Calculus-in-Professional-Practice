@@ -30,13 +30,15 @@
         {
             this.btnPars = new System.Windows.Forms.Button();
             this.tbParse = new System.Windows.Forms.TextBox();
+            this.tbResult = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnPars
             // 
-            this.btnPars.Location = new System.Drawing.Point(71, 49);
+            this.btnPars.Location = new System.Drawing.Point(95, 60);
+            this.btnPars.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnPars.Name = "btnPars";
-            this.btnPars.Size = new System.Drawing.Size(105, 23);
+            this.btnPars.Size = new System.Drawing.Size(140, 28);
             this.btnPars.TabIndex = 0;
             this.btnPars.Text = "Parse";
             this.btnPars.UseVisualStyleBackColor = true;
@@ -44,18 +46,29 @@
             // 
             // tbParse
             // 
-            this.tbParse.Location = new System.Drawing.Point(210, 51);
+            this.tbParse.Location = new System.Drawing.Point(280, 63);
+            this.tbParse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbParse.Name = "tbParse";
-            this.tbParse.Size = new System.Drawing.Size(100, 20);
+            this.tbParse.Size = new System.Drawing.Size(132, 22);
             this.tbParse.TabIndex = 1;
+            // 
+            // tbResult
+            // 
+            this.tbResult.Location = new System.Drawing.Point(280, 117);
+            this.tbResult.Margin = new System.Windows.Forms.Padding(4);
+            this.tbResult.Name = "tbResult";
+            this.tbResult.Size = new System.Drawing.Size(132, 22);
+            this.tbResult.TabIndex = 2;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(572, 261);
+            this.ClientSize = new System.Drawing.Size(763, 321);
+            this.Controls.Add(this.tbResult);
             this.Controls.Add(this.tbParse);
             this.Controls.Add(this.btnPars);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -68,6 +81,7 @@
 
         private System.Windows.Forms.Button btnPars;
         private System.Windows.Forms.TextBox tbParse;
+        private System.Windows.Forms.TextBox tbResult;
     }
 }
 

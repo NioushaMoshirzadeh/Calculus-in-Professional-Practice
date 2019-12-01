@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CPP5thSemester
 {
-    interface IFunction
+    public interface IFunction
     {
-        // implement the whole functions an dmaje this ckass inherits with the rest 
+        int Id { get; set; }
+        string ToInfix();
+        string ToPrefix();
 
     }
 }
