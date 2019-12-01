@@ -14,7 +14,7 @@ namespace CPP5thSemester
             FileStream fs = null;
             StreamWriter sw = null;
 
-            string text = "graph CPP {\n}" + "binary tree" + "}";
+            string text = "graph CPP {\n" + root.BinaryTree() + "}";
             try
             {
                 fs = new FileStream(fileName + ".dot", FileMode.OpenOrCreate, FileAccess.Write);

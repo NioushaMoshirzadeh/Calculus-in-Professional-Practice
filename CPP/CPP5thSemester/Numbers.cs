@@ -19,7 +19,7 @@ namespace CPP5thSemester
         public Numbers (){}
         
 
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+       
 
         public override string ToInfix()
         {
@@ -29,6 +29,11 @@ namespace CPP5thSemester
         public override string ToPrefix()
         {
             return this.Value;
+        }
+
+        public override string BinaryTree()
+        {
+            return "\nnode" + this.Id + "[label = \"" + this.Value +"\" ]\n";
         }
     }
 }

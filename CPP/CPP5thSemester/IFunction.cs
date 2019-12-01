@@ -11,6 +11,7 @@ namespace CPP5thSemester
         int Id { get; set; }
         string ToInfix();
         string ToPrefix();
+        string BinaryTree();
 
     }
 }

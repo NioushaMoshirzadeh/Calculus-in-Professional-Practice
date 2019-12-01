@@ -8,10 +8,28 @@ namespace CPP5thSemester
 {
     public abstract class AbstractClass : IFunction
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private int id;
+        private static int count = 0;
 
+        public int Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
+        }
+        public AbstractClass()
+        {
+            count++;
+            id = count;
+        }
         public abstract string ToInfix();
         public abstract string ToPrefix();
+        public abstract string BinaryTree();
 
     }
 }

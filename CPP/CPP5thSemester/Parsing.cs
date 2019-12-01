@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +14,14 @@ namespace CPP5thSemester
 {
     public class Parsing
     {
-
+       
         private string RemoveWhiteSpaces(ref string s)
         {
             s = s.Replace(" ", String.Empty);
             return s;
         }
+        //method to draw the binary tree on form
+       
 
 
         //parse the proposition 
@@ -23,7 +29,8 @@ namespace CPP5thSemester
         {
             IFunction f;
 
-           
+            while (s != null)
+            {
                 switch (s[0])
                 {
 
@@ -192,8 +199,8 @@ namespace CPP5thSemester
                         //    fpa(ref s);
                         //    break;
                 }
-            
 
+            }
             return null;
         }
 

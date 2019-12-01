@@ -8,7 +8,7 @@ namespace CPP5thSemester
 {
     class AddFunction :AbstractClass, IFunction
     {
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+       // public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         // public string left { get; set; }
         //public string right { get; set; }
         // public IFunction Toleft { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -46,6 +46,17 @@ namespace CPP5thSemester
         {
             string toprefixvalue = Toleft.ToPrefix() + ToRight.ToPrefix();
             return toprefixvalue;
+        }
+
+        public override string BinaryTree()
+        {
+            String temp = "\nnode" + this.Id + " [ label = \"+\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
+            temp += "node" + this.Id + " -- node" + Toleft.Id + "[style=dotted,color=purple]\n";
+            temp += Toleft.BinaryTree();
+            temp += "node" + this.Id + " -- node" + ToRight.Id + "[shape=record,color=purple]\n";
+            temp += ToRight.BinaryTree();
+
+            return temp;
         }
     }
 }
