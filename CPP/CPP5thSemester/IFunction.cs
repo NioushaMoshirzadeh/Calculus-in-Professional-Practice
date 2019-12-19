@@ -13,5 +13,8 @@ namespace CPP5thSemester
         string ToPrefix();
         string BinaryTree();
 
+        double Evaluate(double val);
+       
+
     }
 }

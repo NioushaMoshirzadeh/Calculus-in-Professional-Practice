@@ -15,6 +15,7 @@ namespace CPP5thSemester
         //public IFunction toRight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
          public IFunction Toleft { get; set; }
          public IFunction ToRight { get; set; }
+        // public IFunction Evaluation { get; set; }
         
         public AddFunction():base() { }
         public  AddFunction(IFunction toleft, IFunction toright):base()
@@ -24,17 +25,24 @@ namespace CPP5thSemester
             
 
         }
-        
-
-        public double add()
+        public override double Evaluate(double val)
         {
-            string left =Toleft.ToInfix();
-            string right = ToRight.ToPrefix();
-            double value1 = Convert.ToDouble(left);
-            double value2 = Convert.ToDouble(right);
-            double result = value1 + value2;
-            return result;
+            //this should add two numebers 
+            double evaluation = Toleft.Evaluate(val) + ToRight.Evaluate(val);
+            return evaluation;
+
         }
+
+
+        //public double add()
+        //{
+        //    string left =Toleft.ToInfix();
+        //    string right = ToRight.ToPrefix();
+        //    double value1 = Convert.ToDouble(left);
+        //    double value2 = Convert.ToDouble(right);
+        //    double result = value1 + value2;
+        //    return result;
+        //}
 
         public override string ToInfix()
         {

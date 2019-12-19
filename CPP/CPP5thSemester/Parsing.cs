@@ -79,7 +79,9 @@ namespace CPP5thSemester
                         return f;
                     case 'x':
                         s = s.Remove(0, 1);
-                        f = new Numbers("x");
+                        
+                            f = new XValue("x");
+                         
                         return f;
 
                     case '+':
@@ -94,8 +96,18 @@ namespace CPP5thSemester
                         // break;
                         f = new AddFunction(left, right);
                         AddFunction a = new AddFunction(left, right);
-                        double addResult = a.add();
+                       // double addResult = a.add();
 
+                        return f;
+
+                    case 's':
+                        s = s.Remove(0, 1);
+                        //check and eat ('(')
+                        s = s.Remove(0, 1);
+                        IFunction inputForSinValue = fpa(ref s);
+                        f = new Sin(inputForSinValue);
+                       // s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
                         return f;
 
                         //case '-':
@@ -142,19 +154,6 @@ namespace CPP5thSemester
                         //    fpa(ref s);
                         //    //check the (,) adn eat it
                         //    s = s.Remove(0, 1);
-                        //    fpa(ref s);
-                        //    //check the (')') and eat it
-                        //    s = s.Remove(0, 1);
-                        //    break;
-
-                        //case 's':
-                        //    s = s.Remove(0, 1);
-                        //    //check and eat ('(')
-                        //    s = s.Remove(0, 1);
-                        //   // MakeTree.Add('s');
-                        //    //fpa(ref s);
-                        //    ////check the (,) adn eat it
-                        //    //s = s.Remove(0, 1);
                         //    fpa(ref s);
                         //    //check the (')') and eat it
                         //    s = s.Remove(0, 1);

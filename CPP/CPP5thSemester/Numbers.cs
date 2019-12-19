@@ -35,5 +35,15 @@ namespace CPP5thSemester
         {
             return "\nnode" + this.Id + "[label = \"" + this.Value +"\" ]\n";
         }
+
+        public override double Evaluate(double val)
+        {
+            //int validateValue = 0;
+            return Convert.ToDouble(this.Value); 
+            
+           
+        }
+
+     
     }
 }

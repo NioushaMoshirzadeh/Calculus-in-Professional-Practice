@@ -30,6 +30,8 @@ namespace CPP5thSemester
         public abstract string ToInfix();
         public abstract string ToPrefix();
         public abstract string BinaryTree();
+        public abstract double Evaluate(double val);
 
+        
     }
 }
