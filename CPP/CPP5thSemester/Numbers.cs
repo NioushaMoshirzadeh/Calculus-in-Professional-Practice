@@ -9,9 +9,9 @@ namespace CPP5thSemester
     class Numbers :AbstractClass, IFunction
     {
         private static int nrOfVariables = 0;
-        public string Value { get; set; }
+        public int Value { get; set; }
 
-        public Numbers(string var)
+        public Numbers(int var)
         {
             Value = var;
             nrOfVariables ++;
@@ -23,12 +23,12 @@ namespace CPP5thSemester
 
         public override string ToInfix()
         {
-            return this.Value;
+            return  this.Value.ToString();
         }
 
         public override string ToPrefix()
         {
-            return this.Value;
+            return this.Value.ToString();
         }
 
         public override string BinaryTree()
@@ -38,10 +38,7 @@ namespace CPP5thSemester
 
         public override double Evaluate(double val)
         {
-            //int validateValue = 0;
-            return Convert.ToDouble(this.Value); 
-            
-           
+            return Convert.ToDouble(this.Value);   
         }
 
         public override double Derivative(double val)

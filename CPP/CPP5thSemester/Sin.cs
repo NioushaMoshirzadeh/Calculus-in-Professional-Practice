@@ -47,7 +47,6 @@ namespace CPP5thSemester
 
         public override double Derivative(double val)
         {
-            //should calculate the cos(x)
             double output = Math.Cos(Operand.Evaluate(val));
             return output;
         }

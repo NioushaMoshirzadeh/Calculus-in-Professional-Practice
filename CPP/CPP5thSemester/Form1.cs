@@ -30,16 +30,10 @@ namespace CPP5thSemester
             InitializeComponent();
             s = tbParse.Text;
             temp = s;
-            //----------------------------------
             tbResult.Text = temp;
             pen = new Pen(Brushes.Black, 5.0F);
             g = pictureBox1.CreateGraphics();
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            //int picWidth = pictureBox1.Width;
-            //int picHeight = pictureBox1.Height;
-            //Bitmap bmp = new Bitmap(picWidth, 5);
-            //--------------------------------------------
-            
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;  
         }
 
         private void DrawBinaryTree()
@@ -106,6 +100,12 @@ namespace CPP5thSemester
             string value_y = chart1.ChartAreas[0].CursorY.SelectionEnd.ToString();
             lbX.Text = "CursurX value is :" + value;
             lbY.Text = "CursurY value is :" + value_y;
+            /* plot the derivative */
+            for (float i = -5; i < 5; i += 0.1F)
+            {
+                 double derivativeOutput = root.Derivative(i);
+                chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
+            }
         }
         private void btnPars_Click(object sender, EventArgs e)
         {
@@ -122,13 +122,11 @@ namespace CPP5thSemester
             tbResult.Text = root.ToInfix();
             DrawBinaryTree();
             tbParse.Text = s;
+            /* plot the function on the chart */
             for (float i = -5; i < 5; i += 0.1F)
             {
-               // derivativeOutput = root.Derivative(i);
                 OutPut = root.Evaluate(i);
-               // Console.WriteLine(derivativeOutput);
                 chart1.Series["Equation_graph"].Points.AddXY(i, OutPut);
-                //chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
             }
         }
 
@@ -155,7 +153,7 @@ namespace CPP5thSemester
         }
         /* not tochable *///----------------------------------------------------------------------------------
 
-        private void Button1_Click(object sender, EventArgs e)         /*  plot the derivative*/
+        private void Button1_Click(object sender, EventArgs e)         /*plot the derivative*/
         {
             //-----Chart1-----
             double derivativeOutput;
@@ -180,7 +178,7 @@ namespace CPP5thSemester
                 float Y = (float)root.Derivative(X) * zoomValue;
                 float Y2 = ((float)root.Derivative(i + 0.1) * zoomValue);
 
-                g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+                g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
             }
 
         }

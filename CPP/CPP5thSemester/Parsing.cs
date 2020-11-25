@@ -28,54 +28,55 @@ namespace CPP5thSemester
         public IFunction fpa(ref string s)
         {
             IFunction f;
-
+            
             while (s != null)
             {
+                
                 switch (s[0])
                 {
-
+                    
                     case '0':
 
                         s = s.Remove(0, 1);
-                        f = new Numbers("0");
+                        f = new Numbers(0);
                         return f;
 
                     case '1':
                         s = s.Remove(0, 1);
-                        f = new Numbers("1");
+                        f = new Numbers(1);
                         return f;
 
                     case '2':
                         s = s.Remove(0, 1);
-                        f = new Numbers("2");
+                        f = new Numbers(2);
                         return f;
                     case '3':
                         s = s.Remove(0, 1);
-                        f = new Numbers("3");
+                        f = new Numbers(3);
                         return f;
                     case '4':
                         s = s.Remove(0, 1);
-                        f = new Numbers("4");
+                        f = new Numbers(4);
                         return f;
                     case '5':
                         s = s.Remove(0, 1);
-                        f = new Numbers("5");
+                        f = new Numbers(5);
                         return f;
                     case '6':
-                        s = s.Remove(0, 1);
-                        f = new Numbers("6");
+                       s = s.Remove(0, 1);
+                        f = new Numbers(6);
                         return f;
                     case '7':
                         s = s.Remove(0, 1);
-                        f = new Numbers("7");
+                        f = new Numbers(7);
                         return f;
                     case '8':
                         s = s.Remove(0, 1);
-                        f = new Numbers("8");
+                        f = new Numbers(8);
                         return f;
                     case '9':
                         s = s.Remove(0, 1);
-                        f = new Numbers("9");
+                        f = new Numbers(9);
                         return f;
                     case 'x':
                         s = s.Remove(0, 1);
@@ -90,23 +91,19 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);
                         IFunction right = fpa(ref s);
                         s = s.Remove(0, 1);
-                        //  return firstCloud + secondCloud;
-                        // break;
                         f = new AddFunction(left, right);
-                        AddFunction a = new AddFunction(left, right);
-                       // double addResult = a.add();
+                       AddFunction a = new AddFunction(left, right);
 
                         return f;
 
                     case 's':
                         s = s.Remove(0, 1);
-                        //check and eat ('(')
                         s = s.Remove(0, 1);
                         IFunction inputForSinValue = fpa(ref s);
                         f = new Sin(inputForSinValue);
-                       // s = s.Remove(0, 1);
                         s = s.Remove(0, 1);
                         return f;
+
                     case '^':
                         s = s.Remove(0, 1);
                         s = s.Remove(0, 1);
@@ -116,6 +113,23 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);
                         f = new Power(left1,right2);
                         return f;
+
+                    case 'n':
+                        s = s.Remove(0, 1);
+                        string[] myNumbers = s.Split(new char[] { '(', ')', ',' });
+                        int count = myNumbers.Count();
+                        RemoveWhiteSpaces(ref s);
+                        RemoveWhiteSpaces(ref s);
+                        int num = Convert.ToInt32( myNumbers[1]);                        
+                        s = s.Remove(0, 1);                         //remove (
+                        foreach (char var in myNumbers[1])
+                        {
+                            s = s.Remove(0, 1);                     //remove int number
+                        }
+                        s = s.Remove(0, 1);                        //remove )
+                        f = new Numbers(num);
+                        return f;
+                        
 
                         //case '-':
                         //    s = s.Remove(0, 1);
@@ -181,18 +195,6 @@ namespace CPP5thSemester
                         //    s = s.Remove(0, 1);
                         //    return firstCloud / secondCloud;
                         //   // break;
-
-                        //case 'n':
-                        //    //the split function does not work correctly 
-                        //    s = s.Remove(0, 1);
-                        //   // MakeTree.Add('n');
-                        //    string[] myNumbers = s.Split(new char[] { '(', ')' });
-                        //    int count = myNumbers.Count();
-                        //    //return myNumbers[1];
-                        //    RemoveWhiteSpaces(ref s);
-                        //    RemoveWhiteSpaces(ref s);
-                        //    fpa(ref s);
-                        //    break;
                 }
 
             }
