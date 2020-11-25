@@ -48,7 +48,7 @@ namespace CPP5thSemester
 
         public override double Derivative(double val)
         {
-            double output = Operandright.Evaluate(val) * Math.Pow(Operandleft.Derivative(val), (Operandright.Evaluate(val) - 1));
+            double output = Operandright.Evaluate(val) * Math.Pow( Operandleft.Evaluate(val), (Operandright.Evaluate(val) - 1));
             return output;
         }
     }

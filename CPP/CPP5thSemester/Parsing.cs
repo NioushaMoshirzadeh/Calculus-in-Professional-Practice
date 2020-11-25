@@ -129,7 +129,16 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);                        //remove )
                         f = new Numbers(num);
                         return f;
-                        
+
+                    case '*':
+                        s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
+                        IFunction leftMuiltiplication = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        IFunction rightMuiltiplication = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        f = new Multiplication(leftMuiltiplication, rightMuiltiplication);
+                        return f;
 
                         //case '-':
                         //    s = s.Remove(0, 1);
@@ -144,30 +153,6 @@ namespace CPP5thSemester
                         //    s = s.Remove(0, 1);
                         //    return firstCloud - secondCloud;
                         //   // break;
-
-                        //case '*':
-                        //    s = s.Remove(0, 1);
-                        //    //check and eat ('(')
-                        //    s = s.Remove(0, 1);
-                        //  //  MakeTree.Add('*');
-
-                        //    firstCloud = fpa(ref s);
-                        //    firstOperand.Add("*");
-                        //    firstOperand.Add(firstCloud.ToString());
-                        //    realFirsrt = firstCloud;
-                        //    //first.Add(firstCloud);
-                        //    //check the (,) adn eat it
-                        //    s = s.Remove(0, 1);
-                        //    secondCloud = fpa(ref s);
-                        //    secondOperand.Add(secondCloud.ToString());
-                        //   // second.Add(secondCloud);
-                        //    //check the (')') and eat it
-                        //    s = s.Remove(0, 1);
-                        //    //return first[0] * second.Last();
-                        //    //break;
-                        //    return realFirsrt * secondCloud;
-
-
 
                         //case 'c':
                         //    s = s.Remove(0, 1);

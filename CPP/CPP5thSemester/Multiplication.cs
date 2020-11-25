@@ -6,28 +6,21 @@ using System.Threading.Tasks;
 
 namespace CPP5thSemester
 {
-    class AddFunction :AbstractClass, IFunction
+    class Multiplication: AbstractClass, IFunction
     {
-       // public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        // public string left { get; set; }
-        //public string right { get; set; }
-        // public IFunction Toleft { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        //public IFunction toRight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-         public IFunction Toleft { get; set; }
-         public IFunction ToRight { get; set; }
-        // public IFunction Evaluation { get; set; }
-        
-        public AddFunction():base() { }
-        public  AddFunction(IFunction toleft, IFunction toright):base()
+        public IFunction Toleft { get; set; }
+        public IFunction ToRight { get; set; }
+        public Multiplication() : base() { }
+        public Multiplication(IFunction toleft, IFunction toright) : base()
         {
             this.Toleft = toleft;
             this.ToRight = toright;
-            
+
 
         }
         public override double Evaluate(double val)
         {
-            double evaluation = Toleft.Evaluate(val) + ToRight.Evaluate(val);
+            double evaluation = Toleft.Evaluate(val) * ToRight.Evaluate(val);
             return evaluation;
         }
 
@@ -46,7 +39,7 @@ namespace CPP5thSemester
 
         public override string BinaryTree()
         {
-            String temp = "\nnode" + this.Id + " [ label = \"+\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
+            String temp = "\nnode" + this.Id + " [ label = \"*\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
             temp += "node" + this.Id + " -- node" + Toleft.Id + "[style=dotted,color=purple]\n";
             temp += Toleft.BinaryTree();
             temp += "node" + this.Id + " -- node" + ToRight.Id + "[shape=record,color=purple]\n";
@@ -57,7 +50,7 @@ namespace CPP5thSemester
 
         public override double Derivative(double val)
         {
-            double dev = Toleft.Derivative(val) + ToRight.Derivative(val);
+            double dev = (Toleft.Derivative(val) * ToRight.Evaluate(val)) + (ToRight.Derivative(val) * Toleft.Evaluate(val));
             return dev;
         }
     }
