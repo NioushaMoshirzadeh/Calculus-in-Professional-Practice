@@ -34,16 +34,6 @@ namespace CPP5thSemester
         }
 
 
-        //public double add()
-        //{
-        //    string left =Toleft.ToInfix();
-        //    string right = ToRight.ToPrefix();
-        //    double value1 = Convert.ToDouble(left);
-        //    double value2 = Convert.ToDouble(right);
-        //    double result = value1 + value2;
-        //    return result;
-        //}
-
         public override string ToInfix()
         {
             string toprefixvalue = Toleft.ToInfix() + ToRight.ToInfix();
@@ -65,6 +55,12 @@ namespace CPP5thSemester
             temp += ToRight.BinaryTree();
 
             return temp;
+        }
+
+        public override double Derivative(double val)
+        {
+            double dev = Toleft.Derivative(val) + ToRight.Derivative(val);
+            return dev;
         }
     }
 }

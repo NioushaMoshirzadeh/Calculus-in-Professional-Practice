@@ -1,25 +1,31 @@
 graph CPP {
 
-node2 [ label = "Sin" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]
-node2 -- node1[style=dotted,color=purple]
+node3 [ label = "+" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]
+node3 -- node1[style=dotted,color=purple]
 
 node1[label = "x" ]
+node3 -- node2[shape=record,color=purple]
+
+node2[label = "3" ]
 }
-hape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]
-node2 -- node1[style=dotted,color=purple]
-
-node1[label = "x" ]
-node4 -- node3[shape=record,color=purple]
-
-node3[label = "1" ]
 }
-hape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]
-node5 -- node3[style=dotted,color=purple]
 
-node3[label = "3" ]
-node5 -- node4[shape=record,color=purple]
 
-node4[label = "4" ]
+e5 -- node4[style=dotted,color=purple]
+
+node4[label = "x" ]
+node7 -- node6[shape=record,color=purple]
+
+node6[label = "3" ]
+}
+ -- node6[shape=record,color=purple]
+
+node6[label = "3" ]
+}
+[shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]
+node5 -- node4[style=dotted,color=purple]
+
+node4[label = "x" ]
 }
 el = "4" ]
 }

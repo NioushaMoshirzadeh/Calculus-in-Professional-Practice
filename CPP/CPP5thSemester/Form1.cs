@@ -20,16 +20,11 @@ namespace CPP5thSemester
         private IFunction root;
         string s , temp;
         Graphics g;
-        Pen pen;
-        //List<double> myValues;
-        //----------------------------------------------------
-        
-        float x1 = 0;
-        float y1 = 257F;
-        float y2 = 0;
-        float yEx = 257; ////spacing from the top
-        float eF = 50;//size multiplier
-        //----------------------------------------------------
+        Pen pen, derivativePen;
+        int zoomValue;
+        int orgX ;
+        int orgY ;
+
         public Form1()
         {
             InitializeComponent();
@@ -40,43 +35,27 @@ namespace CPP5thSemester
             pen = new Pen(Brushes.Black, 5.0F);
             g = pictureBox1.CreateGraphics();
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            int picWidth = pictureBox1.Width;
-            int picHeight = pictureBox1.Height;
-            Bitmap bmp = new Bitmap(picWidth, 5);
+            //int picWidth = pictureBox1.Width;
+            //int picHeight = pictureBox1.Height;
+            //Bitmap bmp = new Bitmap(picWidth, 5);
             //--------------------------------------------
+            
         }
 
         private void DrawBinaryTree()
         {
-            
-               
                     GraphVize.SaveDotFile(root, "abcd");
                     Process dot = new Process();
                     dot.StartInfo.FileName = "dot.exe";
                     dot.StartInfo.Arguments = "-T png -o abc.png abcd.dot";
                     dot.Start();
                     dot.WaitForExit();
-            //Image image = Image.FromFile("C:/Users/nisha/Documents/my-git-project/CPP/CPP5thSemester/bin/Debug/abc.png");
-            //picBox_tree.Image = image;
-            //picBox_tree.Height = image.Height;
-            //picBox_tree.Width = image.Width;
-            //@"C: \Users\nisha\Downloads\graphviz\cppGraphViz\release\bin\dot.exe", @"-Tpng D:\tmp.dot -o D:\tmp.png"
-            picBox_tree.ImageLocation = "abc.png";          
-        }
-        double plotEvaluation(double value)
-        {
-            //Math.PI * degrees / 180.0
-            // double val = (double) Math.PI * (double)value / 180.0;
-            // s = tbParse.Text;
-            //parsing = new Parsing();
-            //root = parsing.fpa(ref s);
-            return (value);
-
+                    picBox_tree.ImageLocation = "abc.png";          
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //in order to create chart in form 2
+            // create chart in form 2
             chart1.ChartAreas[0].AxisY.ScaleView.Zoom(-5, 5);
             chart1.ChartAreas[0].AxisX.ScaleView.Zoom(-5, 5);
             chart1.ChartAreas[0].CursorX.IsUserEnabled = true;
@@ -84,7 +63,38 @@ namespace CPP5thSemester
             chart1.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
             chart1.ChartAreas[0].CursorY.IsUserSelectionEnabled = true;
             chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
-
+            //-------------------------------extend the derivative chart-----------------------------------
+            chart1.Series[0].IsVisibleInLegend = false;
+            chart1.Series.Add("Equation_graph");
+            chart1.Series["Equation_graph"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart1.Series["Equation_graph"].Color = Color.Blue;
+            chart1.Series.Add("Derivative_graph");
+            chart1.Series["Derivative_graph"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            chart1.Series["Derivative_graph"].Color = Color.Green;
+            //--------------------end-----------------------------------------------------------------------
+            var chart = chart1.ChartAreas[0];
+            chart.AxisX.Minimum = 0;
+            chart.AxisY.Minimum = 0;
+            chart.AxisX.Interval= 1;
+            chart.AxisY.Interval= 1;
+            chart.AxisX.LabelStyle.IsEndLabelVisible = true;
+            //--------------------------adjustment of xaxis and yaxis of chart/different scale---------------
+            /*picture box properties*/
+            pictureBox1.Size = new Size(400, 400);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            trackBar1.Width = 100;
+            trackBar1.Height = 50;
+            trackBar1.Minimum = 0;
+            trackBar1.Maximum = 100;
+            trackBar1.Value = 10;
+            trackBar1.TickFrequency = 20;
+            trackBar1.TickStyle = TickStyle.BottomRight;
+            this.SetStyle(
+            ControlStyles.AllPaintingInWmPaint |
+            ControlStyles.UserPaint |
+            ControlStyles.DoubleBuffer,
+            true);
+            /*End picture box properties*/
         }
 
         private void BtnPlot_Click(object sender, EventArgs e)
@@ -97,8 +107,6 @@ namespace CPP5thSemester
             lbX.Text = "CursurX value is :" + value;
             lbY.Text = "CursurY value is :" + value_y;
         }
-     
-
         private void btnPars_Click(object sender, EventArgs e)
         {
             foreach (var series in chart1.Series)
@@ -114,29 +122,17 @@ namespace CPP5thSemester
             tbResult.Text = root.ToInfix();
             DrawBinaryTree();
             tbParse.Text = s;
-            //-----------------------------------------
-            //for (float i = 0; i < 5; i += 1)
-            //{
-            //    OutPut = root.Evaluate(i);
-            //    y2 = (float)plotEvaluation((double)OutPut);
-
-            //    MessageBox.Show(y2.ToString());
-            //}
-            //------------------------------------------
-            // double evaluation = root.Evaluate();
-            // myValues = root.SinX();
             for (float i = -5; i < 5; i += 0.1F)
             {
+               // derivativeOutput = root.Derivative(i);
                 OutPut = root.Evaluate(i);
-                chart1.Series[0].Points.AddXY(i, OutPut);
-                //chart1.Series[0].Points.AddXY(i, plotEvaluation(evaluation));
-                //choose type of chart is line 
-                //  chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+               // Console.WriteLine(derivativeOutput);
+                chart1.Series["Equation_graph"].Points.AddXY(i, OutPut);
+                //chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
             }
-                // this.chart1.DataBind();
-
         }
 
+        /* not tochable *///-----------------------------------becarefull-----------------------------------------------
         private void PicBox_tree_Click(object sender, EventArgs e)
         {
 
@@ -146,100 +142,117 @@ namespace CPP5thSemester
         {
 
         }
-        //2
+        
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             
         }
-        //private void SinusPlot(Graphics Grf)
-        //{
-        //    Plot MyPlot = new Plot();
-        //    double x = 0.0;
-        //    double y = 0.0;
-        //    MyPlot.ClientArea = this.ClientSize;
-        //    MyPlot.SetPlotPort(-10, 10, -5, 5);
-        //    for (x = -7.0; x < 10.0; x += 0.025)
-        //    {
-        //        y = Math.Sin(x);
-        //        MyPlot.PlotPixel(x, y, Color.BlueViolet, Grf);
-        //    }
-        //}
-        //private void MiraPlot(Graphics Grf)
-        //{
-        //    Plot MyPlot = new Plot();
-        //    double a = -0.46;
-        //    double b = 0.99;
-        //    double c = 2.0 - 2.0 * a;
-        //    double x = 12.0;    //start value
-        //    double y = 0.0;     //start value
-        //    double z;
-        //    double w = a * x + c * x * x / (1 + x * x);
-        //    MyPlot.ClientArea = this.ClientSize;
-        //    MyPlot.SetPlotPort(-20, 20, -20, 20);
-        //    for (int n = 0; n < 20000; n++)
-        //    {
-        //        MyPlot.PlotPixel(x, y, Color.Black, Grf);
-        //        z = x;
-        //        x = b * y + w;
-        //        w = a * x + c * x * x / (1 + x * x);
-        //        y = w - z;
-        //    }
-        //}
+       
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
-        //    Graphics Grf = e.Graphics;
-        //    MiraPlot(Grf);
-        //    SinusPlot(Grf);
+        
+        }
+        /* not tochable *///----------------------------------------------------------------------------------
+
+        private void Button1_Click(object sender, EventArgs e)         /*  plot the derivative*/
+        {
+            //-----Chart1-----
+            double derivativeOutput;
+            for (float i = -5; i < 5; i += 0.1F)
+            {
+                derivativeOutput = root.Derivative(i);
+
+                Console.WriteLine(derivativeOutput);
+
+                chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
+            }
+
+            /*plot on the pictureBox*/
+            zoomValue = trackBar1.Value;
+            orgX = pictureBox1.Width / 2;
+            orgY = pictureBox1.Height / 2;  
+            derivativePen = new Pen(Brushes.Red, 2.0F);
+
+            for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
+            {
+                double X = (double)i;
+                float Y = (float)root.Derivative(X) * zoomValue;
+                float Y2 = ((float)root.Derivative(i + 0.1) * zoomValue);
+
+                g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+            }
+
         }
 
-    private void Label1_Click(object sender, EventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
 
         }
 
         private void BtnPicPlot_Click(object sender, EventArgs e)
         {
-            //tbResult.Text = temp;
-            pen = new Pen(Brushes.Blue, 5.0F);
-            Pen gridpen = new Pen(Color.Black, 2);
-            for (int i = 0; i < 514; i += 20)
-            {
-                g.DrawLine(gridpen, 0, i, 514, i);
-                
-            }
-            for (int j = 0; j < 514; j += 20)
-            {
-                g.DrawLine(gridpen, j, 0, j, 565);
-
-            }
-
+            pictureBox1.Refresh();
             g = pictureBox1.CreateGraphics();
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            int picWidth = pictureBox1.Width;
-            int picHeight = pictureBox1.Height;
-            Bitmap bmp = new Bitmap(picWidth, picHeight);
-            float x1 = 0;
-            float y1 = picWidth;
-            float y2 = 0;
-            float yEx = 200; ////spacing from the top
-            float eF = 20;//size multiplier
-            for (float i = -0.5F; i < picWidth; i +=0.1F)
-            {
-                y2 =(float)root.Evaluate(i);
-                //y2 = (float)plotEvaluation((double)i);
+            Pen pen      = new Pen(Brushes.Black, 2.0f);
+            Pen grayPen  = new Pen(Brushes.LightGray, 2.0f);
+            Pen whitePen = new Pen(Brushes.White, 2.0F);
+            zoomValue = trackBar1.Value;
+            orgX = pictureBox1.Width / 2;
+            orgY = pictureBox1.Height / 2;
 
-                //MessageBox.Show(y2.ToString());
-                // y2 = (float)Math.Sin(i);
-                g.DrawLine(pen, x1 * eF, y1 * eF + yEx, i * eF, y2 * eF + yEx);
-                Console.WriteLine(y2);
-                // bmp.SetPixel((int)i, (picHeight / 2) - (int)y2, Color.Red);
-              // bmp.SetResolution(i, (picHeight / 2) - y2);
-                x1 = i;
-                y1 = y2;
+            if ((trackBar1.Value >= 60 && trackBar1.Value <= 90))
+            {
+                for (int i = 0; i < orgX; i += zoomValue)
+                {
+                    g.DrawLine(whitePen, i, 0, i, pictureBox1.Width);
+                }
+                for (int i = 200; i < pictureBox1.Width; i += zoomValue)
+                {
+                    g.DrawLine(whitePen, i, 0, i, pictureBox1.Width);
+                }
+                for (int j = 0; j < orgY; j += zoomValue)
+                {
+                    g.DrawLine(whitePen, 0, j, pictureBox1.Width, j);
+                }
+                for (int j = 200; j < pictureBox1.Height; j += zoomValue)
+                {
+                    g.DrawLine(whitePen, 0, j, pictureBox1.Width, j);
+                }
 
             }
-           // pictureBox1.Image = bmp;
+            else
+            {
+                for (int i = 0; i < orgX; i += zoomValue)
+                {
+                    g.DrawLine(grayPen, i, 0, i, 400);
+                }
+                for (int i = 200; i < pictureBox1.Width; i += zoomValue)
+                {
+                    g.DrawLine(grayPen, i, 0, i, 400);
+                }
+                for (int j = 0; j < orgY; j += zoomValue)
+                {
+                    g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+                }
+                for (int j = 200; j < pictureBox1.Height; j += zoomValue)
+                {
+                    g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+                }
+            }
+            g.DrawLine(pen, 0, orgY, pictureBox1.Width, orgY);
+            g.DrawLine(pen, orgX, 0, orgY, pictureBox1.Height);
+
+            for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
+            {
+                double X = (double)i;
+                float Y = (float)root.Evaluate(X) * zoomValue;
+                float Y2 = ((float)root.Evaluate(i + 0.1) * zoomValue);
+
+                g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+
+
+            }  
         }
     }
 }

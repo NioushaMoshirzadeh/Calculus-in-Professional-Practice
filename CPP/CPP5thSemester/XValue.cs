@@ -33,5 +33,10 @@ namespace CPP5thSemester
         {
             return this.value;
         }
+
+        public override double Derivative(double val)
+        {
+            return 1;
+        }
     }
 }

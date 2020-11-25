@@ -44,6 +44,9 @@ namespace CPP5thSemester
            
         }
 
-     
+        public override double Derivative(double val)
+        {
+            return 0;
+        }
     }
 }

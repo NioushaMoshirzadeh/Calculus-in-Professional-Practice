@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnPars = new System.Windows.Forms.Button();
             this.tbParse = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
@@ -43,14 +43,17 @@
             this.lbY = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnPicPlot = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_tree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPars
             // 
-            this.btnPars.Location = new System.Drawing.Point(13, 13);
+            this.btnPars.Location = new System.Drawing.Point(13, 14);
             this.btnPars.Margin = new System.Windows.Forms.Padding(4);
             this.btnPars.Name = "btnPars";
             this.btnPars.Size = new System.Drawing.Size(140, 37);
@@ -61,7 +64,7 @@
             // 
             // tbParse
             // 
-            this.tbParse.Location = new System.Drawing.Point(203, 19);
+            this.tbParse.Location = new System.Drawing.Point(203, 18);
             this.tbParse.Margin = new System.Windows.Forms.Padding(4);
             this.tbParse.Name = "tbParse";
             this.tbParse.Size = new System.Drawing.Size(132, 22);
@@ -81,7 +84,7 @@
             this.picBox_tree.Location = new System.Drawing.Point(13, 100);
             this.picBox_tree.Margin = new System.Windows.Forms.Padding(4);
             this.picBox_tree.Name = "picBox_tree";
-            this.picBox_tree.Size = new System.Drawing.Size(397, 506);
+            this.picBox_tree.Size = new System.Drawing.Size(397, 507);
             this.picBox_tree.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBox_tree.TabIndex = 3;
             this.picBox_tree.TabStop = false;
@@ -89,16 +92,18 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.panel1.Location = new System.Drawing.Point(431, 333);
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Location = new System.Drawing.Point(34, 613);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(56, 40);
+            this.panel1.Size = new System.Drawing.Size(15, 10);
             this.panel1.TabIndex = 4;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel1_Paint);
             // 
             // btnPlot
             // 
-            this.btnPlot.Location = new System.Drawing.Point(417, 13);
+            this.btnPlot.Location = new System.Drawing.Point(417, 14);
+            this.btnPlot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPlot.Name = "btnPlot";
             this.btnPlot.Size = new System.Drawing.Size(127, 39);
             this.btnPlot.TabIndex = 0;
@@ -108,26 +113,28 @@
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(417, 59);
+            this.chart1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(514, 294);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(515, 294);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(435, 379);
+            this.panel2.Location = new System.Drawing.Point(13, 613);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(52, 52);
+            this.panel2.Size = new System.Drawing.Size(15, 11);
             this.panel2.TabIndex = 6;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel2_Paint);
             // 
@@ -135,9 +142,9 @@
             // 
             this.lbX.AutoSize = true;
             this.lbX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbX.Location = new System.Drawing.Point(550, 13);
+            this.lbX.Location = new System.Drawing.Point(549, 14);
             this.lbX.Name = "lbX";
-            this.lbX.Size = new System.Drawing.Size(109, 17);
+            this.lbX.Size = new System.Drawing.Size(129, 20);
             this.lbX.TabIndex = 0;
             this.lbX.Text = "Cursur_X value:";
             this.lbX.Click += new System.EventHandler(this.Label1_Click);
@@ -146,36 +153,58 @@
             // 
             this.lbY.AutoSize = true;
             this.lbY.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbY.Location = new System.Drawing.Point(550, 35);
+            this.lbY.Location = new System.Drawing.Point(549, 34);
             this.lbY.Name = "lbY";
-            this.lbY.Size = new System.Drawing.Size(109, 17);
+            this.lbY.Size = new System.Drawing.Size(128, 20);
             this.lbY.TabIndex = 7;
             this.lbY.Text = "Cursur_Y value:";
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pictureBox1.Location = new System.Drawing.Point(951, 59);
+            this.pictureBox1.Location = new System.Drawing.Point(1000, 103);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(565, 514);
+            this.pictureBox1.Size = new System.Drawing.Size(156, 156);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
             // 
             // btnPicPlot
             // 
             this.btnPicPlot.Location = new System.Drawing.Point(951, 18);
+            this.btnPicPlot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPicPlot.Name = "btnPicPlot";
-            this.btnPicPlot.Size = new System.Drawing.Size(205, 23);
+            this.btnPicPlot.Size = new System.Drawing.Size(221, 41);
             this.btnPicPlot.TabIndex = 9;
             this.btnPicPlot.Text = "plot The graph on pictureBox";
             this.btnPicPlot.UseVisualStyleBackColor = true;
             this.btnPicPlot.Click += new System.EventHandler(this.BtnPicPlot_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1188, 18);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(221, 41);
+            this.button1.TabIndex = 10;
+            this.button1.Text = "Plot Derivative";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(417, 464);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(104, 56);
+            this.trackBar1.TabIndex = 11;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1618, 772);
+            this.ClientSize = new System.Drawing.Size(1871, 954);
+            this.Controls.Add(this.trackBar1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPicPlot);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lbY);
@@ -196,6 +225,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picBox_tree)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,6 +245,8 @@
         private System.Windows.Forms.Label lbY;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnPicPlot;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

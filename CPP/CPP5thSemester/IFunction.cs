@@ -14,7 +14,8 @@ namespace CPP5thSemester
         string BinaryTree();
 
         double Evaluate(double val);
-       
+        double Derivative(double val);
+
 
     }
 }

@@ -79,9 +79,7 @@ namespace CPP5thSemester
                         return f;
                     case 'x':
                         s = s.Remove(0, 1);
-                        
-                            f = new XValue("x");
-                         
+                        f = new XValue("x");
                         return f;
 
                     case '+':
@@ -108,6 +106,15 @@ namespace CPP5thSemester
                         f = new Sin(inputForSinValue);
                        // s = s.Remove(0, 1);
                         s = s.Remove(0, 1);
+                        return f;
+                    case '^':
+                        s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
+                        IFunction left1 = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        IFunction right2 = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        f = new Power(left1,right2);
                         return f;
 
                         //case '-':
@@ -146,18 +153,7 @@ namespace CPP5thSemester
                         //    //break;
                         //    return realFirsrt * secondCloud;
 
-                        //case '^':
-                        //    s = s.Remove(0, 1);
-                        //    //check and eat ('(')
-                        //    s = s.Remove(0, 1);
-                        //   // MakeTree.Add('^');
-                        //    fpa(ref s);
-                        //    //check the (,) adn eat it
-                        //    s = s.Remove(0, 1);
-                        //    fpa(ref s);
-                        //    //check the (')') and eat it
-                        //    s = s.Remove(0, 1);
-                        //    break;
+
 
                         //case 'c':
                         //    s = s.Remove(0, 1);
