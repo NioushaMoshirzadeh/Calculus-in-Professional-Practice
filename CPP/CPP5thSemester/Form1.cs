@@ -12,6 +12,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
 
+
 namespace CPP5thSemester
 {
     public partial class Form1 : Form
@@ -24,6 +25,7 @@ namespace CPP5thSemester
         int zoomValue;
         int orgX ;
         int orgY ;
+        double e1 = Math.E;
 
         public Form1()
         {
@@ -128,6 +130,7 @@ namespace CPP5thSemester
                 OutPut = root.Evaluate(i);
                 chart1.Series["Equation_graph"].Points.AddXY(i, OutPut);
             }
+
         }
 
         /* not tochable *///-----------------------------------becarefull-----------------------------------------------
@@ -180,6 +183,17 @@ namespace CPP5thSemester
 
                 g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
             }
+            /* plot Newton's derivative with pen purple */
+            derivativePen = new Pen(Brushes.Purple, 2.0F);
+            for (float i = -orgX; i <= pictureBox1.Height; i += 0.01f)
+            {
+                double h = 0.1d;
+                float Y1 = (((float)root.Evaluate(i + h) - (float)root.Evaluate(i)) /  (float)h) * zoomValue; //f(x+h) - f(x) / h
+                float Y2 = (((float)root.Evaluate(i + (0.1) + h) - (float)root.Evaluate(i + (0.1))) / (float)h) * zoomValue;
+                if(Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height)
+                    g.DrawLine(derivativePen, (i * zoomValue) + orgX, orgY - Y1, orgX + (i * zoomValue) + 0.1f, orgY - Y2);
+            }
+
 
         }
 
@@ -198,46 +212,25 @@ namespace CPP5thSemester
             zoomValue = trackBar1.Value;
             orgX = pictureBox1.Width / 2;
             orgY = pictureBox1.Height / 2;
-
-            if ((trackBar1.Value >= 60 && trackBar1.Value <= 90))
+            
+            for (int i = ((pictureBox1.Width / 2) - zoomValue); i >= 0; i -= zoomValue)
             {
-                for (int i = 0; i < orgX; i += zoomValue)
-                {
-                    g.DrawLine(whitePen, i, 0, i, pictureBox1.Width);
-                }
-                for (int i = 200; i < pictureBox1.Width; i += zoomValue)
-                {
-                    g.DrawLine(whitePen, i, 0, i, pictureBox1.Width);
-                }
-                for (int j = 0; j < orgY; j += zoomValue)
-                {
-                    g.DrawLine(whitePen, 0, j, pictureBox1.Width, j);
-                }
-                for (int j = 200; j < pictureBox1.Height; j += zoomValue)
-                {
-                    g.DrawLine(whitePen, 0, j, pictureBox1.Width, j);
-                }
-
+                g.DrawLine(grayPen, i, 0, i, 400);
             }
-            else
+            for (int i = ((pictureBox1.Width / 2) - zoomValue); i <= pictureBox1.Width ; i += zoomValue)
             {
-                for (int i = 0; i < orgX; i += zoomValue)
-                {
-                    g.DrawLine(grayPen, i, 0, i, 400);
-                }
-                for (int i = 200; i < pictureBox1.Width; i += zoomValue)
-                {
-                    g.DrawLine(grayPen, i, 0, i, 400);
-                }
-                for (int j = 0; j < orgY; j += zoomValue)
-                {
-                    g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
-                }
-                for (int j = 200; j < pictureBox1.Height; j += zoomValue)
-                {
-                    g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
-                }
+                g.DrawLine(grayPen, i, 0, i, 400);
             }
+
+            for (int j = ((pictureBox1.Height / 2) - zoomValue); j >= 0; j -= zoomValue)
+            {
+                g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+            }
+            for (int j = ((pictureBox1.Height / 2) - zoomValue); j <= pictureBox1.Height; j += zoomValue)
+            {
+                g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+            }
+
             g.DrawLine(pen, 0, orgY, pictureBox1.Width, orgY);
             g.DrawLine(pen, orgX, 0, orgY, pictureBox1.Height);
 
@@ -246,11 +239,9 @@ namespace CPP5thSemester
                 double X = (double)i;
                 float Y = (float)root.Evaluate(X) * zoomValue;
                 float Y2 = ((float)root.Evaluate(i + 0.1) * zoomValue);
-
                 g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+            }
 
-
-            }  
         }
     }
 }
