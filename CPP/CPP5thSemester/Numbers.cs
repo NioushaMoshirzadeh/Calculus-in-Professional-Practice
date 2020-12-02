@@ -45,5 +45,11 @@ namespace CPP5thSemester
         {
             return 0;
         }
+
+        public override IFunction derivative() ///maybe will be override 
+        {
+            IFunction f = new Numbers(0);
+            return f;
+        }
     }
 }

@@ -33,6 +33,9 @@ namespace CPP5thSemester
         public abstract double Evaluate(double val);
         public abstract double Derivative(double val);
 
-        
+        public abstract IFunction derivative();
+
+
+
     }
 }

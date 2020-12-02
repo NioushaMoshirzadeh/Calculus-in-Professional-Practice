@@ -17,7 +17,7 @@ namespace CPP5thSemester
 {
     public partial class Form1 : Form
     {
-        Parsing parsing;// private object parsing;
+        Parsing parsing;
         private IFunction root;
         string s , temp;
         Graphics g;
@@ -25,7 +25,7 @@ namespace CPP5thSemester
         int zoomValue;
         int orgX ;
         int orgY ;
-        double e1 = Math.E;
+        
 
         public Form1()
         {
@@ -38,15 +38,15 @@ namespace CPP5thSemester
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;  
         }
 
-        private void DrawBinaryTree()
+        private void DrawBinaryTree( IFunction x)
         {
-                    GraphVize.SaveDotFile(root, "abcd");
-                    Process dot = new Process();
-                    dot.StartInfo.FileName = "dot.exe";
-                    dot.StartInfo.Arguments = "-T png -o abc.png abcd.dot";
-                    dot.Start();
-                    dot.WaitForExit();
-                    picBox_tree.ImageLocation = "abc.png";          
+            GraphVize.SaveDotFile(x, "abcd");
+            Process dot = new Process();
+            dot.StartInfo.FileName = "dot.exe";
+            dot.StartInfo.Arguments = "-T png -o abc.png abcd.dot";
+            dot.Start();
+            dot.WaitForExit();
+            picBox_tree.ImageLocation = "abc.png";
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -122,15 +122,15 @@ namespace CPP5thSemester
             parsing = new Parsing();
             root = parsing.fpa(ref s);
             tbResult.Text = root.ToInfix();
-            DrawBinaryTree();
+            DrawBinaryTree(root);
+            
             tbParse.Text = s;
             /* plot the function on the chart */
             for (float i = -5; i < 5; i += 0.1F)
             {
                 OutPut = root.Evaluate(i);
                 chart1.Series["Equation_graph"].Points.AddXY(i, OutPut);
-            }
-
+            }     
         }
 
         /* not tochable *///-----------------------------------becarefull-----------------------------------------------
@@ -193,8 +193,20 @@ namespace CPP5thSemester
                 if(Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height)
                     g.DrawLine(derivativePen, (i * zoomValue) + orgX, orgY - Y1, orgX + (i * zoomValue) + 0.1f, orgY - Y2);
             }
+            /* plot the Analytical derivative plus the tree*/
+            IFunction p;
+            p = root.derivative();
+            DrawBinaryTree(p);
+            derivativePen = new Pen(Brushes.Green, 2.0F);
+            for (float i = -orgX; i <= pictureBox1.Height; i += 0.01f)
+            {
+                double X = (double)i;
+                float Y = (float)p.Evaluate(X) * zoomValue;
+                float Y2 = ((float)p.Evaluate(i + 0.1) * zoomValue);
 
-
+                g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+            }
+           
         }
 
         private void Label1_Click(object sender, EventArgs e)
@@ -239,7 +251,8 @@ namespace CPP5thSemester
                 double X = (double)i;
                 float Y = (float)root.Evaluate(X) * zoomValue;
                 float Y2 = ((float)root.Evaluate(i + 0.1) * zoomValue);
-                g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+                if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height)
+                    g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
             }
 
         }

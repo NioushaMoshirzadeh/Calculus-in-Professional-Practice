@@ -60,5 +60,15 @@ namespace CPP5thSemester
             double dev = Toleft.Derivative(val) + ToRight.Derivative(val);
             return dev;
         }
+
+        public override IFunction derivative() ///maybe will be override 
+        {
+            IFunction leftSide, rightSide, addDderivative;
+
+            leftSide = Toleft.derivative();
+            rightSide = ToRight.derivative();
+            addDderivative = new AddFunction(leftSide, rightSide);
+            return addDderivative;
+        }
     }
 }

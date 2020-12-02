@@ -51,5 +51,18 @@ namespace CPP5thSemester
             double output = Operandright.Evaluate(val) * Math.Pow( Operandleft.Evaluate(val), (Operandright.Evaluate(val) - 1));
             return output;
         }
+
+        public override IFunction derivative() ///maybe will be override 
+        {
+            IFunction leftSide, rightSide, powerDderivative, newDefinedPower;
+            int rightValue = Convert.ToInt32(Operandright.ToInfix());
+            leftSide = new Numbers(rightValue);
+            newDefinedPower = new Numbers(rightValue - 1);
+            if (Operandleft.ToInfix() == "x")
+                rightSide = new XValue("x");
+            else rightSide = new Numbers(Convert.ToInt32(Operandleft.ToInfix()));
+            powerDderivative = new Multiplication(leftSide,new Power(rightSide, newDefinedPower));
+            return powerDderivative;
+        }
     }
 }

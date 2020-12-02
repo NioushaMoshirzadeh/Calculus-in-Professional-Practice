@@ -50,5 +50,12 @@ namespace CPP5thSemester
             double output = Math.Cos(Operand.Evaluate(val));
             return output;
         }
+
+        public override IFunction derivative() ///maybe will be override 
+        {
+            IFunction f;
+            f = new Sin(Operand);
+            return f;
+        }
     }
 }
