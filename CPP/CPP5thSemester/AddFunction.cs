@@ -61,7 +61,7 @@ namespace CPP5thSemester
             return dev;
         }
 
-        public override IFunction derivative() ///maybe will be override 
+        public override IFunction derivative() 
         {
             IFunction leftSide, rightSide, addDderivative;
 

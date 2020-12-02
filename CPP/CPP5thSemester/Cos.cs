@@ -6,30 +6,31 @@ using System.Threading.Tasks;
 
 namespace CPP5thSemester
 {
-    class Sin: AbstractClass, IFunction
+    class Cos: AbstractClass, IFunction
     {
         public IFunction Operand { get; set; }
 
-        public Sin() : base() { }
-        public Sin(IFunction operand) : base()
+        public Cos() : base() { }
+        public Cos(IFunction operand) : base()
         {
             this.Operand = operand;
+
         }
         public override string ToInfix()
         {
-            string toprefixvalue = "s(" + Operand.ToInfix() + ")";
+            string toprefixvalue = "c(" + Operand.ToInfix() + ")";
             return toprefixvalue;
         }
 
         public override string ToPrefix()
         {
-            string toprefixvalue = "s(" + Operand.ToPrefix() + ")";
+            string toprefixvalue = "c(" + Operand.ToPrefix() + ")";
             return toprefixvalue;
         }
 
         public override string BinaryTree()
         {
-            String temp = "\nnode" + this.Id + " [ label = \"Sin\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
+            String temp = "\nnode" + this.Id + " [ label = \"Cos\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
             temp += "node" + this.Id + " -- node" + Operand.Id + "[style=dotted,color=purple]\n";
             temp += Operand.BinaryTree();
             return temp;
@@ -37,8 +38,8 @@ namespace CPP5thSemester
 
         public override double Evaluate(double val)
         {
-            double output = Math.Sin(Operand.Evaluate(val));
-            return output; 
+            double output = Math.Cos(Operand.Evaluate(val));   
+            return output;
         }
 
         public override double Derivative(double val)
@@ -47,10 +48,10 @@ namespace CPP5thSemester
             return output;
         }
 
-        public override IFunction derivative() ///maybe will be override 
+        public override IFunction derivative() 
         {
             IFunction f;
-            f = new Cos(Operand);
+            f = new Sin(Operand);
             return f;
         }
     }

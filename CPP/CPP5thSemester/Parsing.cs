@@ -20,10 +20,6 @@ namespace CPP5thSemester
             s = s.Replace(" ", String.Empty);
             return s;
         }
-        //method to draw the binary tree on form
-       
-
-
         //parse the proposition 
         public IFunction fpa(ref string s)
         {
@@ -140,6 +136,14 @@ namespace CPP5thSemester
                         f = new Multiplication(leftMuiltiplication, rightMuiltiplication);
                         return f;
 
+                    case 'c':
+                        s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
+                        IFunction inputForCosValue = fpa(ref s);
+                        f = new Cos(inputForCosValue);
+                        s = s.Remove(0, 1);
+                        return f;
+
                         //case '-':
                         //    s = s.Remove(0, 1);
                         //    //check and eat ('(')
@@ -154,18 +158,7 @@ namespace CPP5thSemester
                         //    return firstCloud - secondCloud;
                         //   // break;
 
-                        //case 'c':
-                        //    s = s.Remove(0, 1);
-                        //    //check and eat ('(')
-                        //    s = s.Remove(0, 1);
-                        //   // MakeTree.Add('c');
-                        //    //fpa(ref s);
-                        //    ////check the (,) adn eat it
-                        //    //s = s.Remove(0, 1);
-                        //    fpa(ref s);
-                        //    //check the (')') and eat it
-                        //    s = s.Remove(0, 1);
-                        //    break;
+
 
                         //case '/':
                         //    s = s.Remove(0, 1);

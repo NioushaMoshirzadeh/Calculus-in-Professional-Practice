@@ -193,7 +193,7 @@ namespace CPP5thSemester
                 if(Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height)
                     g.DrawLine(derivativePen, (i * zoomValue) + orgX, orgY - Y1, orgX + (i * zoomValue) + 0.1f, orgY - Y2);
             }
-            /* plot the Analytical derivative plus the tree*/
+            /* plot the Analytical derivative and plotting the tree*/
             IFunction p;
             p = root.derivative();
             DrawBinaryTree(p);

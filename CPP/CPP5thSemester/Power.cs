@@ -52,7 +52,7 @@ namespace CPP5thSemester
             return output;
         }
 
-        public override IFunction derivative() ///maybe will be override 
+        public override IFunction derivative()
         {
             IFunction leftSide, rightSide, powerDderivative, newDefinedPower;
             int rightValue = Convert.ToInt32(Operandright.ToInfix());
