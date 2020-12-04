@@ -25,7 +25,8 @@ namespace CPP5thSemester
         int zoomValue;
         int orgX ;
         int orgY ;
-        
+        List<Point> coordinates = new List<Point>();
+        int iNumberofClicks = 0;
 
         public Form1()
         {
@@ -158,6 +159,12 @@ namespace CPP5thSemester
 
         private void Button1_Click(object sender, EventArgs e)         /*plot the derivative*/
         {
+            if (coordinates != null)
+                foreach (var item in coordinates)
+                {
+                    coordinates.Remove(item);
+                }
+
             //-----Chart1-----
             double derivativeOutput;
             for (float i = -5; i < 5; i += 0.1F)
@@ -209,6 +216,45 @@ namespace CPP5thSemester
            
         }
 
+        private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            Pen pen = new Pen(Brushes.Red, 2.0f);
+            Point point = new Point(e.X, e.Y);
+            coordinates.Add(point);
+            iNumberofClicks++;
+            if (iNumberofClicks == 2)
+                foreach (var a in coordinates)
+                {
+                    Console.WriteLine("Points are : " + a.ToString());
+                }
+            g.DrawEllipse(pen, new Rectangle(e.X, e.Y, 5, 5));
+            g.Save();
+
+        }
+
+        private void BtnIntegral_Click(object sender, EventArgs e)
+        {
+            orgX = pictureBox1.Width / 2;
+            Pen darkblue = new Pen(Brushes.DarkBlue, 2.0F);
+            int zoomValue = trackBar1.Value;
+            float X1 = (coordinates[0].X - orgX) / zoomValue;
+            float X2 = (coordinates[1].X - orgX) / zoomValue;
+            Console.WriteLine("Points calculated are : " + X1.ToString() + "\t" + X2.ToString());
+            float Y1 = 0;
+            float integral = 0;
+
+            for (float i = X1; i <= X2; i += 0.1f)
+            {
+                double X = (double)i;
+                Y1 = (float)root.Evaluate(X);
+                integral += (0.1f * Y1);
+                g.DrawLine(darkblue, (i * zoomValue) + orgX, orgX, (i * zoomValue) + orgX, orgY - (Y1 * zoomValue));
+
+
+            }
+            Console.WriteLine("integral value is : " + integral.ToString() + "\n");
+        }
+
         private void Label1_Click(object sender, EventArgs e)
         {
 
@@ -216,13 +262,17 @@ namespace CPP5thSemester
 
         private void BtnPicPlot_Click(object sender, EventArgs e)
         {
+            if (coordinates != null)
+                foreach (var item in coordinates.ToList())
+                {
+                    coordinates.Remove(item);
+                }
             pictureBox1.Refresh();
             g = pictureBox1.CreateGraphics();
             Pen pen      = new Pen(Brushes.Black, 2.0f);
             Pen grayPen  = new Pen(Brushes.LightGray, 2.0f);
-            Pen whitePen = new Pen(Brushes.White, 2.0F);
             zoomValue = trackBar1.Value;
-            orgX = pictureBox1.Width / 2;
+            orgX = pictureBox1.Width  / 2;
             orgY = pictureBox1.Height / 2;
             
             for (int i = ((pictureBox1.Width / 2) - zoomValue); i >= 0; i -= zoomValue)

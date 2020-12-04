@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnPars = new System.Windows.Forms.Button();
             this.tbParse = new System.Windows.Forms.TextBox();
             this.tbResult = new System.Windows.Forms.TextBox();
@@ -45,6 +45,7 @@
             this.btnPicPlot = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.btnIntegral = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_tree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -113,18 +114,18 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(417, 59);
             this.chart1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(515, 294);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
@@ -168,6 +169,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(156, 156);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PictureBox1_MouseClick);
             // 
             // btnPicPlot
             // 
@@ -185,7 +187,7 @@
             this.button1.Location = new System.Drawing.Point(1188, 18);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(221, 41);
+            this.button1.Size = new System.Drawing.Size(116, 36);
             this.button1.TabIndex = 10;
             this.button1.Text = "Plot Derivative";
             this.button1.UseVisualStyleBackColor = true;
@@ -198,11 +200,23 @@
             this.trackBar1.Size = new System.Drawing.Size(104, 56);
             this.trackBar1.TabIndex = 11;
             // 
+            // btnIntegral
+            // 
+            this.btnIntegral.Location = new System.Drawing.Point(1310, 20);
+            this.btnIntegral.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnIntegral.Name = "btnIntegral";
+            this.btnIntegral.Size = new System.Drawing.Size(116, 36);
+            this.btnIntegral.TabIndex = 12;
+            this.btnIntegral.Text = "Plot Integral";
+            this.btnIntegral.UseVisualStyleBackColor = true;
+            this.btnIntegral.Click += new System.EventHandler(this.BtnIntegral_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1871, 954);
+            this.Controls.Add(this.btnIntegral);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPicPlot);
@@ -247,6 +261,7 @@
         private System.Windows.Forms.Button btnPicPlot;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Button btnIntegral;
     }
 }
 
