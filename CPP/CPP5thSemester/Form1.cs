@@ -27,6 +27,7 @@ namespace CPP5thSemester
         int orgY ;
         List<Point> coordinates = new List<Point>();
         int iNumberofClicks = 0;
+        Matrix matrix;
 
         public Form1()
         {
@@ -253,6 +254,48 @@ namespace CPP5thSemester
 
             }
             Console.WriteLine("integral value is : " + integral.ToString() + "\n");
+        }
+
+        private void BtnPolynomial_Click(object sender, EventArgs e)
+        {
+            int nrOfPoints = coordinates.Count();   
+            orgX = pictureBox1.Width / 2;
+            int zoomValue = trackBar1.Value;
+            List<Point> convertedPoints = new List<Point>();
+            Point point;
+            for (int i = 0; i < nrOfPoints; i++)
+            {
+                int X = (coordinates[i].X - orgX) / zoomValue;
+                int Y = (orgX - coordinates[i].Y) / zoomValue;
+                //the values rounded to its int values!!
+                point= new Point(X,Y); 
+                convertedPoints.Add(point);
+            }
+            matrix = new Matrix(nrOfPoints, convertedPoints);
+            double[,] AugmentedArray = matrix.solveEquation();
+            string equation = "";
+            int deg = nrOfPoints - 1;
+            for (int r = 0; r < nrOfPoints; r++)
+            {
+
+                var s = string.Format("{0:0.00}", AugmentedArray[r, nrOfPoints + 1]);
+                if (s.EndsWith("00"))
+                {
+                    s = ((int)AugmentedArray[r, nrOfPoints + 1]).ToString();
+                }
+                if (deg != 0)
+                {
+                    
+                    equation += s + "x^" + " (" + (deg).ToString() + ") " + " + ";
+                }
+                else
+                {
+                    equation += " (" + s + ") ";
+                }
+                deg--;
+            }
+            tbParse.Text = equation;
+            Console.WriteLine(equation);
         }
 
         private void Label1_Click(object sender, EventArgs e)

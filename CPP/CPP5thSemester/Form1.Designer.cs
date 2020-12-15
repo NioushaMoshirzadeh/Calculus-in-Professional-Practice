@@ -46,6 +46,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.btnIntegral = new System.Windows.Forms.Button();
+            this.btnPolynomial = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_tree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -211,11 +212,23 @@
             this.btnIntegral.UseVisualStyleBackColor = true;
             this.btnIntegral.Click += new System.EventHandler(this.BtnIntegral_Click);
             // 
+            // btnPolynomial
+            // 
+            this.btnPolynomial.Location = new System.Drawing.Point(418, 359);
+            this.btnPolynomial.Margin = new System.Windows.Forms.Padding(4);
+            this.btnPolynomial.Name = "btnPolynomial";
+            this.btnPolynomial.Size = new System.Drawing.Size(140, 37);
+            this.btnPolynomial.TabIndex = 13;
+            this.btnPolynomial.Text = "Polynomial";
+            this.btnPolynomial.UseVisualStyleBackColor = true;
+            this.btnPolynomial.Click += new System.EventHandler(this.BtnPolynomial_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1871, 954);
+            this.Controls.Add(this.btnPolynomial);
             this.Controls.Add(this.btnIntegral);
             this.Controls.Add(this.trackBar1);
             this.Controls.Add(this.button1);
@@ -262,6 +275,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Button btnIntegral;
+        private System.Windows.Forms.Button btnPolynomial;
     }
 }
 
