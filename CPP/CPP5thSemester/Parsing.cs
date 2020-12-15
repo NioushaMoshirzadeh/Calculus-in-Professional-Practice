@@ -78,18 +78,63 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);
                         f = new XValue("x");
                         return f;
+                    case 'p':
+                        s = s.Remove(0, 1);
+                        f = new PValue("p");
+                        return f;
+
+                    case '!':
+                        s = s.Remove(0, 1);
+                        string[] myNumber = s.Split(new char[] { '(', ')', ',' });
+                        int cnt = myNumber.Count();
+                        RemoveWhiteSpaces(ref s);
+                        RemoveWhiteSpaces(ref s);
+                        int number1 = Convert.ToInt32(myNumber[1]);
+                        s = s.Remove(0, 1);                         //remove (
+                        foreach (char var in myNumber[1])
+                        {
+                            s = s.Remove(0, 1);                     //remove int number
+                        }
+                        s = s.Remove(0, 1);                        //remove )
+                        f = new Factorial(number1);
+                        return f;
+                    case 'l':
+                        s = s.Remove(0, 1);
+                        string[] Number = s.Split(new char[] { '(', ')', ',' });
+                        int number;
+                        int counted = Number.Count();
+                        RemoveWhiteSpaces(ref s);
+                        RemoveWhiteSpaces(ref s);
+                        //if (Number[1] == "x")
+                        //{
+                        //    s = s.Remove(0, 1);
+                        //    IFunction xVal = fpa(ref s);
+                        //    f = new Ln(xVal);
+                        //    s = s.Remove(0, 1);
+
+                        //}
+                       // else
+                        //{
+                            number = Convert.ToInt32(Number[1]);
+                            s = s.Remove(0, 1);                         //remove (
+                            foreach (char var in Number[1])
+                            {
+                                s = s.Remove(0, 1);                     //remove int number
+                            }
+                            s = s.Remove(0, 1);                        //remove )
+                            f = new Ln(number);
+                       // }
+                        return f;
 
                     case '+':
                         s = s.Remove(0, 1);
                         s = s.Remove(0, 1);
-
                         IFunction left = fpa(ref s);
                         s = s.Remove(0, 1);
                         IFunction right = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new AddFunction(left, right);
                        AddFunction a = new AddFunction(left, right);
-
                         return f;
 
                     case 's':

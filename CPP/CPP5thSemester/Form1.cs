@@ -338,7 +338,6 @@ namespace CPP5thSemester
 
             g.DrawLine(pen, 0, orgY, pictureBox1.Width, orgY);
             g.DrawLine(pen, orgX, 0, orgY, pictureBox1.Height);
-
             for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
             {
                 double X = (double)i;
@@ -347,7 +346,7 @@ namespace CPP5thSemester
                 if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height)
                     g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
             }
-
+            
         }
     }
 }

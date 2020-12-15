@@ -66,18 +66,18 @@
             // 
             // tbParse
             // 
-            this.tbParse.Location = new System.Drawing.Point(203, 18);
+            this.tbParse.Location = new System.Drawing.Point(161, 18);
             this.tbParse.Margin = new System.Windows.Forms.Padding(4);
             this.tbParse.Name = "tbParse";
-            this.tbParse.Size = new System.Drawing.Size(132, 22);
+            this.tbParse.Size = new System.Drawing.Size(771, 22);
             this.tbParse.TabIndex = 1;
             // 
             // tbResult
             // 
-            this.tbResult.Location = new System.Drawing.Point(203, 49);
+            this.tbResult.Location = new System.Drawing.Point(161, 48);
             this.tbResult.Margin = new System.Windows.Forms.Padding(4);
             this.tbResult.Name = "tbResult";
-            this.tbResult.Size = new System.Drawing.Size(132, 22);
+            this.tbResult.Size = new System.Drawing.Size(771, 22);
             this.tbResult.TabIndex = 2;
             // 
             // picBox_tree
@@ -104,7 +104,7 @@
             // 
             // btnPlot
             // 
-            this.btnPlot.Location = new System.Drawing.Point(417, 14);
+            this.btnPlot.Location = new System.Drawing.Point(418, 103);
             this.btnPlot.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnPlot.Name = "btnPlot";
             this.btnPlot.Size = new System.Drawing.Size(127, 39);
@@ -119,7 +119,7 @@
             this.chart1.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chart1.Legends.Add(legend2);
-            this.chart1.Location = new System.Drawing.Point(417, 59);
+            this.chart1.Location = new System.Drawing.Point(417, 159);
             this.chart1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chart1.Name = "chart1";
             series2.ChartArea = "ChartArea1";
@@ -144,7 +144,7 @@
             // 
             this.lbX.AutoSize = true;
             this.lbX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbX.Location = new System.Drawing.Point(549, 14);
+            this.lbX.Location = new System.Drawing.Point(551, 100);
             this.lbX.Name = "lbX";
             this.lbX.Size = new System.Drawing.Size(129, 20);
             this.lbX.TabIndex = 0;
@@ -155,7 +155,7 @@
             // 
             this.lbY.AutoSize = true;
             this.lbY.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbY.Location = new System.Drawing.Point(549, 34);
+            this.lbY.Location = new System.Drawing.Point(551, 122);
             this.lbY.Name = "lbY";
             this.lbY.Size = new System.Drawing.Size(128, 20);
             this.lbY.TabIndex = 7;
@@ -196,7 +196,7 @@
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(417, 464);
+            this.trackBar1.Location = new System.Drawing.Point(417, 525);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(104, 56);
             this.trackBar1.TabIndex = 11;
@@ -214,7 +214,7 @@
             // 
             // btnPolynomial
             // 
-            this.btnPolynomial.Location = new System.Drawing.Point(418, 359);
+            this.btnPolynomial.Location = new System.Drawing.Point(418, 459);
             this.btnPolynomial.Margin = new System.Windows.Forms.Padding(4);
             this.btnPolynomial.Name = "btnPolynomial";
             this.btnPolynomial.Size = new System.Drawing.Size(140, 37);
