@@ -54,15 +54,20 @@ namespace CPP5thSemester
 
         public override IFunction derivative()
         {
-            IFunction leftSide, rightSide, powerDderivative, newDefinedPower;
-            int rightValue = Convert.ToInt32(Operandright.ToInfix());
-            leftSide = new Numbers(rightValue);
-            newDefinedPower = new Numbers(rightValue - 1);
-            if (Operandleft.ToInfix() == "x")
-                rightSide = new XValue("x");
-            else rightSide = new Numbers(Convert.ToInt32(Operandleft.ToInfix()));
-            powerDderivative = new Multiplication(leftSide,new Power(rightSide, newDefinedPower));
-            return powerDderivative;
+            IFunction leftSide, rightSide, powerDderivative, newDefinedPower, leftFinalintNr, intPowerNrlast,multiderivative;
+            //int rightValue = Convert.ToInt32(Operandright.ToInfix());
+            //leftSide = new Numbers(rightValue);
+            //newDefinedPower = new Numbers(rightValue - 1);
+            //if (Operandleft.ToInfix() == "x")
+            //    rightSide = new XValue("x");
+            //else rightSide = new Numbers(Convert.ToInt32(Operandleft.ToInfix()));
+            //powerDderivative = new Multiplication(leftSide, new Power(rightSide, newDefinedPower));
+            int intPowerNr = Convert.ToInt32(Operandright.ToInfix());
+            leftFinalintNr = new Numbers(intPowerNr);
+            intPowerNrlast = new Numbers(intPowerNr - 1);
+            powerDderivative = new Power(Operandleft, intPowerNrlast);
+            multiderivative = new Multiplication(leftFinalintNr,powerDderivative);
+            return multiderivative;
         }
     }
 }

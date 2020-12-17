@@ -32,7 +32,6 @@ namespace CPP5thSemester
                 {
                     
                     case '0':
-
                         s = s.Remove(0, 1);
                         f = new Numbers(0);
                         return f;
@@ -137,6 +136,16 @@ namespace CPP5thSemester
                        AddFunction a = new AddFunction(left, right);
                         return f;
 
+                    case '-':
+                        s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
+                        IFunction leftMinus = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        IFunction rightMinus = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        f = new MinusFunction(leftMinus, rightMinus);
+                        return f;
+
                     case 's':
                         s = s.Remove(0, 1);
                         s = s.Remove(0, 1);
@@ -181,6 +190,16 @@ namespace CPP5thSemester
                         f = new Multiplication(leftMuiltiplication, rightMuiltiplication);
                         return f;
 
+                    case '/':
+                        s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
+                        IFunction leftDevision = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        IFunction rightDevision = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        f = new DevisionFunction(leftDevision, rightDevision);
+                        return f;
+
                     case 'c':
                         s = s.Remove(0, 1);
                         s = s.Remove(0, 1);
@@ -189,35 +208,13 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);
                         return f;
 
-                        //case '-':
-                        //    s = s.Remove(0, 1);
-                        //    //check and eat ('(')
-                        //    s = s.Remove(0, 1);
-                        //    //MakeTree.Add('-');
-                        //    firstCloud = fpa(ref s);
-                        //    //check the (,) adn eat it
-                        //    s = s.Remove(0, 1);
-                        //    secondCloud = fpa(ref s);
-                        //    //check the (')') and eat it
-                        //    s = s.Remove(0, 1);
-                        //    return firstCloud - secondCloud;
-                        //   // break;
-
-
-
-                        //case '/':
-                        //    s = s.Remove(0, 1);
-                        //    //check and eat ('(')
-                        //    s = s.Remove(0, 1);
-                        //    //MakeTree.Add('/');
-                        //    firstCloud = fpa(ref s);
-                        //    //check the (,) adn eat it
-                        //    s = s.Remove(0, 1);
-                        //    secondCloud = fpa(ref s);
-                        //    //check the (')') and eat it
-                        //    s = s.Remove(0, 1);
-                        //    return firstCloud / secondCloud;
-                        //   // break;
+                    case 'e':
+                        s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);                       
+                        IFunction innerEqExp = fpa(ref s);
+                        f = new Expotential(innerEqExp);
+                        s = s.Remove(0, 1);
+                        return f;
                 }
 
             }

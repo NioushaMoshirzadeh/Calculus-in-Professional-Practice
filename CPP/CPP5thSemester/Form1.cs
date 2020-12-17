@@ -180,25 +180,25 @@ namespace CPP5thSemester
             /*plot on the pictureBox*/
             zoomValue = trackBar1.Value;
             orgX = pictureBox1.Width / 2;
-            orgY = pictureBox1.Height / 2;  
+            orgY = pictureBox1.Height / 2;
             derivativePen = new Pen(Brushes.Red, 2.0F);
 
-            for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
-            {
-                double X = (double)i;
-                float Y = (float)root.Derivative(X) * zoomValue;
-                float Y2 = ((float)root.Derivative(i + 0.1) * zoomValue);
-
-                g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
-            }
+            //for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
+            //{
+            //    double X = (double)i;
+            //    float Y = (float)root.Derivative(X) * zoomValue;
+            //    float Y2 = ((float)root.Derivative(i + 0.1) * zoomValue);
+            //    if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height)
+            //        g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+            //}
             /* plot Newton's derivative with pen purple */
             derivativePen = new Pen(Brushes.Purple, 2.0F);
             for (float i = -orgX; i <= pictureBox1.Height; i += 0.01f)
             {
                 double h = 0.1d;
-                float Y1 = (((float)root.Evaluate(i + h) - (float)root.Evaluate(i)) /  (float)h) * zoomValue; //f(x+h) - f(x) / h
+                float Y1 = (((float)root.Evaluate(i + h) - (float)root.Evaluate(i)) / (float)h) * zoomValue; //f(x+h) - f(x) / h
                 float Y2 = (((float)root.Evaluate(i + (0.1) + h) - (float)root.Evaluate(i + (0.1))) / (float)h) * zoomValue;
-                if(Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height)
+                if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height)
                     g.DrawLine(derivativePen, (i * zoomValue) + orgX, orgY - Y1, orgX + (i * zoomValue) + 0.1f, orgY - Y2);
             }
             /* plot the Analytical derivative and plotting the tree*/
@@ -211,10 +211,10 @@ namespace CPP5thSemester
                 double X = (double)i;
                 float Y = (float)p.Evaluate(X) * zoomValue;
                 float Y2 = ((float)p.Evaluate(i + 0.1) * zoomValue);
-
-                g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
+                if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height)
+                    g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
             }
-           
+
         }
 
         private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
