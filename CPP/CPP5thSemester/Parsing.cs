@@ -97,32 +97,27 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);                        //remove )
                         f = new Factorial(number1);
                         return f;
+
                     case 'l':
                         s = s.Remove(0, 1);
-                        string[] Number = s.Split(new char[] { '(', ')', ',' });
-                        int number;
-                        int counted = Number.Count();
-                        RemoveWhiteSpaces(ref s);
-                        RemoveWhiteSpaces(ref s);
-                        //if (Number[1] == "x")
-                        //{
-                        //    s = s.Remove(0, 1);
-                        //    IFunction xVal = fpa(ref s);
-                        //    f = new Ln(xVal);
-                        //    s = s.Remove(0, 1);
+                        s = s.Remove(0, 1);
+                        IFunction val =null;
+                        int length = s.Length;
+                        for (int i = s.Length; i > 0; i--)
+                        {
 
-                        //}
-                       // else
-                        //{
-                            number = Convert.ToInt32(Number[1]);
-                            s = s.Remove(0, 1);                         //remove (
-                            foreach (char var in Number[1])
+                            if (s.Length == 1)
                             {
-                                s = s.Remove(0, 1);                     //remove int number
+                                s = s.Remove(0, 1);
                             }
-                            s = s.Remove(0, 1);                        //remove )
-                            f = new Ln(number);
-                       // }
+                            else if (s.Length > 1)
+                            {
+                                val = fpa(ref s);
+                            }
+                            else
+                                break;
+                        }
+                        f = new Ln(val);
                         return f;
 
                     case '+':
@@ -178,6 +173,21 @@ namespace CPP5thSemester
                         }
                         s = s.Remove(0, 1);                        //remove )
                         f = new Numbers(num);
+                        return f;
+                    case 'r':
+                        s = s.Remove(0, 1);
+                        string[] myRealNumbers = s.Split(new char[] { '(', ')', ',' });
+                        int countRealNr = myRealNumbers.Count();
+                        RemoveWhiteSpaces(ref s);
+                        RemoveWhiteSpaces(ref s);
+                        decimal realNumber = Convert.ToDecimal(myRealNumbers[1]);
+                        s = s.Remove(0, 1);                         //remove (
+                        foreach (char var in myRealNumbers[1])
+                        {
+                            s = s.Remove(0, 1);                     //remove int number
+                        }
+                        s = s.Remove(0, 1);                        //remove )
+                        f = new RealNumber(realNumber);
                         return f;
 
                     case '*':

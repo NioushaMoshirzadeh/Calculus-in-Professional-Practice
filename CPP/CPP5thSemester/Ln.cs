@@ -8,63 +8,52 @@ namespace CPP5thSemester
 {
     class Ln:AbstractClass,IFunction
     {
-        private static int nrOfVariables = 0;
         public IFunction Operand { get; set; }
-        public double Value { get; set; }
 
-        public Ln(int var)
+        public Ln() : base() { }
+        public Ln(IFunction operand) : base()
         {
-            Value = Math.Log(var);
-            nrOfVariables++;
+            this.Operand = operand;
         }
-        //public Ln(IFunction operand) : base()
-        //{
-        //    this.Operand = operand;
-        //}
-        public Ln() { }
-
-        //public override string ToInfix()
-        //{
-        //    string toprefixvalue = "l(" + Operand.ToInfix() + ")";
-        //    return toprefixvalue;
-        //}
-
-        //public override string ToPrefix()
-        //{
-        //    string toprefixvalue = "l(" + Operand.ToPrefix() + ")";
-        //    return toprefixvalue;
-        //}
-
-
         public override string ToInfix()
         {
-            return this.Value.ToString();
+            string toprefixvalue = "ln(" + Operand.ToInfix() + ")";
+            return toprefixvalue;
         }
 
         public override string ToPrefix()
         {
-            return this.Value.ToString();
+            string toprefixvalue = "ln(" + Operand.ToPrefix() + ")";
+            return toprefixvalue;
         }
 
         public override string BinaryTree()
         {
-            return "\nnode" + this.Id + "[label = \"" + this.Value + "\" ]\n";
+            String temp = "\nnode" + this.Id + " [ label = \"Ln\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
+            temp += "node" + this.Id + " -- node" + Operand.Id + "[style=dotted,color=purple]\n";
+            temp += Operand.BinaryTree();
+            return temp;
         }
 
         public override double Evaluate(double val)
         {
-            return Convert.ToDouble(this.Value);
+            double output = Math.Log(Operand.Evaluate(val));
+            return output;
         }
 
         public override double Derivative(double val)
         {
-            return 0;
+            double output = Math.Log(Operand.Evaluate(val));
+            return output;
         }
 
         public override IFunction derivative()
         {
-            IFunction f = new Numbers(0);
-            return f;
+            IFunction numerator, denominator, lnDerivative;
+            numerator = Operand.derivative();
+            denominator = Operand;
+            lnDerivative = new DevisionFunction(numerator, denominator);
+            return lnDerivative;
         }
     }
 }
