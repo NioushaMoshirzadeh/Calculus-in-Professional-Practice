@@ -19,9 +19,6 @@ namespace CPP5thSemester
         }
         public RealNumber() { }
 
-
-
-
         public override string ToInfix()
         {
             return this.Value.ToString();

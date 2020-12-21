@@ -223,7 +223,7 @@ namespace CPP5thSemester
             Point point = new Point(e.X, e.Y);
             coordinates.Add(point);
             iNumberofClicks++;
-            if (iNumberofClicks == 2)
+            if (iNumberofClicks > 0)
                 foreach (var a in coordinates)
                 {
                     Console.WriteLine("Points are : " + a.ToString());
@@ -258,19 +258,22 @@ namespace CPP5thSemester
 
         private void BtnPolynomial_Click(object sender, EventArgs e)
         {
+            pictureBox1.Refresh();
             int nrOfPoints = coordinates.Count();   
             orgX = pictureBox1.Width / 2;
+            orgY = pictureBox1.Height / 2;
             int zoomValue = trackBar1.Value;
             List<Point> convertedPoints = new List<Point>();
             Point point;
             for (int i = 0; i < nrOfPoints; i++)
             {
-                int X = (coordinates[i].X - orgX) / zoomValue;
-                int Y = (orgX - coordinates[i].Y) / zoomValue;
+                int X = (coordinates[i].X - orgX);
+                int Y = (orgX - coordinates[i].Y);
                 //the values rounded to its int values!!
                 point= new Point(X,Y); 
                 convertedPoints.Add(point);
             }
+
             matrix = new Matrix(nrOfPoints, convertedPoints);
             double[,] AugmentedArray = matrix.solveEquation();
             string equation = "";
@@ -296,9 +299,65 @@ namespace CPP5thSemester
             }
             tbParse.Text = equation;
             Console.WriteLine(equation);
+            pen= new Pen(Brushes.Green, 2.0F);
+            Pen grayPen = new Pen(Brushes.Gray, 2.0F);
+            Pen blackPen = new Pen(Brushes.Black, 2.0F);
+
+            double Y1 = 0;
+            double Y2 = 0;
+            int X1 = 0;
+            int X2 = 0;
+            for (int i = ((pictureBox1.Width / 2) - zoomValue); i >= 0; i -= zoomValue)
+            {
+                g.DrawLine(grayPen, i, 0, i, 400);
+            }
+            for (int i = ((pictureBox1.Width / 2) - zoomValue); i <= pictureBox1.Width; i += zoomValue)
+            {
+                g.DrawLine(grayPen, i, 0, i, 400);
+            }
+
+            for (int j = ((pictureBox1.Height / 2) - zoomValue); j >= 0; j -= zoomValue)
+            {
+                g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+            }
+            for (int j = ((pictureBox1.Height / 2) - zoomValue); j <= pictureBox1.Height; j += zoomValue)
+            {
+                g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+            }
+
+            g.DrawLine(blackPen, 0, orgY, pictureBox1.Width, orgY);
+            g.DrawLine(blackPen, orgX, 0, orgY, pictureBox1.Height);
+
+            for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
+            {
+                int deg2 = nrOfPoints - 1;
+                for (int j = 0; j < nrOfPoints; j++)
+                {
+                    if (deg2 > 0)
+                    {
+                        Y1 += (float)(((AugmentedArray[j, nrOfPoints + 1] * (Math.Pow((i), deg2)))));
+                        Y2 += (float)(((AugmentedArray[j, nrOfPoints + 1] * (Math.Pow(((i + 0.1f)), deg2)))));
+
+                    }
+                    else
+                    {
+                        Y1 += (float)((AugmentedArray[j, nrOfPoints + 1]));
+                        Y2 += (float)((AugmentedArray[j, nrOfPoints + 1]));
+                    }
+                    deg2--;
+                }
+                Y1 = Math.Round(Y1, 2);
+                Y2 = Math.Round(Y2, 2);
+                Y1 = orgY - (Y1 );
+                Y2 = orgY - (Y2 );
+                if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
+                    g.DrawLine(pen, (i ) + orgX, (float)Y1, (orgX + (i )) + 0.1f, (float)Y2);
+            }
+
+
         }
 
-        private void Label1_Click(object sender, EventArgs e)
+            private void Label1_Click(object sender, EventArgs e)
         {
 
         }
