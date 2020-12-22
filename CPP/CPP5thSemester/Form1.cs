@@ -82,7 +82,7 @@ namespace CPP5thSemester
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             trackBar1.Width = 100;
             trackBar1.Height = 50;
-            trackBar1.Minimum = 0;
+            trackBar1.Minimum = 1;
             trackBar1.Maximum = 100;
             trackBar1.Value = 10;
             trackBar1.TickFrequency = 20;
@@ -258,19 +258,19 @@ namespace CPP5thSemester
 
         private void BtnPolynomial_Click(object sender, EventArgs e)
         {
+            
             pictureBox1.Refresh();
             int nrOfPoints = coordinates.Count();   
             orgX = pictureBox1.Width / 2;
             orgY = pictureBox1.Height / 2;
-            int zoomValue = trackBar1.Value;
+            zoomValue = trackBar1.Value;
             List<Point> convertedPoints = new List<Point>();
             Point point;
             for (int i = 0; i < nrOfPoints; i++)
             {
-                int X = (coordinates[i].X - orgX);
-                int Y = (orgX - coordinates[i].Y);
-                //the values rounded to its int values!!
-                point= new Point(X,Y); 
+                int X = (coordinates[i].X - orgX)/zoomValue; //the values rounded to its int values!!
+                int Y = (orgX - coordinates[i].Y)/zoomValue;
+                point = new Point(X, Y);
                 convertedPoints.Add(point);
             }
 
@@ -280,7 +280,6 @@ namespace CPP5thSemester
             int deg = nrOfPoints - 1;
             for (int r = 0; r < nrOfPoints; r++)
             {
-
                 var s = string.Format("{0:0.00}", AugmentedArray[r, nrOfPoints + 1]);
                 if (s.EndsWith("00"))
                 {
@@ -300,13 +299,14 @@ namespace CPP5thSemester
             tbParse.Text = equation;
             Console.WriteLine(equation);
             pen= new Pen(Brushes.Green, 2.0F);
-            Pen grayPen = new Pen(Brushes.Gray, 2.0F);
+            Pen grayPen = new Pen(Brushes.LightGray, 2.0F);
             Pen blackPen = new Pen(Brushes.Black, 2.0F);
+            Pen pinki = new Pen(Brushes.Pink, 2.0F);
 
             double Y1 = 0;
             double Y2 = 0;
-            int X1 = 0;
-            int X2 = 0;
+            float X1 = 0;
+            float X2 = 0;
             for (int i = ((pictureBox1.Width / 2) - zoomValue); i >= 0; i -= zoomValue)
             {
                 g.DrawLine(grayPen, i, 0, i, 400);
@@ -328,15 +328,15 @@ namespace CPP5thSemester
             g.DrawLine(blackPen, 0, orgY, pictureBox1.Width, orgY);
             g.DrawLine(blackPen, orgX, 0, orgY, pictureBox1.Height);
 
-            for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
+            for (float i = -200; i < (pictureBox1.Height)/2; i += 0.01f)
             {
                 int deg2 = nrOfPoints - 1;
                 for (int j = 0; j < nrOfPoints; j++)
                 {
                     if (deg2 > 0)
                     {
-                        Y1 += (float)(((AugmentedArray[j, nrOfPoints + 1] * (Math.Pow((i), deg2)))));
-                        Y2 += (float)(((AugmentedArray[j, nrOfPoints + 1] * (Math.Pow(((i + 0.1f)), deg2)))));
+                        Y1 += (float)(AugmentedArray[j, nrOfPoints + 1] * (Math.Pow(i, deg2)));
+                        Y2 += (float)(AugmentedArray[j, nrOfPoints + 1] * (Math.Pow((i + 0.01f), deg2)));
 
                     }
                     else
@@ -348,16 +348,19 @@ namespace CPP5thSemester
                 }
                 Y1 = Math.Round(Y1, 2);
                 Y2 = Math.Round(Y2, 2);
-                Y1 = orgY - (Y1 );
-                Y2 = orgY - (Y2 );
+                Y1 = ((-1) * Y1 * zoomValue) + orgY;
+                Y2 = ((-1) * Y2 * zoomValue) + orgY;
+                X1 = (zoomValue * i) + orgX;
+                X2 = (zoomValue * (i  + 0.1f)) + orgX;
                 if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
-                    g.DrawLine(pen, (i ) + orgX, (float)Y1, (orgX + (i )) + 0.1f, (float)Y2);
+                    g.DrawLine(pen, X1, (float)Y1, X2, (float)Y2);
+                Y1 = Y2 = 0;
             }
 
-
+        coordinates.Clear();
         }
 
-            private void Label1_Click(object sender, EventArgs e)
+        private void Label1_Click(object sender, EventArgs e)
         {
 
         }
