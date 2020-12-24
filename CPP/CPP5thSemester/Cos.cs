@@ -52,6 +52,15 @@ namespace CPP5thSemester
         {
             IFunction f;
             f = new Sin(Operand);
+            Console.WriteLine(f.ToInfix());
+            return f;
+        }
+
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            IFunction f;
+            f = derivative.derivative();
+            Console.WriteLine(f.ToInfix());
             return f;
         }
     }

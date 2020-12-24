@@ -44,5 +44,10 @@ namespace CPP5thSemester
             f = new Numbers(1);
             return f;
         }
+
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

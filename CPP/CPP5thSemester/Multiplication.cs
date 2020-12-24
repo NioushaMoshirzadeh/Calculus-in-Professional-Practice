@@ -70,5 +70,10 @@ namespace CPP5thSemester
             multipleDderivative = new AddFunction(leftSide, rightSide);
             return multipleDderivative;
         }
+
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

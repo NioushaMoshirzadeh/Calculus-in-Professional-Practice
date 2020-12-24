@@ -70,5 +70,9 @@ namespace CPP5thSemester
             addDderivative = new AddFunction(leftSide, rightSide);
             return addDderivative;
         }
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

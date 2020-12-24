@@ -65,9 +65,18 @@ namespace CPP5thSemester
             int intPowerNr = Convert.ToInt32(Operandright.ToInfix());
             leftFinalintNr = new Numbers(intPowerNr);
             intPowerNrlast = new Numbers(intPowerNr - 1);
+            if (intPowerNr == 0)
+            {
+                intPowerNrlast = new Numbers(0);
+            }
             powerDderivative = new Power(Operandleft, intPowerNrlast);
             multiderivative = new Multiplication(leftFinalintNr,powerDderivative);
             return multiderivative;
+        }
+
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
         }
     }
 }

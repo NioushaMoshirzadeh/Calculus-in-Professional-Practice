@@ -56,5 +56,10 @@ namespace CPP5thSemester
             result = new Multiplication(exp,inExp); 
             return result;
         }
+
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

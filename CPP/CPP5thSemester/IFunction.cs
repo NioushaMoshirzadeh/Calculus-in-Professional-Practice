@@ -16,6 +16,7 @@ namespace CPP5thSemester
         double Evaluate(double val);
         double Derivative(double val);
         IFunction derivative();
+        IFunction McLaurin(IFunction derivative);
 
 
     }

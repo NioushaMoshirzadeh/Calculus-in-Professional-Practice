@@ -73,5 +73,10 @@ namespace CPP5thSemester
             return devisionDderivative;
         }
 
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

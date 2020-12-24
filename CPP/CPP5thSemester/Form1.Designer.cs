@@ -47,6 +47,7 @@
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.btnIntegral = new System.Windows.Forms.Button();
             this.btnPolynomial = new System.Windows.Forms.Button();
+            this.btnMCLaurin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picBox_tree)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -223,11 +224,23 @@
             this.btnPolynomial.UseVisualStyleBackColor = true;
             this.btnPolynomial.Click += new System.EventHandler(this.BtnPolynomial_Click);
             // 
+            // btnMCLaurin
+            // 
+            this.btnMCLaurin.Location = new System.Drawing.Point(582, 459);
+            this.btnMCLaurin.Margin = new System.Windows.Forms.Padding(4);
+            this.btnMCLaurin.Name = "btnMCLaurin";
+            this.btnMCLaurin.Size = new System.Drawing.Size(140, 37);
+            this.btnMCLaurin.TabIndex = 14;
+            this.btnMCLaurin.Text = "McLaurin Series";
+            this.btnMCLaurin.UseVisualStyleBackColor = true;
+            this.btnMCLaurin.Click += new System.EventHandler(this.BtnMCLaurin_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1871, 954);
+            this.Controls.Add(this.btnMCLaurin);
             this.Controls.Add(this.btnPolynomial);
             this.Controls.Add(this.btnIntegral);
             this.Controls.Add(this.trackBar1);
@@ -276,6 +289,7 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Button btnIntegral;
         private System.Windows.Forms.Button btnPolynomial;
+        private System.Windows.Forms.Button btnMCLaurin;
     }
 }
 

@@ -51,6 +51,16 @@ namespace CPP5thSemester
             picBox_tree.ImageLocation = "abc.png";
         }
 
+        private void DrawBinaryTreeMCLauran(IFunction x)
+        {
+            GraphVize.SaveDotFile(x, "abcd");
+            Process dot = new Process();
+            dot.StartInfo.FileName = "dot.exe";
+            dot.StartInfo.Arguments = "-T png -o abc.png abcd.dot";
+            dot.Start();
+            dot.WaitForExit();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // create chart in form 2
@@ -359,6 +369,156 @@ namespace CPP5thSemester
 
         coordinates.Clear();
         }
+
+        private void BtnMCLaurin_Click(object sender, EventArgs e)
+        {
+            double result = 0;
+            zoomValue = trackBar1.Value;
+            double[] coefficient = new double[7];
+            Pen MCPen;
+            double Y1 = 0;
+            double Y2 = 0;
+            float X1 = 0;
+            float X2 = 0;
+            
+
+            var Colors = new List<Color>
+            {
+                Color.Yellow,
+                Color.Orange,
+                Color.Red,
+                Color.Purple,
+                Color.Blue,
+                Color.Brown,
+                Color.Black
+            };
+
+            
+
+            for (int i = 0; i < 7; i++) // added coefficient of the taylor series in the array
+            {
+                
+                    if (i == 0)
+                    {
+                        result = root.Evaluate(0);
+                        coefficient[i] = result;
+                        
+                    }
+                    else
+                    {
+                        root = root.derivative();
+                        result = (root.Evaluate(0) / Factorial(i));
+                        if (double.Equals(double.NaN, result))
+                        {
+                            result = 0;
+                        }
+                        else
+                            coefficient[i] = result;
+                    }
+            }
+            //DrawBinaryTreeMCLauran(root);
+            DrawGridLines();
+            for (int i = 6; i >= 0; i--)
+            {
+                string equation = "";
+                equation += coefficient[i].ToString() + " * x^ " + (i).ToString();
+                Console.WriteLine(equation);
+            }
+
+            for (float j = -200; j < (pictureBox1.Height) / 2; j += 0.01f)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    if (i == 0)
+                    {
+                        Y1 = coefficient[0];
+                        Y2 = coefficient[0];
+                    }
+                    else
+                    {
+                        Y1 += coefficient[i] * Math.Pow(j, i);
+                        Y2 += coefficient[i] * Math.Pow((j + 0.1f), i);
+                    }
+
+                }
+                Y1 = ((-1) * Y1 * zoomValue) + orgY;
+                Y2 = ((-1) * Y2 * zoomValue) + orgY;
+                X1 = (zoomValue * j) + orgX;
+                X2 = (zoomValue * j) + orgX + 0.1f;
+                if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
+                    g.DrawLine(new Pen(Colors[2], 2f), X1, (float)Y1, X2, (float)Y2);
+                Y1 = Y2 = 0;
+            }
+
+            //for (int i = 0; i < 7; i++)
+            //{
+            //    for (float j = -200; j < (pictureBox1.Height) / 2; j += 0.01f)
+            //    {
+            //        for (int h = i; h >= 0; h--)
+            //        {
+            //            Y1 += coefficient[i] * Math.Pow(j, h);
+            //            Y2 += coefficient[i] * Math.Pow((j + 0.1f), h);
+            //        }
+            //        Y1 = ((-1) * Y1 * zoomValue) + orgY;
+            //        Y2 = ((-1) * Y2 * zoomValue) + orgY;
+            //        X1 = (zoomValue * j) + orgX;
+            //        X2 = (zoomValue * (j + 0.1f)) + orgX ;
+            //        if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
+            //            g.DrawLine(new Pen(Colors[i],2f), X1, (float)Y1, X2, (float)Y2);
+            //        Y1 = Y2 = 0;
+            //    }
+
+            //    Y1 = Y2 = 0;
+
+            //}
+
+
+
+        }
+
+        private double Factorial(int number)
+        {
+            if (number == 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return number * Factorial(number - 1);
+            }
+
+        }
+
+        private void DrawGridLines()
+        {
+            pictureBox1.Refresh();
+            orgX = pictureBox1.Width / 2;
+            orgY = pictureBox1.Height / 2;
+            zoomValue = trackBar1.Value;
+            Pen grayPen = new Pen(Brushes.LightGray, 2.0F);
+            Pen blackPen = new Pen(Brushes.Black, 2.0F);
+            for (int i = ((pictureBox1.Width / 2) - zoomValue); i >= 0; i -= zoomValue)
+            {
+                g.DrawLine(grayPen, i, 0, i, 400);
+            }
+            for (int i = ((pictureBox1.Width / 2) - zoomValue); i <= pictureBox1.Width; i += zoomValue)
+            {
+                g.DrawLine(grayPen, i, 0, i, 400);
+            }
+
+            for (int j = ((pictureBox1.Height / 2) - zoomValue); j >= 0; j -= zoomValue)
+            {
+                g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+            }
+            for (int j = ((pictureBox1.Height / 2) - zoomValue); j <= pictureBox1.Height; j += zoomValue)
+            {
+                g.DrawLine(grayPen, 0, j, pictureBox1.Width, j);
+            }
+
+            g.DrawLine(blackPen, 0, orgY, pictureBox1.Width, orgY);
+            g.DrawLine(blackPen, orgX, 0, orgY, pictureBox1.Height);
+        }
+
 
         private void Label1_Click(object sender, EventArgs e)
         {

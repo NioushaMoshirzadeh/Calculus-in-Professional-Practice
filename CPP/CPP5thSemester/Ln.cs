@@ -55,5 +55,9 @@ namespace CPP5thSemester
             lnDerivative = new DevisionFunction(numerator, denominator);
             return lnDerivative;
         }
+        public override IFunction McLaurin(IFunction derivative)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
