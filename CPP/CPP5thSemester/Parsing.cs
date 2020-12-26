@@ -103,20 +103,22 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);
                         IFunction val =null;
                         int length = s.Length;
-                        for (int i = s.Length; i > 0; i--)
-                        {
+                        val = fpa(ref s);
+                        s = s.Remove(0, 1);
+                        //for (int i = s.Length; i > 0; i--)
+                        //{
 
-                            if (s.Length == 1)
-                            {
-                                s = s.Remove(0, 1);
-                            }
-                            else if (s.Length > 1)
-                            {
-                                val = fpa(ref s);
-                            }
-                            else
-                                break;
-                        }
+                        //    if (s.Length == 1)
+                        //    {
+                        //        s = s.Remove(0, 1);
+                        //    }
+                        //    else if (s.Length > 1)
+                        //    {
+                        //        val = fpa(ref s);
+                        //    }
+                        //    else
+                        //        break;
+                        //}
                         f = new Ln(val);
                         return f;
 
@@ -225,6 +227,9 @@ namespace CPP5thSemester
                         f = new Expotential(innerEqExp);
                         s = s.Remove(0, 1);
                         return f;
+                    default:
+                        MessageBox.Show("unhandled value for the input textbox: " + s[0]);
+                        throw new ArgumentOutOfRangeException("unknown value");
                 }
 
             }

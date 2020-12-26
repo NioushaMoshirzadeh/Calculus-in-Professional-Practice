@@ -18,14 +18,37 @@ namespace CPP5thSemester
         }
         public override string ToInfix()
         {
+
             string toprefixvalue = "exp(" + Operand.ToInfix() + ")";
             return toprefixvalue;
+            //if (Simplify(Operand))
+            //{
+            //    string toprefixvalue = "1";
+            //    Operand = new Numbers(1);
+            //    return toprefixvalue;
+            //}
+            //else
+            //{
+            //    string toprefixvalue = "exp(" + Operand.ToPrefix() + ")";
+            //    return toprefixvalue;
+            //}
+
         }
 
         public override string ToPrefix()
         {
-            string toprefixvalue = "exp(" + Operand.ToPrefix() + ")";
-            return toprefixvalue;
+            //if (Simplify(Operand))
+            //{
+            //    string toprefixvalue =  "1";
+            //    Operand = new Numbers(1);
+            //    return toprefixvalue;
+            //}
+            //else
+            //{
+                string toprefixvalue = "exp(" + Operand.ToPrefix() + ")";
+                return toprefixvalue;
+           // }
+            
         }
 
         public override string BinaryTree()
@@ -57,9 +80,15 @@ namespace CPP5thSemester
             return result;
         }
 
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction Operande)
         {
-            throw new NotImplementedException();
+            if (Operand.ToInfix() == "0")
+            {
+                this.Operand = new Numbers(1);
+                return true;
+            }
+            //throw new NotImplementedException();
+            return false;
         }
     }
 }

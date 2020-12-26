@@ -55,12 +55,9 @@ namespace CPP5thSemester
             return f;
         }
 
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
-            IFunction f;
-            f =  derivative.derivative();
-            Console.WriteLine(f.ToInfix());
-            return f;
+            throw new NotImplementedException();
         }
     }
 }

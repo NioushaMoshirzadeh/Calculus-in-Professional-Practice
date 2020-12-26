@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CPP5thSemester
 {
@@ -37,6 +38,10 @@ namespace CPP5thSemester
 
         public override double Evaluate(double val)
         {
+            if (Operand.Evaluate(val) == 0)
+            {
+                throw new Exception("ln(0) is undefined, therefore Ln doesn't have the MClaurin series!");
+            }
             double output = Math.Log(Operand.Evaluate(val));
             return output;
         }
@@ -49,13 +54,12 @@ namespace CPP5thSemester
 
         public override IFunction derivative()
         {
-            IFunction numerator, denominator, lnDerivative;
+            IFunction numerator, lnDerivative;
             numerator = Operand.derivative();
-            denominator = Operand;
-            lnDerivative = new DevisionFunction(numerator, denominator);
+            lnDerivative = new DevisionFunction(numerator, Operand);
             return lnDerivative;
         }
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();
         }

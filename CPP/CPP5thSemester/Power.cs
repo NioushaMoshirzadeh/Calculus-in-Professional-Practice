@@ -74,7 +74,7 @@ namespace CPP5thSemester
             return multiderivative;
         }
 
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();
         }

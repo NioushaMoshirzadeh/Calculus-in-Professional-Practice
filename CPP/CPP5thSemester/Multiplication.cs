@@ -56,24 +56,21 @@ namespace CPP5thSemester
 
         public override IFunction derivative() 
         {
-            IFunction leftSide,rightSide, multipleDderivative ;
-            if (Toleft.ToInfix().StartsWith("e"))
-            {
-
-                leftSide = new Multiplication(new Numbers(0), ToRight);
-            }
-            else
-            {
-                leftSide = new Multiplication(Toleft.derivative(), ToRight);
-            }    
+            IFunction leftSide,rightSide, multipleDderivative;
+            leftSide = new Multiplication(Toleft.derivative(), ToRight);
             rightSide = new Multiplication(Toleft, ToRight.derivative());
             multipleDderivative = new AddFunction(leftSide, rightSide);
             return multipleDderivative;
         }
 
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction Operand)
         {
-            throw new NotImplementedException();
+             throw new NotImplementedException(); //| ToRight.ToInfix() == "1"
+            //if (Toleft.ToInfix() == "1")
+            //{
+            //    Operand.
+            //}
+
         }
     }
 }

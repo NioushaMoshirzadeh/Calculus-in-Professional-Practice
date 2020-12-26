@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CPP5thSemester
 {
@@ -20,6 +21,10 @@ namespace CPP5thSemester
         }
         public override double Evaluate(double val)
         {
+            if (ToRight.Evaluate(val) == 0)
+            {
+                throw new Exception("you can not devide by zero!");
+            }
             double evaluation = Toleft.Evaluate(val) / ToRight.Evaluate(val);
             return evaluation;
         }
@@ -57,15 +62,8 @@ namespace CPP5thSemester
         public override IFunction derivative()
         {
             IFunction  devisionDderivative, leftabove,rightabove, minusAboveDevision, powerDown;
-            if (Toleft.ToInfix().StartsWith("e"))
-            {
-
-                leftabove = new Multiplication(new Numbers(0), ToRight);
-            }
-            else
-            {
-                leftabove = new Multiplication(Toleft.derivative(), ToRight);
-            }
+            
+            leftabove = new Multiplication(Toleft.derivative(), ToRight);
             rightabove = new Multiplication(Toleft, ToRight.derivative());
             minusAboveDevision= new MinusFunction(leftabove,rightabove);
             powerDown = new Power(Toleft, new Numbers(2));
@@ -73,7 +71,7 @@ namespace CPP5thSemester
             return devisionDderivative;
         }
 
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();
         }

@@ -17,9 +17,6 @@ namespace CPP5thSemester
             nrOfVariables ++;
         }
         public Numbers (){}
-        
-
-       
 
         public override string ToInfix()
         {
@@ -51,7 +48,7 @@ namespace CPP5thSemester
             IFunction f = new Numbers(0);
             return f;
         }
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();
         }

@@ -50,18 +50,15 @@ namespace CPP5thSemester
 
         public override IFunction derivative() 
         {
-            IFunction f;
-            f = new Sin(Operand);
-            Console.WriteLine(f.ToInfix());
-            return f;
+            IFunction s, minusS;
+            s = new Sin(Operand);
+            minusS = new Multiplication(new Numbers(-1), s);
+            return minusS;
         }
 
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
-            IFunction f;
-            f = derivative.derivative();
-            Console.WriteLine(f.ToInfix());
-            return f;
+            throw new NotImplementedException();
         }
     }
 }

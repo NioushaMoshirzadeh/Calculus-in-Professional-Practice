@@ -70,7 +70,7 @@ namespace CPP5thSemester
             addDderivative = new AddFunction(leftSide, rightSide);
             return addDderivative;
         }
-        public override IFunction McLaurin(IFunction derivative)
+        public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();
         }

@@ -34,6 +34,6 @@ namespace CPP5thSemester
         public abstract double Derivative(double val);
 
         public abstract IFunction derivative();
-        public abstract IFunction McLaurin(IFunction derivative);
+        public abstract bool Simplify(IFunction derivative);
     }
 }
