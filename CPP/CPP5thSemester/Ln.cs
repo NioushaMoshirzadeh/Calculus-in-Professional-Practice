@@ -10,7 +10,6 @@ namespace CPP5thSemester
     class Ln:AbstractClass,IFunction
     {
         public IFunction Operand { get; set; }
-
         public Ln() : base() { }
         public Ln(IFunction operand) : base()
         {
@@ -21,13 +20,11 @@ namespace CPP5thSemester
             string toprefixvalue = "ln(" + Operand.ToInfix() + ")";
             return toprefixvalue;
         }
-
         public override string ToPrefix()
         {
             string toprefixvalue = "ln(" + Operand.ToPrefix() + ")";
             return toprefixvalue;
         }
-
         public override string BinaryTree()
         {
             String temp = "\nnode" + this.Id + " [ label = \"Ln\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
@@ -35,19 +32,12 @@ namespace CPP5thSemester
             temp += Operand.BinaryTree();
             return temp;
         }
-
         public override double Evaluate(double val)
         {
             if (Operand.Evaluate(val) == 0)
             {
                 throw new Exception("ln(0) is undefined, therefore Ln doesn't have the MClaurin series!");
             }
-            double output = Math.Log(Operand.Evaluate(val));
-            return output;
-        }
-
-        public override double Derivative(double val)
-        {
             double output = Math.Log(Operand.Evaluate(val));
             return output;
         }

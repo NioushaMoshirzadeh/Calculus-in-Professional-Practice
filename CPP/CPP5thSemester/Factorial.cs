@@ -9,9 +9,8 @@ namespace CPP5thSemester
     class Factorial:AbstractClass,IFunction
     {
         private static int nrOfVariables = 0;
-        public int Value { get; set; }
+        public int Value { get; set;}
         int fact;
-
         public Factorial(int var)
         {
             for (int i = 1; i <= var; i++)
@@ -22,10 +21,6 @@ namespace CPP5thSemester
             nrOfVariables++;
         }
         public Factorial() { }
-
-
-
-
         public override string ToInfix()
         {
             return this.Value.ToString();
@@ -44,11 +39,6 @@ namespace CPP5thSemester
         public override double Evaluate(double val)
         {
             return Convert.ToDouble(this.Value);
-        }
-
-        public override double Derivative(double val)
-        {
-            return 0;
         }
 
         public override IFunction derivative()

@@ -8,28 +8,24 @@ namespace CPP5thSemester
 {
     public class Power: AbstractClass, IFunction
     {
-        public IFunction Operandleft { get; set; }
-        public IFunction Operandright { get; set; }
-
+        public IFunction Operandleft { get; set;}
+        public IFunction Operandright { get; set;}
         public Power() : base() { }
         public Power(IFunction operandleft, IFunction operandright) : base()
         {
             this.Operandleft = operandleft;
             this.Operandright = operandright;
-
         }
         public override string ToInfix()
         {
             string toprefixvalue = Operandleft.ToInfix()  + Operandright.ToInfix();
             return toprefixvalue;
         }
-
         public override string ToPrefix()
         {
             string toprefixvalue = Operandleft.ToPrefix() + Operandright.ToPrefix();
             return toprefixvalue;
         }
-
         public override string BinaryTree()
         {
             String temp = "\nnode" + this.Id + " [ label = \"^\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
@@ -39,29 +35,14 @@ namespace CPP5thSemester
             temp += Operandright.BinaryTree();
             return temp;
         }
-
         public override double Evaluate(double val)
         {
             double output =Math.Pow(Operandleft.Evaluate(val), Operandright.Evaluate(val));
             return output;
         }
-
-        public override double Derivative(double val)
-        {
-            double output = Operandright.Evaluate(val) * Math.Pow( Operandleft.Evaluate(val), (Operandright.Evaluate(val) - 1));
-            return output;
-        }
-
         public override IFunction derivative()
         {
-            IFunction leftSide, rightSide, powerDderivative, newDefinedPower, leftFinalintNr, intPowerNrlast,multiderivative;
-            //int rightValue = Convert.ToInt32(Operandright.ToInfix());
-            //leftSide = new Numbers(rightValue);
-            //newDefinedPower = new Numbers(rightValue - 1);
-            //if (Operandleft.ToInfix() == "x")
-            //    rightSide = new XValue("x");
-            //else rightSide = new Numbers(Convert.ToInt32(Operandleft.ToInfix()));
-            //powerDderivative = new Multiplication(leftSide, new Power(rightSide, newDefinedPower));
+            IFunction powerDderivative, leftFinalintNr, intPowerNrlast,multiderivative;
             int intPowerNr = Convert.ToInt32(Operandright.ToInfix());
             leftFinalintNr = new Numbers(intPowerNr);
             intPowerNrlast = new Numbers(intPowerNr - 1);
@@ -73,7 +54,6 @@ namespace CPP5thSemester
             multiderivative = new Multiplication(leftFinalintNr,powerDderivative);
             return multiderivative;
         }
-
         public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();

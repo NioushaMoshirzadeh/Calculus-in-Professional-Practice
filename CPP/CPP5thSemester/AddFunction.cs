@@ -8,22 +8,14 @@ namespace CPP5thSemester
 {
     class AddFunction :AbstractClass, IFunction
     {
-       // public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        // public string left { get; set; }
-        //public string right { get; set; }
-        // public IFunction Toleft { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        //public IFunction toRight { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-         public IFunction Toleft { get; set; }
-         public IFunction ToRight { get; set; }
-        // public IFunction Evaluation { get; set; }
+        public IFunction Toleft  { get; set;}
+        public IFunction ToRight { get; set;}
         
         public AddFunction():base() { }
         public  AddFunction(IFunction toleft, IFunction toright):base()
         {
             this.Toleft = toleft;
             this.ToRight = toright;
-            
-
         }
         public override double Evaluate(double val)
         {
@@ -51,20 +43,12 @@ namespace CPP5thSemester
             temp += Toleft.BinaryTree();
             temp += "node" + this.Id + " -- node" + ToRight.Id + "[shape=record,color=purple]\n";
             temp += ToRight.BinaryTree();
-
             return temp;
-        }
-
-        public override double Derivative(double val)
-        {
-            double dev = Toleft.Derivative(val) + ToRight.Derivative(val);
-            return dev;
         }
 
         public override IFunction derivative() 
         {
             IFunction leftSide, rightSide, addDderivative;
-
             leftSide = Toleft.derivative();
             rightSide = ToRight.derivative();
             addDderivative = new AddFunction(leftSide, rightSide);

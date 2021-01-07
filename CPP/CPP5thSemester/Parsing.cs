@@ -14,23 +14,19 @@ namespace CPP5thSemester
 {
     public class Parsing
     {
-       
         private string RemoveWhiteSpaces(ref string s)
         {
             s = s.Replace(" ", String.Empty);
             return s;
         }
-        //parse the proposition 
-        public IFunction fpa(ref string s)
+        public IFunction fpa(ref string s)  //parse the proposition 
         {
             IFunction f;
-            
             while (s != null)
             {
                 
                 switch (s[0])
                 {
-                    
                     case '0':
                         s = s.Remove(0, 1);
                         f = new Numbers(0);
@@ -105,20 +101,6 @@ namespace CPP5thSemester
                         int length = s.Length;
                         val = fpa(ref s);
                         s = s.Remove(0, 1);
-                        //for (int i = s.Length; i > 0; i--)
-                        //{
-
-                        //    if (s.Length == 1)
-                        //    {
-                        //        s = s.Remove(0, 1);
-                        //    }
-                        //    else if (s.Length > 1)
-                        //    {
-                        //        val = fpa(ref s);
-                        //    }
-                        //    else
-                        //        break;
-                        //}
                         f = new Ln(val);
                         return f;
 
@@ -176,6 +158,7 @@ namespace CPP5thSemester
                         s = s.Remove(0, 1);                        //remove )
                         f = new Numbers(num);
                         return f;
+
                     case 'r':
                         s = s.Remove(0, 1);
                         string[] myRealNumbers = s.Split(new char[] { '(', ')', ',' });
@@ -235,8 +218,5 @@ namespace CPP5thSemester
             }
             return null;
         }
-
-
-
     }
 }

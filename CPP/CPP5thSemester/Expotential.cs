@@ -8,9 +8,7 @@ namespace CPP5thSemester
 {
     class Expotential:AbstractClass, IFunction
     {
-
-        public IFunction Operand { get; set; }
-
+        public IFunction Operand { get; set;}
         public Expotential() : base() { }
         public Expotential(IFunction operand) : base()
         {
@@ -18,37 +16,14 @@ namespace CPP5thSemester
         }
         public override string ToInfix()
         {
-
             string toprefixvalue = "exp(" + Operand.ToInfix() + ")";
             return toprefixvalue;
-            //if (Simplify(Operand))
-            //{
-            //    string toprefixvalue = "1";
-            //    Operand = new Numbers(1);
-            //    return toprefixvalue;
-            //}
-            //else
-            //{
-            //    string toprefixvalue = "exp(" + Operand.ToPrefix() + ")";
-            //    return toprefixvalue;
-            //}
-
         }
 
         public override string ToPrefix()
         {
-            //if (Simplify(Operand))
-            //{
-            //    string toprefixvalue =  "1";
-            //    Operand = new Numbers(1);
-            //    return toprefixvalue;
-            //}
-            //else
-            //{
-                string toprefixvalue = "exp(" + Operand.ToPrefix() + ")";
-                return toprefixvalue;
-           // }
-            
+            string toprefixvalue = "exp(" + Operand.ToPrefix() + ")";
+            return toprefixvalue;
         }
 
         public override string BinaryTree()
@@ -58,16 +33,9 @@ namespace CPP5thSemester
             temp += Operand.BinaryTree();
             return temp;
         }
-
         public override double Evaluate(double val)
         {
             double output = Math.Exp(Operand.Evaluate(val));
-            return output;
-        }
-
-        public override double Derivative(double val)
-        {
-            double output = Math.Exp(Operand.Evaluate(val)) * Operand.Derivative(val);
             return output;
         }
 
@@ -79,7 +47,6 @@ namespace CPP5thSemester
             result = new Multiplication(exp,inExp); 
             return result;
         }
-
         public override bool Simplify(IFunction Operande)
         {
             if (Operand.ToInfix() == "0")
@@ -87,7 +54,6 @@ namespace CPP5thSemester
                 this.Operand = new Numbers(1);
                 return true;
             }
-            //throw new NotImplementedException();
             return false;
         }
     }

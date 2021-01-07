@@ -13,30 +13,21 @@ namespace CPP5thSemester
         {
             this.value = value;
         }
-
         public override string BinaryTree()
         {
             return "\nnode" + this.Id + "[label = \"" + this.value + "\" ]\n";
         }
-
         public override double Evaluate(double val)
         {
             return val ;
         }
-
         public override string ToInfix()
         {
             return this.value;
         }
-
         public override string ToPrefix()
         {
             return this.value;
-        }
-
-        public override double Derivative(double val)
-        {
-            return 1;
         }
         public override IFunction derivative()
         {
@@ -44,7 +35,6 @@ namespace CPP5thSemester
             f = new Numbers(1);
             return f;
         }
-
         public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();

@@ -17,7 +17,6 @@ namespace CPP5thSemester
         List<Point> points = new List<Point>();
         private int NrOfPoints;
         private double[,] matrix;
-
         public Matrix(int kNrOfPoints, List<Point> kpoints)
         {
             foreach (var item in kpoints)
@@ -27,8 +26,6 @@ namespace CPP5thSemester
             NrOfPoints = kNrOfPoints;
             matrix = new double[kNrOfPoints, kNrOfPoints + 2]; //addded one more cols
         }
-
-
         public double[,] loadArr()
         {
             int deg = NrOfPoints - 1;
@@ -46,8 +43,6 @@ namespace CPP5thSemester
             {
                 matrix[i, col] = points[i].Y;
             }
-
-
             return matrix;
         }
 
@@ -63,7 +58,6 @@ namespace CPP5thSemester
                     Console.WriteLine("a[{0},{1} = {2}]", i, j, loadArr[i, j]);
                 }
             }
-
             /*********************************/
             //solve the system of equation 
             const double tiny = 0.00001;
@@ -143,7 +137,6 @@ namespace CPP5thSemester
                     }
                     arr[r, NrOfPoints + 1] = tmp / arr[r, r];
                 }
-
                 //display the result 
                 for (int r = 0; r < NrOfPoints; r++)
                 {

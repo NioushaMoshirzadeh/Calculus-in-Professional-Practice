@@ -16,8 +16,6 @@ namespace CPP5thSemester
         {
             this.Toleft = toleft;
             this.ToRight = toright;
-
-
         }
         public override double Evaluate(double val)
         {
@@ -28,8 +26,6 @@ namespace CPP5thSemester
             double evaluation = Toleft.Evaluate(val) / ToRight.Evaluate(val);
             return evaluation;
         }
-
-
         public override string ToInfix()
         {
             string toprefixvalue = Toleft.ToInfix() + ToRight.ToInfix();
@@ -41,7 +37,6 @@ namespace CPP5thSemester
             string toprefixvalue = Toleft.ToPrefix() + ToRight.ToPrefix();
             return toprefixvalue;
         }
-
         public override string BinaryTree()
         {
             String temp = "\nnode" + this.Id + " [ label = \"/\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
@@ -49,20 +44,11 @@ namespace CPP5thSemester
             temp += Toleft.BinaryTree();
             temp += "node" + this.Id + " -- node" + ToRight.Id + "[shape=record,color=purple]\n";
             temp += ToRight.BinaryTree();
-
             return temp;
         }
-
-        public override double Derivative(double val)
-        {
-            double dev = ((Toleft.Derivative(val) * ToRight.Evaluate(val)) - (ToRight.Derivative(val) * Toleft.Evaluate(val))) / Math.Pow(ToRight.Evaluate(val),2);
-            return dev;
-        }
-
         public override IFunction derivative()
         {
             IFunction  devisionDderivative, leftabove,rightabove, minusAboveDevision, powerDown;
-            
             leftabove = new Multiplication(Toleft.derivative(), ToRight);
             rightabove = new Multiplication(Toleft, ToRight.derivative());
             minusAboveDevision= new MinusFunction(leftabove,rightabove);
@@ -70,7 +56,6 @@ namespace CPP5thSemester
             devisionDderivative = new DevisionFunction(minusAboveDevision, powerDown);
             return devisionDderivative;
         }
-
         public override bool Simplify(IFunction derivative)
         {
             throw new NotImplementedException();

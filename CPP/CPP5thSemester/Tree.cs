@@ -9,7 +9,6 @@ namespace CPP5thSemester
     class Tree
     {
         Node top;
-
         public Tree()
         {
             top = null;
@@ -18,7 +17,6 @@ namespace CPP5thSemester
         {
             top = new Node(initial);
         }
-
         public void Add(int value)
         {
             //non-recurse add(to add the value to the binary tree)
@@ -104,7 +102,6 @@ namespace CPP5thSemester
             {
                 Print(N.left, ref s);
                 s = s + N.value.ToString().PadLeft(3);
-
             }
             else
             {

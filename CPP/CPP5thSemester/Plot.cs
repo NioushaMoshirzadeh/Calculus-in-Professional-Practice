@@ -9,7 +9,6 @@ namespace CPP5thSemester
 {
     class Plot
     {
-        
             //class to plot x and y values on a form
             //
             //because on the form coordinates start at the upper left corner with 0,0
@@ -62,6 +61,5 @@ namespace CPP5thSemester
                 w = _ClientArea.Height / _Yspan * Y + _ClientArea.Height / 2;
                 return Convert.ToInt32(w);
             }
-        
     }
 }

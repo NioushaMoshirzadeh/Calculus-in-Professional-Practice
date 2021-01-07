@@ -114,12 +114,12 @@ namespace CPP5thSemester
             string value_y = chart1.ChartAreas[0].CursorY.SelectionEnd.ToString();
             lbX.Text = "CursurX value is :" + value;
             lbY.Text = "CursurY value is :" + value_y;
-            /* plot the derivative */
-            for (float i = -5; i < 5; i += 0.1F)
-            {
-                 double derivativeOutput = root.Derivative(i);
-                chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
-            }
+            ///* plot the derivative */
+            //for (float i = -5; i < 5; i += 0.1F)
+            //{
+            //     double derivativeOutput = root.Derivative(i);
+            //    chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
+            //}
         }
         private void btnPars_Click(object sender, EventArgs e)
         {
@@ -191,31 +191,22 @@ namespace CPP5thSemester
                     coordinates.Remove(item);
                 }
 
-            //-----Chart1-----
-            double derivativeOutput;
-            for (float i = -5; i < 5; i += 0.1F)
-            {
-                derivativeOutput = root.Derivative(i);
+            ////-----Chart1-----
+            //double derivativeOutput;
+            //for (float i = -5; i < 5; i += 0.1F)
+            //{
+            //    derivativeOutput = root.Derivative(i);
 
-                Console.WriteLine(derivativeOutput);
+            //    Console.WriteLine(derivativeOutput);
 
-                chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
-            }
+            //    chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
+            //}
 
             /*plot on the pictureBox*/
             zoomValue = trackBar1.Value;
             orgX = pictureBox1.Width / 2;
             orgY = pictureBox1.Height / 2;
             derivativePen = new Pen(Brushes.Red, 2.0F);
-
-            //for (float i = -orgX; i < pictureBox1.Height; i += 0.01f)
-            //{
-            //    double X = (double)i;
-            //    float Y = (float)root.Derivative(X) * zoomValue;
-            //    float Y2 = ((float)root.Derivative(i + 0.1) * zoomValue);
-            //    if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height)
-            //        g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
-            //}
 
             /* plot Newton's derivative with pen purple */
             derivativePen = new Pen(Brushes.Purple, 2.0F);
