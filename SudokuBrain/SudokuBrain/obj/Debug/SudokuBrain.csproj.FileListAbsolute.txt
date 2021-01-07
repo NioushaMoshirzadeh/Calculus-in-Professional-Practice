@@ -1,0 +1,10 @@
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.csprojAssemblyReference.cache
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.Form1.resources
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.Properties.Resources.resources
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.csproj.GenerateResource.cache
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.csproj.CoreCompileInputs.cache
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\bin\Debug\SudokuBrain.exe.config
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\bin\Debug\SudokuBrain.exe
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\bin\Debug\SudokuBrain.pdb
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.exe
+C:\Users\nisha\Documents\my-git-project\SudokuBrain\SudokuBrain\obj\Debug\SudokuBrain.pdb
