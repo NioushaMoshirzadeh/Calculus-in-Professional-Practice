@@ -8,6 +8,7 @@ namespace CPP5thSemester
 {
     class Expotential:AbstractClass, IFunction
     {
+        double eValue = 2.718281828;
         public IFunction Operand { get; set;}
         public Expotential() : base() { }
         public Expotential(IFunction operand) : base()
@@ -35,6 +36,11 @@ namespace CPP5thSemester
         }
         public override double Evaluate(double val)
         {
+            
+            if (Operand == null)
+            {
+                return eValue;
+            }
             double output = Math.Exp(Operand.Evaluate(val));
             return output;
         }
@@ -47,14 +53,16 @@ namespace CPP5thSemester
             result = new Multiplication(exp,inExp); 
             return result;
         }
-        public override bool Simplify(IFunction Operande)
+        public override IFunction Simplify()
         {
-            if (Operand.ToInfix() == "0")
+            if (this.Operand.GetType() == typeof(Numbers))
             {
-                this.Operand = new Numbers(1);
-                return true;
+                if (Operand.ToInfix() == "0")
+                {
+                    return new Numbers(1);
+                }
             }
-            return false;
+            return new Expotential(this.Operand);
         }
     }
 }

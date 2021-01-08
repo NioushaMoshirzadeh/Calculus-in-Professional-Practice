@@ -114,12 +114,6 @@ namespace CPP5thSemester
             string value_y = chart1.ChartAreas[0].CursorY.SelectionEnd.ToString();
             lbX.Text = "CursurX value is :" + value;
             lbY.Text = "CursurY value is :" + value_y;
-            ///* plot the derivative */
-            //for (float i = -5; i < 5; i += 0.1F)
-            //{
-            //     double derivativeOutput = root.Derivative(i);
-            //    chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
-            //}
         }
         private void btnPars_Click(object sender, EventArgs e)
         {
@@ -191,17 +185,6 @@ namespace CPP5thSemester
                     coordinates.Remove(item);
                 }
 
-            ////-----Chart1-----
-            //double derivativeOutput;
-            //for (float i = -5; i < 5; i += 0.1F)
-            //{
-            //    derivativeOutput = root.Derivative(i);
-
-            //    Console.WriteLine(derivativeOutput);
-
-            //    chart1.Series["Derivative_graph"].Points.AddXY(i, derivativeOutput);
-            //}
-
             /*plot on the pictureBox*/
             zoomValue = trackBar1.Value;
             orgX = pictureBox1.Width / 2;
@@ -248,7 +231,6 @@ namespace CPP5thSemester
                 }
             g.DrawEllipse(pen, new Rectangle(e.X, e.Y, 5, 5));
             g.Save();
-
         }
 
         private void BtnIntegral_Click(object sender, EventArgs e)
@@ -410,6 +392,7 @@ namespace CPP5thSemester
                             coefficient[i] = result;
                     }
                 }
+
                 //DrawBinaryTreeMCLauran(root);
                 DrawGridLines();
                 for (int i = 7; i >= 0; i--)
@@ -461,7 +444,6 @@ namespace CPP5thSemester
             {
                 return number * Factorial(number - 1);
             }
-
         }
 
         private void DrawGridLines()

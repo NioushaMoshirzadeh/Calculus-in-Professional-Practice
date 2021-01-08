@@ -43,7 +43,7 @@ namespace CPP5thSemester
             Console.WriteLine(f.ToInfix());
             return f;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
             throw new NotImplementedException();
         }

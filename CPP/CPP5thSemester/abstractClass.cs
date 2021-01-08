@@ -32,6 +32,6 @@ namespace CPP5thSemester
         public abstract string BinaryTree();
         public abstract double Evaluate(double val);
         public abstract IFunction derivative();
-        public abstract bool Simplify(IFunction derivative);
+        public abstract IFunction Simplify();
     }
 }

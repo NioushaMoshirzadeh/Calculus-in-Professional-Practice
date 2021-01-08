@@ -54,9 +54,26 @@ namespace CPP5thSemester
             addDderivative = new AddFunction(leftSide, rightSide);
             return addDderivative;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
-            throw new NotImplementedException();
+            if (Toleft.GetType() == typeof(Numbers))
+            {
+                if (Toleft.ToInfix() == "0")
+                {
+                    return ToRight;
+                }
+                
+            }
+            if (ToRight.GetType() == typeof(Numbers))
+            {
+                if (ToRight.ToInfix() == "0")
+                {
+                    return Toleft;
+                }
+                return new AddFunction(Toleft, ToRight);
+            }
+            else
+              return new AddFunction(Toleft, ToRight);
         }
     }
 }

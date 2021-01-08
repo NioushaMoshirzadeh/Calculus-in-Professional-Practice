@@ -38,7 +38,7 @@ namespace CPP5thSemester
             {
                 throw new Exception("ln(0) is undefined, therefore Ln doesn't have the MClaurin series!");
             }
-            double output = Math.Log(Operand.Evaluate(val));
+            double output = Math.Log(Operand.Evaluate(val)); //calculate log on base e
             return output;
         }
 
@@ -49,9 +49,24 @@ namespace CPP5thSemester
             lnDerivative = new DevisionFunction(numerator, Operand);
             return lnDerivative;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
-            throw new NotImplementedException();
+            
+            if (Operand.GetType() == typeof(Numbers))
+            {
+                if (Operand.ToInfix() == "1")
+                {
+                    return new Numbers(0);
+                }
+            }
+            if (Operand.GetType() == typeof(RealNumber))
+            {
+                if (Operand.ToInfix() == "2.718281")
+                {
+                    return new Numbers(1);
+                }
+            }
+           return new Ln(this.Operand);
         }
     }
 }

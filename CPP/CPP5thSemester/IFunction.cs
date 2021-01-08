@@ -14,7 +14,7 @@ namespace CPP5thSemester
         string BinaryTree();
         double Evaluate(double val);
         IFunction derivative();
-        bool Simplify(IFunction derivative);
+        IFunction Simplify();
 
 
     }

@@ -54,9 +54,24 @@ namespace CPP5thSemester
             multiderivative = new Multiplication(leftFinalintNr,powerDderivative);
             return multiderivative;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
-            throw new NotImplementedException();
+            if (Operandright.GetType() == typeof(Numbers))
+            {
+                if (Operandright.ToInfix() == "0")
+                {
+                    return new Numbers(1);
+                }
+                else if (Operandright.ToInfix() == "1")
+                {
+                    return Operandleft;
+                }
+                return new Power(Operandleft, Operandright);
+            }
+            else
+            {
+                return new Power(Operandleft, Operandright);
+            }
         }
     }
 }

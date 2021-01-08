@@ -9,6 +9,7 @@ namespace CPP5thSemester
     class XValue : AbstractClass, IFunction
     {
         public string value { get; set; }
+        public XValue() { }
         public XValue(string value)
         {
             this.value = value;
@@ -35,9 +36,11 @@ namespace CPP5thSemester
             f = new Numbers(1);
             return f;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
-            throw new NotImplementedException();
+            IFunction f;
+            f = new XValue();
+            return f;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace CPP5thSemester
             minusS = new Multiplication(new Numbers(-1), s);
             return minusS;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
             throw new NotImplementedException();
         }

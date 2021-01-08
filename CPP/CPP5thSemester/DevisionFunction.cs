@@ -56,9 +56,23 @@ namespace CPP5thSemester
             devisionDderivative = new DevisionFunction(minusAboveDevision, powerDown);
             return devisionDderivative;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
-            throw new NotImplementedException();
+            if (ToRight.GetType() == typeof(Numbers))
+            {
+                if (ToRight.ToInfix() == "0")
+                {
+                    throw new Exception("Can not divide by zero!");
+                }
+            }
+            if (Toleft.GetType() == typeof(Numbers))
+            {
+                if (Toleft.ToInfix() == "0")
+                {
+                    return new Numbers(0);
+                }
+            }
+            return new DevisionFunction(Toleft, ToRight);
         }
 
     }

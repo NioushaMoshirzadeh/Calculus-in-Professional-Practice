@@ -96,12 +96,11 @@ namespace CPP5thSemester
 
                     case 'l':
                         s = s.Remove(0, 1);
-                        s = s.Remove(0, 1);
-                        IFunction val =null;
-                        int length = s.Length;
-                        val = fpa(ref s);
+                        s = s.Remove(0, 1); 
+                        IFunction val = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new Ln(val);
+                        f = f.Simplify();
                         return f;
 
                     case '+':
@@ -112,7 +111,7 @@ namespace CPP5thSemester
                         IFunction right = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new AddFunction(left, right);
-                       AddFunction a = new AddFunction(left, right);
+                        f = f.Simplify();
                         return f;
 
                     case '-':
@@ -123,6 +122,7 @@ namespace CPP5thSemester
                         IFunction rightMinus = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new MinusFunction(leftMinus, rightMinus);
+                        f = f.Simplify();
                         return f;
 
                     case 's':
@@ -141,6 +141,7 @@ namespace CPP5thSemester
                         IFunction right2 = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new Power(left1,right2);
+                        f = f.Simplify();
                         return f;
 
                     case 'n':
@@ -183,6 +184,7 @@ namespace CPP5thSemester
                         IFunction rightMuiltiplication = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new Multiplication(leftMuiltiplication, rightMuiltiplication);
+                        f = f.Simplify();
                         return f;
 
                     case '/':
@@ -193,6 +195,7 @@ namespace CPP5thSemester
                         IFunction rightDevision = fpa(ref s);
                         s = s.Remove(0, 1);
                         f = new DevisionFunction(leftDevision, rightDevision);
+                        f = f.Simplify();
                         return f;
 
                     case 'c':
@@ -205,10 +208,19 @@ namespace CPP5thSemester
 
                     case 'e':
                         s = s.Remove(0, 1);
-                        s = s.Remove(0, 1);                       
-                        IFunction innerEqExp = fpa(ref s);
-                        f = new Expotential(innerEqExp);
-                        s = s.Remove(0, 1);
+                        string[] myExponential = s.Split(new char[] { '(', ')', ',' });
+                        if (myExponential[1] == "") // l(e)
+                        {
+                            f = new RealNumber((decimal)2.718281);
+                        }
+                        else
+                        {
+                            s = s.Remove(0, 1);
+                            IFunction innerEqExp = fpa(ref s);
+                            f = new Expotential(innerEqExp);
+                            f = f.Simplify();
+                            s = s.Remove(0, 1);
+                        }
                         return f;
                     default:
                         MessageBox.Show("unhandled value for the input textbox: " + s[0]);

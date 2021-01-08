@@ -37,7 +37,7 @@ namespace CPP5thSemester
             IFunction f = new Numbers(0);
             return f;
         }
-        public override bool Simplify(IFunction derivative)
+        public override IFunction Simplify()
         {
             throw new NotImplementedException();
         }

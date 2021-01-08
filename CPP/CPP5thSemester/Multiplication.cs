@@ -48,10 +48,25 @@ namespace CPP5thSemester
             multipleDderivative = new AddFunction(leftSide, rightSide);
             return multipleDderivative;
         }
-
-        public override bool Simplify(IFunction Operand)
+        public override IFunction Simplify()
         {
-             throw new NotImplementedException(); 
+            if (Toleft.GetType() == typeof(Numbers))
+            {
+                if (Toleft.ToInfix() == "0")
+                {
+                    return new Numbers(0);
+                }
+            }
+            if (ToRight.GetType() == typeof(Numbers))
+            {
+                if (ToRight.ToInfix() == "0")
+                {
+                    return new Numbers(0);
+                }
+                return new Multiplication(Toleft, ToRight);
+            }
+            else
+                return new Multiplication(Toleft, ToRight);
         }
     }
 }
