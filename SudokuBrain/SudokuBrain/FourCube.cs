@@ -11,10 +11,9 @@ namespace SudokuBrain
         public int dimention { get; set; }
         CubeCell[,,,] cubeCells = new CubeCell[4, 9, 9, 9]; //[cube numebr] [azimuthal] [columm] [row] 
         private enum blockPart { First, Second, Third, fourth, fifth, sixth, seventh, eight, ninth}
-        FourCube() { }
+        public FourCube() { }
         public FourCube(int [,] Sudoku)
         {
-       
             for (int cc = 0; cc < 4; cc++)
             {
                 for (int r = 0; r < 9; r++)             //Counting of Cubes cells starts from 0 to 8
@@ -25,9 +24,10 @@ namespace SudokuBrain
                         {
                             for (int a = 0; a < 9; a++)
                             {
-                                cubeCells[cc, r, c, a] = new CubeCell();
-                                cubeCells[cc, r, c, a].confidence = 0;
-                                cubeCells[cc, r, c, a].isClue = false;
+                                cubeCells[cc, a, c, r] = new CubeCell();
+                                cubeCells[cc, a, c, r].confidence = 0;
+                                cubeCells[cc, a, c, r].isClue = false;
+                               // Console.WriteLine("cubecells[cc{0} , d{1}, c{2}, r{3}]:Confidence{4}\t", cc, a, c, r, cubeCells[cc, a, c, r].confidence);
                             }
 
                         }
@@ -41,9 +41,9 @@ namespace SudokuBrain
                     }
 
                 }
+                //Console.WriteLine("\n");
             }
         }
-
         private void SetRowCubeCells(int row, int digit, int cc)  //[cube numebr] [azimuthal] [columm] [row]
         {
             for (int c = 0; c < 9; c++)
@@ -56,8 +56,10 @@ namespace SudokuBrain
                 else
                 {
                     this.cubeCells[cc, digit - 1, c, row].confidence = 0;
-                }  
+                }
                 this.cubeCells[cc, digit - 1, c, row].isClue = true;
+                //Console.WriteLine("Row:cubecells[cc{0} , d{1}, c{2}, r{3}]:Confid {4}\t", cc, digit - 1, c, row, this.cubeCells[cc, digit - 1, c, row].confidence);
+                //Console.WriteLine("\n");
             }
 
         }
@@ -75,6 +77,8 @@ namespace SudokuBrain
                     this.cubeCells[cc, digit - 1, column, r].confidence = 0;
                 }
                 this.cubeCells[cc, digit - 1, column, r].isClue = true;
+                //Console.WriteLine("Column:cubecells[cc{0} , d{1}, c{2}, r{3}]:Confid {4}\t", cc, digit - 1, column, r, this.cubeCells[cc, digit - 1, column, r].confidence);
+                //Console.WriteLine("\n");
             }
         }
 
@@ -83,7 +87,7 @@ namespace SudokuBrain
             int rowRange    = 0;
             int columnRange = 0;
             int blockPart   = 0;
-            cubeCells[cn, digit - 1, column, row] = new CubeCell();
+            
             //checking the row rang
             if (row <= 2)
             {
@@ -97,7 +101,6 @@ namespace SudokuBrain
             {
                 rowRange = 2;
             }
-
             //checing the column range
             if (column <= 2)
             {
@@ -111,7 +114,6 @@ namespace SudokuBrain
             {
                 columnRange = 2;
             }
-
             //assining the block part
             if (rowRange == 0 && columnRange == 0)
             {
@@ -149,10 +151,10 @@ namespace SudokuBrain
             {
                 blockPart = 8;
             }
-
             //filling cubeCells parameter in its cube part
             switch (blockPart)
             {
+                
                 case 0:
                     for (int r = 0; r < 3; r++)
                     {
@@ -162,12 +164,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++)
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit - 1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else   
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue     = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -183,12 +189,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++)
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit - 1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -203,12 +213,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit -1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -223,12 +237,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit -1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -243,12 +261,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit -1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("bock:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -263,12 +285,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit -1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -283,12 +309,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit - 1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -303,12 +333,16 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit - 1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
@@ -323,31 +357,34 @@ namespace SudokuBrain
                             {
                                 for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
                                 {
+                                    cubeCells[cn, a, column, row] = new CubeCell();
                                     if (a == digit - 1)
                                     {
                                         cubeCells[cn, a, c, r].confidence = 1;
                                     }
-                                    cubeCells[cn, a, c, r].confidence = 0;
+                                    else
+                                        cubeCells[cn, a, c, r].confidence = 0;
                                     cubeCells[cn, a, c, r].isClue = true;
+                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                                    //Console.WriteLine("\n");
                                 }
                             }
                         }
                     }
-                    break;
+                break;
             }
-
-        }
-
-        FourCube Equalizer()
+        }//end of SetBlockCubeCells
+        public FourCube Equalizer()
         {
-            FourCube res = new FourCube();
+            int[,] Clue = new int[9, 9];
+            FourCube fc = new FourCube(Clue) { };
             for (int i = 0; i < 9; i++)
             {
                 for (int k = 0; k < 9; k++)
                 {
                     for (int h = 0; h < 9; h++)
                     {
-                        if (!cubeCells[3,i,k,h].isClue)
+                        if (!cubeCells[0, i, k, h].isClue)
                         {
                             double ave = cubeCells[0, i, k, h].confidence + cubeCells[1, i, k, h].confidence
                                         + cubeCells[2, i, k, h].confidence + cubeCells[3, i, k, h].confidence;
@@ -356,15 +393,32 @@ namespace SudokuBrain
                             cubeCells[1, i, k, h].confidence = ave;
                             cubeCells[2, i, k, h].confidence = ave;
                             cubeCells[3, i, k, h].confidence = ave;
+                            fc.cubeCells[0, i, k, h].confidence = cubeCells[0, i, k, h].confidence;
+                            fc.cubeCells[1, i, k, h].confidence = cubeCells[1, i, k, h].confidence;
+                            fc.cubeCells[2, i, k, h].confidence = cubeCells[2, i, k, h].confidence;
+                            fc.cubeCells[3, i, k, h].confidence = cubeCells[3, i, k, h].confidence;
                         }
+                        else
+                        {
+                            cubeCells[0, i, k, h].confidence = 1;
+                            cubeCells[1, i, k, h].confidence = 1;
+                            cubeCells[2, i, k, h].confidence = 1;
+                            cubeCells[3, i, k, h].confidence = 1;
+                            fc.cubeCells[0, i, k, h].confidence = cubeCells[0, i, k, h].confidence;
+                            fc.cubeCells[1, i, k, h].confidence = cubeCells[1, i, k, h].confidence;
+                            fc.cubeCells[2, i, k, h].confidence = cubeCells[2, i, k, h].confidence;
+                            fc.cubeCells[3, i, k, h].confidence = cubeCells[3, i, k, h].confidence;
+                        }
+                        return fc;
                     }
                 }
             }
-            return res;
-        }
-        FourCube Selector()
+            return null;
+        }//end of Equalizer
+        public FourCube Selector()
         {
-            FourCube res = new FourCube();
+            int[,] Clue = new int[9, 9];
+            FourCube fc = new FourCube(Clue) { };
             // j = azimuthal k = column h = row
 
             //selector neuron on 1st cube [0][][][] azimuthal axis
@@ -373,165 +427,183 @@ namespace SudokuBrain
             {
                 for (int h = 0; h < 9; h++)
                 {
-                    double min_val = (-1) * double.MaxValue;
-                    int max_position = -1;
+                    double maxValue = (-1) * double.MaxValue;
+                    int positionOfMax = -1;
                     for (int j = 0; j < 9; j++)
                     {
-                        if (cubeCells[0,j,k,h].confidence < min_val) //wrong
+                        if (cubeCells[0,j,k,h].confidence > maxValue)
                         {
-                            max_position = j;
-                            min_val = cubeCells[0,j,k,h].confidence;
+                            maxValue = cubeCells[0, j, k, h].confidence;
                             cubeCells[0, j, k, h].confidence = 0;
+                            fc.cubeCells[0, j, k, h].confidence = cubeCells[0, j, k, h].confidence;
+                            positionOfMax = j;
+                        }
+                        else
+                        {
+                            cubeCells[0, j, k, h].confidence = 0;
+                            fc.cubeCells[0, j, k, h].confidence = cubeCells[0, j, k, h].confidence;
                         }
                     }
-                    if (max_position != -1 ) //wrong
+                    if (positionOfMax != -1)
                     {
-                        cubeCells[0,max_position,k,h].confidence = 1;
+                        cubeCells[0, positionOfMax, k, h].confidence = 1;
+                        fc.cubeCells[0, positionOfMax, k, h].confidence = cubeCells[0, positionOfMax, k, h].confidence;
                     }
                 }
             }
-
             //selector neuron on 2nd cube [1][][][] column axis
             //---------------------------------------------------------------
             for (int j = 0; j < 9; j++)
             {
                 for (int h = 0; h < 9; h++)
                 {
-                    double min_val = (-1) * double.MaxValue;
-                    int max_position = -1;
+                    double maxValue = (-1) * double.MaxValue;
+                    int positionOfMax = -1;
                     for (int k = 0; k < 9; k++)
                     {
-                        if (cubeCells[1,j,k,h].confidence < min_val)
+                        if (cubeCells[1,j,k,h].confidence > maxValue)
                         {
-                            max_position = k;
-                            min_val = cubeCells[1, j, k, h].confidence;
+                            maxValue = cubeCells[1, j, k, h].confidence;
                             cubeCells[1, j, k, h].confidence = 0;
+                            fc.cubeCells[1, j, k, h].confidence = cubeCells[1, j, k, h].confidence;
+                            positionOfMax =j;
+                        }
+                        else
+                        {
+                            cubeCells[1, j, k, h].confidence = 0;
+                            fc.cubeCells[1, j, k, h].confidence = cubeCells[1, j, k, h].confidence;
                         }
                     }
-                    if (max_position != -1)
+                    if (positionOfMax != -1)
                     {
-                        cubeCells[1, j, max_position, h].confidence = 1;
+                        cubeCells[1, j, positionOfMax, h].confidence = 1;
+                        fc.cubeCells[1, j, positionOfMax, h].confidence = cubeCells[1, j, positionOfMax, h].confidence;
                     }
                 }
             }
-
             //selector neuron on 3rd cube [2][][][] row axis
             //---------------------------------------------------------------
             for (int k = 0; k < 9; k++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    double min_val = (-1) * double.MaxValue;
-                    int max_position = -1;
+                    double maxValue = (-1) * double.MaxValue;
+                    int positionOfMax = -1;
                     for (int h = 0; h < 9; h++)
                     {
-                        if (cubeCells[2, j, k, h].confidence < min_val)
+                        if (cubeCells[2, j, k, h].confidence > maxValue)
                         {
-                            max_position = h;
-                            min_val = cubeCells[2, j, k, h].confidence;
-                            cubeCells[2, j, k, h].confidence= 0; // not sure about the fist index
+                            maxValue = cubeCells[2, j, k, h].confidence;
+                            cubeCells[2, j, k, h].confidence= 0;
+                            fc.cubeCells[2, j, k, h].confidence = cubeCells[2, j, k, h].confidence;
+                            positionOfMax = j;
+                        }
+                        else
+                        {
+                            cubeCells[2, j, k, h].confidence = 0;
+                            fc.cubeCells[2, j, k, h].confidence = cubeCells[2, j, k, h].confidence;
                         }
                     }
-                    if (max_position != -1)
+                    if (positionOfMax != -1)
                     {
-                        cubeCells[2, j, k, max_position].confidence = 1;
+                        cubeCells[2, j, k, positionOfMax].confidence = 1;
+                        fc.cubeCells[2, j, k, positionOfMax].confidence = cubeCells[2, j, k, positionOfMax].confidence;
                     }
                 }
             }
-
             //selector neuron on 4th cube [3][][][]
             //---------------------------------------------------------------
             for (int j = 0; j < 9; j++)
             {
-                double min_val = (-1) * double.MaxValue;
+                double maxValue = (-1) * double.MaxValue;
                 int max_positionH = -1;
                 int max_positionK = -1;
                 for (int h = 0; h < 9; h += 3)
                 {
                     for (int k = 0; k < 9; k += 3)
                     {
-                        //
                         for (int hh = 0; hh < 3; hh++)
                         {
                             for (int kk = 0; kk < 3; kk++)
                             {
-                                if (cubeCells[3,j,(k + kk),(h + hh)].confidence < min_val)
+                                if (cubeCells[3,j,(k + kk),(h + hh)].confidence > maxValue)
                                 {
                                     max_positionH = h + hh;
                                     max_positionK = k + kk;
-                                    min_val = cubeCells[2,j,k,h].confidence;
-                                    cubeCells[0,j,k + kk,h + hh].confidence = 0;
+                                    maxValue = cubeCells[3,j,k,h].confidence;
+                                    cubeCells[3,j,k + kk,h + hh].confidence = 0;
+                                    fc.cubeCells[3, j, k + kk, h + hh].confidence = cubeCells[3, j, k + kk, h + hh].confidence;
+                                }
+                                else
+                                {
+                                    cubeCells[3, j, k + kk, h + hh].confidence = 0;
+                                    fc.cubeCells[3, j, k + kk, h + hh].confidence = cubeCells[3, j, k + kk, h + hh].confidence;
                                 }
                             }
                         }
                     }
-                    if (max_positionH != -1)
+                }
+                if (max_positionH != -1) // not sure that it should be defined here????
+                {
+                    cubeCells[3, j, max_positionK, max_positionH].confidence = 1;
+                    fc.cubeCells[3, j, max_positionK, max_positionH].confidence = cubeCells[3, j, max_positionK, max_positionH].confidence;
+                }
+            }
+            return null;
+        }//end of Selector
+        public FourCube Plus(FourCube fc)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    for (int k = 0; k < 9; k++)
                     {
-                        cubeCells[0,j,max_positionK,max_positionH].confidence = 1;
+                        for (int h = 0; h < 9; h++)
+                        {
+                            fc.cubeCells[i, j, k, h].confidence = this.cubeCells[i, j, k, h].confidence + fc.cubeCells[i, j, k, h].confidence;
+                        }
                     }
                 }
             }
-            return res;
-        }
+            return fc;
+        }//end of Plus
+        public FourCube Min(FourCube fc)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    for (int k = 0; k < 9; k++)
+                    {
+                        for (int h = 0; h < 9; h++)
+                        {
+                            fc.cubeCells[i, j, k, h].confidence = fc.cubeCells[i, j, k, h].confidence - this.cubeCells[i, j, k, h].confidence;
+                        }
+                    }
+                }
+            }
+            return fc;
 
-        //public static  Plus(FourCube Rh)
-        //{
-        //    FourCube res = new FourCube(this.dimention);
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        for (int j = 0; j < 9; j++)
-        //        {
-        //            for (int k = 0; k < 9; k++)
-        //            {
-        //                for (int h = 0; h < 9; h++)
-        //                {
-        //                    res.cubeCells[i,j,k,h] = this.cubeCells[i,j,k,h] + Rh.cubeCells[i,j,k,h];
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return res;
-        //}
-        //FourCube Min(FourCube Rh)
-        //{
-        //    FourCube res = new FourCube(this.dimention);
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        for (int j = 0; j < 9; j++)
-        //        {
-        //            for (int k = 0; k < 9; k++)
-        //            {
-        //                for (int h = 0; h < 9; h++)
-        //                {
-        //                    res.cubeCells[i, j, k, h] = this.cubeCells[i, j, k, h] + Rh.cubeCells[i, j, k, h];
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return res;
-
-        //}
-        //FourCube mult(double v)
-        //{
-        //    FourCube res = new FourCube(this.dimention);
-        //    for (int i = 0; i < 4; i++)
-        //    {
-        //        for (int j = 0; j < 9; j++)
-        //        {
-        //            for (int k = 0; k < 9; k++)
-        //            {
-        //                for (int h = 0; h < 9; h++)
-        //                {
-        //                    res.cubeCells[i, j, k, h] = this.cubeCells[i, j, k, h] * v;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return res;
-
-        //}
-        
-        
-
+        }//end of Minus
+        public FourCube mult(double multipication)
+        {
+            int[,] Clue = new int[9, 9];
+            FourCube fc = new FourCube(Clue) { };
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    for (int k = 0; k < 9; k++)
+                    {
+                        for (int h = 0; h < 9; h++)
+                        {
+                            fc.cubeCells[i, j, k, h].confidence = this.cubeCells[i, j, k, h].confidence * multipication;
+                        }
+                    }
+                }
+            }
+            return fc;
+        }//end of mult
     }
 }

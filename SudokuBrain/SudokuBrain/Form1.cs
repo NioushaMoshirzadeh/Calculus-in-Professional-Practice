@@ -222,7 +222,8 @@ namespace SudokuBrain
         {
             int[,] Clue = new int[9,9];
             Clue = Sample1();
-            FourCube fourCube = new FourCube(Clue) ;
+            Rrr r = new Rrr(Clue);
+            r.Step();
         }//endbtnSolve
 
         private int[,] Sample1()

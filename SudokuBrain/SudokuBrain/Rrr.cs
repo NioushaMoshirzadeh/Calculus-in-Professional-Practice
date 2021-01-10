@@ -8,20 +8,20 @@ namespace SudokuBrain
 {
     public class Rrr
     {
-        
-        public Rrr()
+        FourCube fourCube;
+        public Rrr(int[,] Sudoku)
         {
-           
+            this.fourCube = new FourCube(Sudoku);
         }
-        bool Step()
+        public bool Step()
         {
             //the Formula is y = y + Ps(2*Pe(y) - y) - Pe(y)
             if (true)
             {
+                fourCube = fourCube.Equalizer(); //eq
+                fourCube = fourCube.mult(2);     //*2 
                 return true;
             }
-            else
-                return false;
             
         }
     }
