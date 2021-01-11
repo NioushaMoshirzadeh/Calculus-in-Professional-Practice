@@ -376,8 +376,8 @@ namespace SudokuBrain
         }//end of SetBlockCubeCells
         public FourCube Equalizer()
         {
-            int[,] Clue = new int[9, 9];
-            FourCube fc = new FourCube(Clue) { };
+            FourCube fc;
+            fc = setClue();
             for (int i = 0; i < 9; i++)
             {
                 for (int k = 0; k < 9; k++)
@@ -389,36 +389,27 @@ namespace SudokuBrain
                             double ave = cubeCells[0, i, k, h].confidence + cubeCells[1, i, k, h].confidence
                                         + cubeCells[2, i, k, h].confidence + cubeCells[3, i, k, h].confidence;
                             ave /= 4;
-                            cubeCells[0, i, k, h].confidence = ave;
-                            cubeCells[1, i, k, h].confidence = ave;
-                            cubeCells[2, i, k, h].confidence = ave;
-                            cubeCells[3, i, k, h].confidence = ave;
-                            fc.cubeCells[0, i, k, h].confidence = cubeCells[0, i, k, h].confidence;
-                            fc.cubeCells[1, i, k, h].confidence = cubeCells[1, i, k, h].confidence;
-                            fc.cubeCells[2, i, k, h].confidence = cubeCells[2, i, k, h].confidence;
-                            fc.cubeCells[3, i, k, h].confidence = cubeCells[3, i, k, h].confidence;
+                            fc.cubeCells[0, i, k, h].confidence = ave;
+                            fc.cubeCells[1, i, k, h].confidence = ave;
+                            fc.cubeCells[2, i, k, h].confidence = ave;
+                            fc.cubeCells[3, i, k, h].confidence = ave;
                         }
                         else
                         {
-                            cubeCells[0, i, k, h].confidence = 1;
-                            cubeCells[1, i, k, h].confidence = 1;
-                            cubeCells[2, i, k, h].confidence = 1;
-                            cubeCells[3, i, k, h].confidence = 1;
-                            fc.cubeCells[0, i, k, h].confidence = cubeCells[0, i, k, h].confidence;
-                            fc.cubeCells[1, i, k, h].confidence = cubeCells[1, i, k, h].confidence;
-                            fc.cubeCells[2, i, k, h].confidence = cubeCells[2, i, k, h].confidence;
-                            fc.cubeCells[3, i, k, h].confidence = cubeCells[3, i, k, h].confidence;
+                            fc.cubeCells[0, i, k, h].confidence = 1;
+                            fc.cubeCells[1, i, k, h].confidence = 1;
+                            fc.cubeCells[2, i, k, h].confidence = 1;
+                            fc.cubeCells[3, i, k, h].confidence = 1;
                         }
-                        return fc;
                     }
                 }
             }
-            return null;
+            return fc;
         }//end of Equalizer
         public FourCube Selector()
         {
-            int[,] Clue = new int[9, 9];
-            FourCube fc = new FourCube(Clue) { };
+            FourCube fc;
+            fc = setClue();
             // j = azimuthal k = column h = row
 
             //selector neuron on 1st cube [0][][][] azimuthal axis
@@ -427,95 +418,114 @@ namespace SudokuBrain
             {
                 for (int h = 0; h < 9; h++)
                 {
-                    double maxValue = (-1) * double.MaxValue;
+                    double maxValue = double.MinValue;
                     int positionOfMax = -1;
                     for (int j = 0; j < 9; j++)
                     {
                         if (cubeCells[0,j,k,h].confidence > maxValue)
                         {
                             maxValue = cubeCells[0, j, k, h].confidence;
-                            cubeCells[0, j, k, h].confidence = 0;
-                            fc.cubeCells[0, j, k, h].confidence = cubeCells[0, j, k, h].confidence;
+                            //cubeCells[0, j, k, h].confidence = 0;
+                            fc.cubeCells[0, j, k, h].confidence = 0;//cubeCells[0, j, k, h].confidence;
+                            //Console.WriteLine("{0}\t", fc.cubeCells[0, j, k, h].confidence);
                             positionOfMax = j;
                         }
                         else
                         {
-                            cubeCells[0, j, k, h].confidence = 0;
-                            fc.cubeCells[0, j, k, h].confidence = cubeCells[0, j, k, h].confidence;
+                            //cubeCells[0, j, k, h].confidence = 0;
+                            fc.cubeCells[0, j, k, h].confidence = 0;// cubeCells[0, j, k, h].confidence;
+                           // Console.WriteLine("{0}\t", fc.cubeCells[0, j, k, h].confidence);
                         }
                     }
                     if (positionOfMax != -1)
                     {
-                        cubeCells[0, positionOfMax, k, h].confidence = 1;
-                        fc.cubeCells[0, positionOfMax, k, h].confidence = cubeCells[0, positionOfMax, k, h].confidence;
+                        //cubeCells[0, positionOfMax, k, h].confidence = 1;
+                        fc.cubeCells[0, positionOfMax, k, h].confidence = 1;// cubeCells[0, positionOfMax, k, h].confidence;
+                       // Console.WriteLine("digitSelector{0}\t", fc.cubeCells[0, positionOfMax, k, h].confidence);
                     }
                 }
+                Console.WriteLine("\n");
             }
+            StepPrinting(fc);
+            //Console.WriteLine("\n");
+            //Console.WriteLine("\n");
             //selector neuron on 2nd cube [1][][][] column axis
             //---------------------------------------------------------------
             for (int j = 0; j < 9; j++)
             {
                 for (int h = 0; h < 9; h++)
                 {
-                    double maxValue = (-1) * double.MaxValue;
+                    double maxValue = double.MinValue;
                     int positionOfMax = -1;
                     for (int k = 0; k < 9; k++)
                     {
                         if (cubeCells[1,j,k,h].confidence > maxValue)
                         {
                             maxValue = cubeCells[1, j, k, h].confidence;
-                            cubeCells[1, j, k, h].confidence = 0;
-                            fc.cubeCells[1, j, k, h].confidence = cubeCells[1, j, k, h].confidence;
+                            //cubeCells[1, j, k, h].confidence = 0;
+                            fc.cubeCells[1, j, k, h].confidence = 0;// cubeCells[1, j, k, h].confidence;
+                            //Console.WriteLine("col{0}\t ", fc.cubeCells[1, j, k, h].confidence);
                             positionOfMax =j;
                         }
                         else
                         {
-                            cubeCells[1, j, k, h].confidence = 0;
-                            fc.cubeCells[1, j, k, h].confidence = cubeCells[1, j, k, h].confidence;
+                            //cubeCells[1, j, k, h].confidence = 0;
+                            fc.cubeCells[1, j, k, h].confidence = 0;// cubeCells[1, j, k, h].confidence;
+                           // Console.WriteLine("col{0}\t", fc.cubeCells[1, j, k, h].confidence);
                         }
                     }
                     if (positionOfMax != -1)
                     {
-                        cubeCells[1, j, positionOfMax, h].confidence = 1;
-                        fc.cubeCells[1, j, positionOfMax, h].confidence = cubeCells[1, j, positionOfMax, h].confidence;
+                        //cubeCells[1, j, positionOfMax, h].confidence = 1;
+                        fc.cubeCells[1, j, positionOfMax, h].confidence = 1;// cubeCells[1, j, positionOfMax, h].confidence;
+                       // Console.WriteLine("col{0}\t ", fc.cubeCells[1, j, positionOfMax, h].confidence);
                     }
                 }
             }
+            StepPrinting(fc);
+            //Console.WriteLine("\n");
+            //Console.WriteLine("\n");
             //selector neuron on 3rd cube [2][][][] row axis
             //---------------------------------------------------------------
             for (int k = 0; k < 9; k++)
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    double maxValue = (-1) * double.MaxValue;
+                    double maxValue = double.MinValue;
                     int positionOfMax = -1;
                     for (int h = 0; h < 9; h++)
                     {
                         if (cubeCells[2, j, k, h].confidence > maxValue)
                         {
                             maxValue = cubeCells[2, j, k, h].confidence;
-                            cubeCells[2, j, k, h].confidence= 0;
-                            fc.cubeCells[2, j, k, h].confidence = cubeCells[2, j, k, h].confidence;
+                            //cubeCells[2, j, k, h].confidence= 0;
+                            fc.cubeCells[2, j, k, h].confidence = 0;// cubeCells[2, j, k, h].confidence;
+                            //Console.WriteLine("row{0}\t", fc.cubeCells[2, j, k, h].confidence);
                             positionOfMax = j;
                         }
                         else
                         {
-                            cubeCells[2, j, k, h].confidence = 0;
-                            fc.cubeCells[2, j, k, h].confidence = cubeCells[2, j, k, h].confidence;
+                            //cubeCells[2, j, k, h].confidence = 0;
+                            fc.cubeCells[2, j, k, h].confidence = 0;// cubeCells[2, j, k, h].confidence;
+                            //Console.WriteLine("row{0}\t", fc.cubeCells[2, j, k, h].confidence);
                         }
                     }
                     if (positionOfMax != -1)
                     {
-                        cubeCells[2, j, k, positionOfMax].confidence = 1;
-                        fc.cubeCells[2, j, k, positionOfMax].confidence = cubeCells[2, j, k, positionOfMax].confidence;
+                        //cubeCells[2, j, k, positionOfMax].confidence = 1;
+                        fc.cubeCells[2, j, k, positionOfMax].confidence = 1;// cubeCells[2, j, k, positionOfMax].confidence;
+                        //Console.WriteLine("row{0}\t", fc.cubeCells[1, j, k, positionOfMax].confidence);
                     }
                 }
             }
+            StepPrinting(fc);
+            //Console.WriteLine("\n");
+            //Console.WriteLine("\n");
             //selector neuron on 4th cube [3][][][]
             //---------------------------------------------------------------
             for (int j = 0; j < 9; j++)
             {
-                double maxValue = (-1) * double.MaxValue;
+                double maxValue = double.MinValue;
                 int max_positionH = -1;
                 int max_positionK = -1;
                 for (int h = 0; h < 9; h += 3)
@@ -531,28 +541,36 @@ namespace SudokuBrain
                                     max_positionH = h + hh;
                                     max_positionK = k + kk;
                                     maxValue = cubeCells[3,j,k,h].confidence;
-                                    cubeCells[3,j,k + kk,h + hh].confidence = 0;
-                                    fc.cubeCells[3, j, k + kk, h + hh].confidence = cubeCells[3, j, k + kk, h + hh].confidence;
+                                    //cubeCells[3,j,k + kk,h + hh].confidence = 0;
+                                    fc.cubeCells[3, j, k + kk, h + hh].confidence = 0;// cubeCells[3, j, k + kk, h + hh].confidence;
+                                    //Console.WriteLine("block{0}\t", fc.cubeCells[3, j, k+kk, h+hh].confidence);
                                 }
                                 else
                                 {
-                                    cubeCells[3, j, k + kk, h + hh].confidence = 0;
-                                    fc.cubeCells[3, j, k + kk, h + hh].confidence = cubeCells[3, j, k + kk, h + hh].confidence;
+                                    //cubeCells[3, j, k + kk, h + hh].confidence = 0;
+                                    fc.cubeCells[3, j, k + kk, h + hh].confidence = 0;// cubeCells[3, j, k + kk, h + hh].confidence;
+                                   // Console.WriteLine("block{0}\t", fc.cubeCells[3, j, k + kk, h + hh].confidence);
                                 }
                             }
                         }
+                        if (max_positionH != -1) // TODO: make sure this is needed!
+                        {
+                            //cubeCells[3, j, max_positionK, max_positionH].confidence = 1;
+                            fc.cubeCells[3, j, max_positionK, max_positionH].confidence = 1;// cubeCells[3, j, max_positionK, max_positionH].confidence;
+                                                                                            //Console.WriteLine("block{0}\t", fc.cubeCells[3, j, max_positionK, max_positionH].confidence);
+                        }
                     }
                 }
-                if (max_positionH != -1) // not sure that it should be defined here????
-                {
-                    cubeCells[3, j, max_positionK, max_positionH].confidence = 1;
-                    fc.cubeCells[3, j, max_positionK, max_positionH].confidence = cubeCells[3, j, max_positionK, max_positionH].confidence;
-                }
             }
-            return null;
+            StepPrinting(fc);
+            //Console.WriteLine("\n");
+            //Console.WriteLine("\n");
+            return fc;
         }//end of Selector
-        public FourCube Plus(FourCube fc)
+        public FourCube Add(FourCube fc)
         {
+            FourCube fcc;
+            fcc = setClue();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 9; j++)
@@ -561,15 +579,17 @@ namespace SudokuBrain
                     {
                         for (int h = 0; h < 9; h++)
                         {
-                            fc.cubeCells[i, j, k, h].confidence = this.cubeCells[i, j, k, h].confidence + fc.cubeCells[i, j, k, h].confidence;
+                            fcc.cubeCells[i, j, k, h].confidence = this.cubeCells[i, j, k, h].confidence + fc.cubeCells[i, j, k, h].confidence;
                         }
                     }
                 }
             }
-            return fc;
+            return fcc;
         }//end of Plus
-        public FourCube Min(FourCube fc)
+        public FourCube Subtract(FourCube fc)
         {
+            FourCube fcc;
+            fcc = setClue();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 9; j++)
@@ -578,18 +598,18 @@ namespace SudokuBrain
                     {
                         for (int h = 0; h < 9; h++)
                         {
-                            fc.cubeCells[i, j, k, h].confidence = fc.cubeCells[i, j, k, h].confidence - this.cubeCells[i, j, k, h].confidence;
+                            fcc.cubeCells[i, j, k, h].confidence = fc.cubeCells[i, j, k, h].confidence - this.cubeCells[i, j, k, h].confidence;
                         }
                     }
                 }
             }
-            return fc;
+            return fcc;
 
         }//end of Minus
         public FourCube mult(double multipication)
         {
-            int[,] Clue = new int[9, 9];
-            FourCube fc = new FourCube(Clue) { };
+            FourCube fc;
+            fc = setClue();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 9; j++)
@@ -605,5 +625,69 @@ namespace SudokuBrain
             }
             return fc;
         }//end of mult
+
+        public bool Comparator()
+        {
+            while (true)
+            {
+                for (int CubeNr = 0; CubeNr < 3; CubeNr++)
+                {
+                    for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                    {
+                        for (int column = 0; column < 9; column++)
+                        {
+                            for (int row = 0; row < 9; row++)
+                            {
+                                if (cubeCells[CubeNr, azimuthal, column, row].confidence == cubeCells[CubeNr + 1, azimuthal, column, row].confidence)
+                                    continue;
+                                else
+                                    return false;
+                            }
+                        }
+                    }
+                }
+                return true;
+            }
+        }
+        private FourCube setClue()
+        {
+            int[,] Clue = new int[9, 9];
+            FourCube fc = new FourCube(Clue) { };
+            for (int CubeNr = 0; CubeNr < 4; CubeNr++)
+            {
+                for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                {
+                    for (int column = 0; column < 9; column++)
+                    {
+                        for (int row = 0; row < 9; row++)
+                        {
+                            fc.cubeCells[CubeNr, azimuthal, column, row].isClue = this.cubeCells[CubeNr, azimuthal, column, row].isClue;
+                        }
+                    }
+                }
+            }
+            return fc;
+        }
+
+        public void StepPrinting(FourCube fc)
+        {
+            for (int CubeNr = 0; CubeNr < 3; CubeNr++)
+            {
+                for (int column = 0; column < 9; column++)
+                {
+                    for (int row = 0; row < 9; row++)
+                    {
+                        Console.WriteLine("row:{0} col{1}\t", row, column);
+                        for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                        {
+                            Console.WriteLine("d{0} \t", fc.cubeCells[CubeNr, azimuthal, column, row].confidence);
+                        }
+                        Console.WriteLine("\n");  
+                    }
+                }
+            }
+        }
     }
+
+   
 }

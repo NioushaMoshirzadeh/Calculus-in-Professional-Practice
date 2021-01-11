@@ -220,10 +220,12 @@ namespace SudokuBrain
 
         private void BtnSolve_Click(object sender, EventArgs e)
         {
+            bool st;
             int[,] Clue = new int[9,9];
             Clue = Sample1();
             Rrr r = new Rrr(Clue);
-            r.Step();
+            st = r.Step();
+            Console.WriteLine(st.ToString());
         }//endbtnSolve
 
         private int[,] Sample1()
@@ -241,7 +243,6 @@ namespace SudokuBrain
             };
             return Clue;
         }//endSample1
-
         private void ShowInitialCube(int[,,] cube)
         {
             for (int r = 0; r < 9; r++)
