@@ -221,7 +221,7 @@ namespace SudokuBrain
         private void BtnSolve_Click(object sender, EventArgs e)
         {
             bool st;
-            int[,] Clue = new int[9,9];
+            int[,] Clue; //= new int[9,9];
             Clue = Sample1();
             Rrr r = new Rrr(Clue);
             st = r.Step();

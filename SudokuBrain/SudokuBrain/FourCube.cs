@@ -14,72 +14,171 @@ namespace SudokuBrain
         public FourCube() { }
         public FourCube(int [,] Sudoku)
         {
-            for (int cc = 0; cc < 4; cc++)
+            for (int c = 0; c < 4; c++)
             {
-                for (int r = 0; r < 9; r++)             //Counting of Cubes cells starts from 0 to 8
+                // for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                //{
+                for (int row = 0; row < 9; row++)
                 {
-                    for (int c = 0; c < 9; c++)
+                    for (int column = 0; column < 9; column++)
                     {
-                        if (Sudoku[r, c] == 0)          // for Sudoku in case: row = 0 and culumn = 0
+                        for (int azimuthal = 0; azimuthal < 9; azimuthal++)
                         {
-                            for (int a = 0; a < 9; a++)
+                            cubeCells[c, azimuthal, column, row] = new CubeCell
                             {
-                                cubeCells[cc, a, c, r] = new CubeCell();
-                                cubeCells[cc, a, c, r].confidence = 0;
-                                cubeCells[cc, a, c, r].isClue = false;
-                               // Console.WriteLine("cubecells[cc{0} , d{1}, c{2}, r{3}]:Confidence{4}\t", cc, a, c, r, cubeCells[cc, a, c, r].confidence);
-                            }
-
-                        }
-                        else                             // when row and culumn has digit
-                        {
-                            int digit = Sudoku[r, c];
-                            SetRowCubeCells(r, digit, cc);
-                            SetColumnCubeCells(c, digit, cc);
-                            SetBlockCubeCells(digit, r, c, cc);
+                                confidence = 0,
+                                isClue = false
+                            };
                         }
                     }
-
                 }
-                //Console.WriteLine("\n");
             }
-        }
-        private void SetRowCubeCells(int row, int digit, int cc)  //[cube numebr] [azimuthal] [columm] [row]
-        {
-            for (int c = 0; c < 9; c++)
+            for (int c = 0; c < 4; c++)
             {
-                cubeCells[cc,digit -1, c,row] = new CubeCell();
-                if (c == row)
+               // for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                //{
+                    for (int row = 0; row < 9; row++)
+                    {
+                            for (int column = 0; column < 9; column++)
+                            {
+                                for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                                {
+                                    //if (Sudoku[row, column] == 0 && cubeCells[c, azimuthal, column, row].isClue != true)
+                                    //{
+                                    //    cubeCells[c, azimuthal, column, row] = new CubeCell
+                                    //    {
+                                    //        confidence = 0,
+                                    //        isClue = false
+                                    //    };
+                                    //}
+                                    if (Sudoku[row, column] != 0 && azimuthal != Sudoku[row, column] - 1)
+                                    {
+                                        cubeCells[c, azimuthal, column, row] = new CubeCell
+                                        {
+                                            confidence = 0,
+                                            isClue = true
+                                        };
+                                    }
+                                    else if (Sudoku[row, column] != 0 && azimuthal == Sudoku[row, column] - 1)
+                                    {
+                                        int digit = Sudoku[row, column];
+                                        SetRowCubeCells(row, digit, c, column);
+                                        SetColumnCubeCells(column, digit, c, row);
+                                        SetBlockCubeCells(digit, row, column, c);
+                                    }
+
+                                }
+
+                            }
+                    }
+               // }
+            }
+            /*****************************************/
+            //for (int cc = 0; cc < 4; cc++)
+            //{
+            //    for (int r = 0; r < 9; r++)             //Counting of Cubes cells starts from 0 to 8
+            //    {
+            //        for (int c = 0; c < 9; c++)
+            //        {
+            //            if (Sudoku[r, c] == 0)          // for Sudoku in case: row = 0 and culumn = 0
+            //            {
+            //                for (int a = 0; a < 9; a++)
+            //                {
+            //                    cubeCells[cc, a, c, r] = new CubeCell();
+            //                    cubeCells[cc, a, c, r].confidence = 0;
+            //                    cubeCells[cc, a, c, r].isClue = false;
+            //                   // Console.WriteLine("cubecells[cc{0} , d{1}, c{2}, r{3}]:Confidence{4}\t", cc, a, c, r, cubeCells[cc, a, c, r].confidence);
+            //                }
+
+            //            }
+            //            else                             // when row and culumn has digit
+            //            {
+            //                int digit = Sudoku[r, c];
+            //                SetRowCubeCells(r, digit, cc);
+            //                SetColumnCubeCells(c, digit, cc);
+            //                SetBlockCubeCells(digit, r, c, cc);
+            //            }
+            //        }
+
+            //    }
+            //    //Console.WriteLine("\n");
+            //}
+            /*****************************************/
+        }
+        private void SetRowCubeCells(int row, int digit, int cc, int col)  //[cube numebr] [azimuthal] [columm] [row]
+        {
+            for (int column = 0; column < 9; column++)
+            {
+                if (column == col)
                 {
-                    this.cubeCells[cc, digit - 1, c, row].confidence = 1;
+                    cubeCells[cc, digit - 1, column, row] = new CubeCell
+                    {
+                        confidence = 1,
+                        isClue = true
+                    };
                 }
                 else
                 {
-                    this.cubeCells[cc, digit - 1, c, row].confidence = 0;
+                    cubeCells[cc, digit - 1, column, row] = new CubeCell
+                    {
+                        confidence = 0,
+                        isClue = true
+                    };
                 }
-                this.cubeCells[cc, digit - 1, c, row].isClue = true;
-                //Console.WriteLine("Row:cubecells[cc{0} , d{1}, c{2}, r{3}]:Confid {4}\t", cc, digit - 1, c, row, this.cubeCells[cc, digit - 1, c, row].confidence);
-                //Console.WriteLine("\n");
             }
+            //for (int c = 0; c < 9; c++)
+            //{
+            //    cubeCells[cc,digit -1, c,row] = new CubeCell();
+            //    if (c == row)
+            //    {
+            //        this.cubeCells[cc, digit - 1, c, row].confidence = 1;
+            //    }
+            //    else
+            //    {
+            //        this.cubeCells[cc, digit - 1, c, row].confidence = 0;
+            //    }
+            //    this.cubeCells[cc, digit - 1, c, row].isClue = true;
+            //    //Console.WriteLine("Row:cubecells[cc{0} , d{1}, c{2}, r{3}]:Confid {4}\t", cc, digit - 1, c, row, this.cubeCells[cc, digit - 1, c, row].confidence);
+            //    //Console.WriteLine("\n");
+            //}
 
         }
-        private void SetColumnCubeCells(int column, int digit, int cc) //[cube numebr] [azimuthal] [columm] [row]
+        private void SetColumnCubeCells(int column, int digit, int cc,int row) //[cube numebr] [azimuthal] [columm] [row]
         {
             for (int r = 0; r < 9; r++)
             {
-                cubeCells[cc, digit - 1, column, r] = new CubeCell();
-                if (r == column)
+                if (r == row)
                 {
-                    this.cubeCells[cc, digit - 1, column, r].confidence = 1;
+                    cubeCells[cc, digit - 1, column, r] = new CubeCell
+                    {
+                        confidence = 1,
+                        isClue = true
+                    };
                 }
                 else
                 {
-                    this.cubeCells[cc, digit - 1, column, r].confidence = 0;
+                    cubeCells[cc, digit - 1, column, r] = new CubeCell
+                    {
+                        confidence = 0,
+                        isClue = true
+                    };
                 }
-                this.cubeCells[cc, digit - 1, column, r].isClue = true;
-                //Console.WriteLine("Column:cubecells[cc{0} , d{1}, c{2}, r{3}]:Confid {4}\t", cc, digit - 1, column, r, this.cubeCells[cc, digit - 1, column, r].confidence);
-                //Console.WriteLine("\n");
             }
+            //for (int r = 0; r < 9; r++)
+            //{
+            //    cubeCells[cc, digit - 1, column, r] = new CubeCell();
+            //    if (r == column)
+            //    {
+            //        this.cubeCells[cc, digit - 1, column, r].confidence = 1;
+            //    }
+            //    else
+            //    {
+            //        this.cubeCells[cc, digit - 1, column, r].confidence = 0;
+            //    }
+            //    this.cubeCells[cc, digit - 1, column, r].isClue = true;
+            //    //Console.WriteLine("Column:cubecells[cc{0} , d{1}, c{2}, r{3}]:Confid {4}\t", cc, digit - 1, column, r, this.cubeCells[cc, digit - 1, column, r].confidence);
+            //    //Console.WriteLine("\n");
+            //}
         }
 
         private void SetBlockCubeCells(int digit,int row,int column,int cn) //[cube numebr] [azimuthal] [columm] [row]
@@ -162,22 +261,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++)
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit - 1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else   
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue     = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 0; r < 3; r++)
+                    //{
+                    //    for (int c = 0; c < 3; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++)
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit - 1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else   
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue     = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
 
                 case 1:
@@ -187,22 +308,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++)
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit - 1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 0; r < 3; r++)
+                    //{
+                    //    for (int c = 3; c < 6; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++)
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit - 1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 2:
                     for (int r = 0; r < 3; r++)
@@ -211,22 +354,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit -1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 0; r < 3; r++)
+                    //{
+                    //    for (int c = 6; c < 9; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit -1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 3:
                     for (int r = 3; r < 6; r++)
@@ -235,22 +400,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit -1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 3; r < 6; r++)
+                    //{
+                    //    for (int c = 0; c < 3; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit -1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 4:
                     for (int r = 3; r < 6; r++)
@@ -259,22 +446,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit -1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("bock:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 3; r < 6; r++)
+                    //{
+                    //    for (int c = 3; c < 6; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit -1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("bock:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 5:
                     for (int r = 3; r < 6; r++)
@@ -283,22 +492,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit -1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 3; r < 6; r++)
+                    //{
+                    //    for (int c = 6; c < 9; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit -1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 6:
                     for (int r = 6; r < 9; r++)
@@ -307,22 +538,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit - 1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 6; r < 9; r++)
+                    //{
+                    //    for (int c = 0; c < 3; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit - 1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 7:
                     for (int r = 6; r < 9; r++)
@@ -331,22 +584,44 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit - 1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
+                    //for (int r = 6; r < 9; r++)
+                    //{
+                    //    for (int c = 3; c < 6; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit - 1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
                     break;
                 case 8:
                     for (int r = 6; r < 9; r++)
@@ -355,23 +630,45 @@ namespace SudokuBrain
                         {
                             if (r == row && c == column)
                             {
-                                for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
                                 {
-                                    cubeCells[cn, a, column, row] = new CubeCell();
-                                    if (a == digit - 1)
-                                    {
-                                        cubeCells[cn, a, c, r].confidence = 1;
-                                    }
-                                    else
-                                        cubeCells[cn, a, c, r].confidence = 0;
-                                    cubeCells[cn, a, c, r].isClue = true;
-                                    //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
-                                    //Console.WriteLine("\n");
-                                }
+                                    confidence = 1,
+                                    isClue = true
+                                };
+                            }
+                            else
+                            {
+                                cubeCells[cn, digit - 1, c, r] = new CubeCell
+                                {
+                                    confidence = 0,
+                                    isClue = true
+                                };
                             }
                         }
                     }
-                break;
+                    //for (int r = 6; r < 9; r++)
+                    //{
+                    //    for (int c = 6; c < 9; c++)
+                    //    {
+                    //        if (r == row && c == column)
+                    //        {
+                    //            for (int a = 0; a < 9; a++) //does it change if I start the azimithual in the begining?????
+                    //            {
+                    //                cubeCells[cn, a, column, row] = new CubeCell();
+                    //                if (a == digit - 1)
+                    //                {
+                    //                    cubeCells[cn, a, c, r].confidence = 1;
+                    //                }
+                    //                else
+                    //                    cubeCells[cn, a, c, r].confidence = 0;
+                    //                cubeCells[cn, a, c, r].isClue = true;
+                    //                //Console.WriteLine("block:cubecells[cc{0} , d{1}, c{2}, r{3}]:Conf {4}\t", cn, a, c, r, cubeCells[cn, a, c, r].confidence);
+                    //                //Console.WriteLine("\n");
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    break;
             }
         }//end of SetBlockCubeCells
         public FourCube Equalizer()
