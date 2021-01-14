@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SudokuBrain
 {
@@ -15,12 +16,13 @@ namespace SudokuBrain
         }
         public bool Step()
         {
-            //the Formula is y = y + Ps(2*Pe(y) - y) - Pe(y)
+            //the Formula :                         y = y + Ps(2*Pe(y) - y) - Pe(y)
             bool step = false;
-            FourCube FirstY;   //instance of the Y
+            FourCube FirstY;                        //instance of the Y
             FirstY = this.fourCube;                 //init with newspaper Sudoku
-            FourCube SecondY;  //instance of the Y'
-            FourCube temp;    
+            FourCube SecondY;                       //instance of the Y'
+            FourCube temp; 
+            
             
             while (step != true)
             {
@@ -31,12 +33,14 @@ namespace SudokuBrain
                 temp = FirstY.Equalizer();           // Pe(y)
                 SecondY = temp.Subtract(SecondY);    // Ps(2*Pe(y) - y) - Pe(y)
                 SecondY = FirstY.Add(SecondY);       // Ps(2*Pe(y) - y) - Pe(y) + y
-                step = SecondY.Comparator();
+                SecondY.StepPrinting(temp);
+               // step = SecondY.Comparator();
                 if (step == false)
                 {
                     FirstY = SecondY;
                 }
             }
+            MessageBox.Show("finished");
             return step;
         }
     }
