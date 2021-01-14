@@ -445,8 +445,7 @@ namespace SudokuBrain
                         }
                         else
                         {
-                            /*Is there any case if conf > maxValue && isClue = false but conf = 1? */
-                            if (cubeCells[0, j, k, h].confidence > maxValue && cubeCells[0, j, k, h].isClue != true && cubeCells[0, j, k, h].confidence != 1)
+                            if (cubeCells[0, j, k, h].confidence > maxValue && cubeCells[0, j, k, h].isClue != true) // && cubeCells[0, j, k, h].confidence != 1
                             {
                                 maxValue = cubeCells[0, j, k, h].confidence;
                                 positionOfMax = j;
@@ -478,7 +477,7 @@ namespace SudokuBrain
                         }
                         else
                         {
-                            if (cubeCells[1, j, k, h].confidence > maxValue && cubeCells[1, j, k, h].isClue != true && cubeCells[1, j, k, h].confidence != 1)
+                            if (cubeCells[1, j, k, h].confidence > maxValue && cubeCells[1, j, k, h].isClue != true)//&& cubeCells[1, j, k, h].confidence != 1
                             {
                                 maxValue = cubeCells[1, j, k, h].confidence;
                                 positionOfMax = k;
@@ -510,7 +509,7 @@ namespace SudokuBrain
                         }
                         else
                         {
-                            if (cubeCells[2, j, k, h].confidence > maxValue && cubeCells[2, j, k, h].isClue != true && cubeCells[2, j, k, h].confidence != 1)
+                            if (cubeCells[2, j, k, h].confidence > maxValue && cubeCells[2, j, k, h].isClue != true)//&& cubeCells[2, j, k, h].confidence != 1
                             {
                                 maxValue = cubeCells[2, j, k, h].confidence;
                                 positionOfMax = h;
@@ -547,7 +546,7 @@ namespace SudokuBrain
                                 }
                                 else
                                 {
-                                    if (cubeCells[3, j, (k + kk), (h + hh)].confidence > maxValue && cubeCells[3, j, (k + kk), (h + hh)].isClue != true && cubeCells[3, j, (k + kk), (h + hh)].confidence != 1)
+                                    if (cubeCells[3, j, (k + kk), (h + hh)].confidence > maxValue && cubeCells[3, j, (k + kk), (h + hh)].isClue != true)//&& cubeCells[3, j, (k + kk), (h + hh)].confidence != 1
                                     {
                                         max_positionH = h + hh;
                                         max_positionK = k + kk;
@@ -625,11 +624,11 @@ namespace SudokuBrain
             return fc;
         }//end of mult
 
-        public bool Comparator()
+        public bool Comparator(FourCube Ps, FourCube Pe)
         {
             while (true)
             {
-                for (int CubeNr = 0; CubeNr < 3; CubeNr++)
+                for (int CubeNr = 0; CubeNr < 4; CubeNr++)
                 {
                     for (int azimuthal = 0; azimuthal < 9; azimuthal++)
                     {
@@ -637,7 +636,7 @@ namespace SudokuBrain
                         {
                             for (int row = 0; row < 9; row++)
                             {
-                                if (cubeCells[CubeNr, azimuthal, column, row].confidence == cubeCells[CubeNr + 1, azimuthal, column, row].confidence)
+                                if (Ps.cubeCells[CubeNr, azimuthal, column, row].confidence == Pe.cubeCells[CubeNr, azimuthal, column, row].confidence)
                                     continue;
                                 else
                                     return false;
@@ -647,6 +646,26 @@ namespace SudokuBrain
                 }
                 return true;
             }
+            //while (true)
+            //{
+            //    for (int CubeNr = 0; CubeNr < 3; CubeNr++)
+            //    {
+            //        for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+            //        {
+            //            for (int column = 0; column < 9; column++)
+            //            {
+            //                for (int row = 0; row < 9; row++)
+            //                {
+            //                    if (cubeCells[CubeNr, azimuthal, column, row].confidence == cubeCells[CubeNr + 1, azimuthal, column, row].confidence)
+            //                        continue;
+            //                    else
+            //                        return false;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    return true;
+            //}
         }
         private FourCube setClue()
         {
@@ -691,9 +710,50 @@ namespace SudokuBrain
                                 Console.Write(" {0} ", fc.cubeCells[CubeNr, azimuthal, column, row].confidence);   
                         }
                     }
-                }
-                    
+                }    
             }
+        }
+
+        public int[,] SudokuAnswer(FourCube fc)
+        {
+            int[,] array = new int [9,9];
+            for (int row = 0; row < 9; row++)
+            {
+                for (int column = 0; column < 9; column++)
+                {
+                    double maxValue = double.MinValue;
+                    int positionOfMax = -1;
+                    bool isClueAzimiuthal = false;
+                    int number =0;
+                    for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                    {
+                        if (fc.cubeCells[0, azimuthal, column, row].isClue == true && fc.cubeCells[0, azimuthal, column, row].confidence == 1)
+                        {
+                            isClueAzimiuthal = true;
+                            number = azimuthal + 1;
+                            array[row, column] = number;
+                            break;
+                        }
+                        else
+                        {
+                            if (fc.cubeCells[0, azimuthal, column, row].confidence > maxValue && fc.cubeCells[0, azimuthal, column, row].isClue != true)
+                            {
+                                maxValue = fc.cubeCells[0, azimuthal, column, row].confidence;
+                                positionOfMax = azimuthal;
+                                number = azimuthal + 1;
+                            }
+                        }
+
+                    }
+                    if (positionOfMax != -1 && isClueAzimiuthal != true)
+                    {
+                        array[row, column] = number;
+                    }
+                        
+                               
+                }
+            }
+            return array;
         }
     }
 
