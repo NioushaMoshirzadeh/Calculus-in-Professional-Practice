@@ -451,7 +451,7 @@ namespace SudokuBrain
                                 positionOfMax = j;
                             }
                             fc.cubeCells[0, j, k, h].confidence = 0;
-                        }
+                       }
                     }
                     if (positionOfMax != -1 && isClueInAzimuthal != true)
                     {
@@ -476,8 +476,8 @@ namespace SudokuBrain
                             isClueColummn = true;
                         }
                         else
-                        {
-                            if (cubeCells[1, j, k, h].confidence > maxValue && cubeCells[1, j, k, h].isClue != true)//&& cubeCells[1, j, k, h].confidence != 1
+                       {
+                            if (cubeCells[1, j, k, h].confidence > maxValue && cubeCells[1, j, k, h].isClue != true) //&& cubeCells[1, j, k, h].confidence != 1
                             {
                                 maxValue = cubeCells[1, j, k, h].confidence;
                                 positionOfMax = k;
@@ -509,7 +509,7 @@ namespace SudokuBrain
                         }
                         else
                         {
-                            if (cubeCells[2, j, k, h].confidence > maxValue && cubeCells[2, j, k, h].isClue != true)//&& cubeCells[2, j, k, h].confidence != 1
+                            if (cubeCells[2, j, k, h].confidence > maxValue && cubeCells[2, j, k, h].isClue != true)//  && cubeCells[2, j, k, h].confidence != 1
                             {
                                 maxValue = cubeCells[2, j, k, h].confidence;
                                 positionOfMax = h;
@@ -546,7 +546,7 @@ namespace SudokuBrain
                                 }
                                 else
                                 {
-                                    if (cubeCells[3, j, (k + kk), (h + hh)].confidence > maxValue && cubeCells[3, j, (k + kk), (h + hh)].isClue != true)//&& cubeCells[3, j, (k + kk), (h + hh)].confidence != 1
+                                    if (cubeCells[3, j, (k + kk), (h + hh)].confidence > maxValue && cubeCells[3, j, (k + kk), (h + hh)].isClue != true)//  && cubeCells[3, j, (k + kk), (h + hh)].confidence != 1
                                     {
                                         max_positionH = h + hh;
                                         max_positionK = k + kk;
@@ -556,7 +556,7 @@ namespace SudokuBrain
                                 }
                             }
                         }
-                        if (max_positionH != -1 && isClueBlock != true) // TODO: make sure this is needed!
+                        if (max_positionH != -1 && isClueBlock != true) 
                         {
                             fc.cubeCells[3, j, max_positionK, max_positionH].confidence = 1;
                         }
@@ -646,26 +646,6 @@ namespace SudokuBrain
                 }
                 return true;
             }
-            //while (true)
-            //{
-            //    for (int CubeNr = 0; CubeNr < 3; CubeNr++)
-            //    {
-            //        for (int azimuthal = 0; azimuthal < 9; azimuthal++)
-            //        {
-            //            for (int column = 0; column < 9; column++)
-            //            {
-            //                for (int row = 0; row < 9; row++)
-            //                {
-            //                    if (cubeCells[CubeNr, azimuthal, column, row].confidence == cubeCells[CubeNr + 1, azimuthal, column, row].confidence)
-            //                        continue;
-            //                    else
-            //                        return false;
-            //                }
-            //            }
-            //        }
-            //    }
-            //    return true;
-            //}
         }
         private FourCube setClue()
         {
@@ -716,18 +696,19 @@ namespace SudokuBrain
 
         public int[,] SudokuAnswer(FourCube fc)
         {
-            int[,] array = new int [9,9];
-            for (int row = 0; row < 9; row++)
+
+            int[,] array = new int[9, 9];
+            for (int column = 0; column < 9; column++)
             {
-                for (int column = 0; column < 9; column++)
+                for (int row = 0; row < 9; row++)
                 {
                     double maxValue = double.MinValue;
                     int positionOfMax = -1;
                     bool isClueAzimiuthal = false;
-                    int number =0;
+                    int number = 0;
                     for (int azimuthal = 0; azimuthal < 9; azimuthal++)
                     {
-                        if (fc.cubeCells[0, azimuthal, column, row].isClue == true && fc.cubeCells[0, azimuthal, column, row].confidence == 1)
+                        if (fc.cubeCells[2, azimuthal, column, row].isClue == true && fc.cubeCells[2, azimuthal, column, row].confidence == 1)
                         {
                             isClueAzimiuthal = true;
                             number = azimuthal + 1;
@@ -736,9 +717,9 @@ namespace SudokuBrain
                         }
                         else
                         {
-                            if (fc.cubeCells[0, azimuthal, column, row].confidence > maxValue && fc.cubeCells[0, azimuthal, column, row].isClue != true)
+                            if (fc.cubeCells[2, azimuthal, column, row].confidence > maxValue && fc.cubeCells[2, azimuthal, column, row].isClue != true)
                             {
-                                maxValue = fc.cubeCells[0, azimuthal, column, row].confidence;
+                                maxValue = fc.cubeCells[2, azimuthal, column, row].confidence;
                                 positionOfMax = azimuthal;
                                 number = azimuthal + 1;
                             }
@@ -749,8 +730,8 @@ namespace SudokuBrain
                     {
                         array[row, column] = number;
                     }
-                        
-                               
+
+
                 }
             }
             return array;

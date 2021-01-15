@@ -25,23 +25,45 @@ namespace SudokuBrain
             UInt16 loop = 0;
             while (step != true)
             {
-                ++loop;
+                loop += 1;
                 SecondY = FirstY.Equalizer();        // Pe(y)
+               
                 SecondY = SecondY.mult(2);           // 2*Pe(y)
                 SecondY = FirstY.Subtract(SecondY);  // 2*Pe(y) - y
+                
                 SecondY = SecondY.Selector();        // Ps(2*Pe(y) - y)
+                //SecondY.StepPrinting(SecondY);
                 Ps = SecondY;
                 temp = FirstY.Equalizer();           // Pe(y)
                 SecondY = temp.Subtract(SecondY);    // Ps(2*Pe(y) - y) - Pe(y)
                 SecondY = FirstY.Add(SecondY);       // Ps(2*Pe(y) - y) - Pe(y) + y
-                step = SecondY.Comparator(Ps,temp);
+                step = SecondY.Comparator(Ps, temp);
+                //if (loop == 52 || loop == 53)
+                //{
+                //    SecondY.StepPrinting(SecondY);
+                //}
+                if (loop == 52)
+                {
+                    int[,] array = SecondY.SudokuAnswer(temp);
+                    for (int i = 0; i < 9; i++)
+                    {
+                        Console.WriteLine("\n");
+                        for (int j = 0; j < 9; j++)
+                        {
+                            Console.Write(" {0} ", array[i, j]);
+                        }
+                    }
+                    Console.WriteLine("\n");
+                    Console.WriteLine("{0}", loop);
+                }
                 if (!step)
                 {
+                 
                     FirstY = SecondY;
                 }
                 else
                 {
-                    int[,] array = SecondY.SudokuAnswer(SecondY);
+                    int[,] array = SecondY.SudokuAnswer(temp);
                     for (int i = 0; i < 9; i++)
                     {
                         Console.WriteLine("\n");
@@ -50,10 +72,12 @@ namespace SudokuBrain
                             Console.Write(" {0} ",array[i,j]);
                         }
                     }
+                    Console.WriteLine("\n");
+                    Console.WriteLine("{0}",loop);
                 }
             }
            
-            MessageBox.Show("finished");
+            MessageBox.Show("Solved");
             return step;
         }
         
