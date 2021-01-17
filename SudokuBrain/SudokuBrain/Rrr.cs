@@ -10,6 +10,9 @@ namespace SudokuBrain
     public class Rrr
     {
         FourCube fourCube;
+        int[,] arrayAnswer;
+        List<int> diffList = new List<int>();
+        int diff = 0;
         public Rrr(int[,] Sudoku)
         {
             this.fourCube = new FourCube(Sudoku);
@@ -25,63 +28,42 @@ namespace SudokuBrain
             UInt16 loop = 0;
             while (step != true)
             {
-                loop += 1;
+                //Array.Clear(arrayAnswer, 0, arrayAnswer.Length);
+                
                 SecondY = FirstY.Equalizer();        // Pe(y)
-               
                 SecondY = SecondY.mult(2);           // 2*Pe(y)
                 SecondY = FirstY.Subtract(SecondY);  // 2*Pe(y) - y
-                
                 SecondY = SecondY.Selector();        // Ps(2*Pe(y) - y)
-                //SecondY.StepPrinting(SecondY);
+               // arrayAnswer = SecondY.returnArray();
                 Ps = SecondY;
                 temp = FirstY.Equalizer();           // Pe(y)
                 SecondY = temp.Subtract(SecondY);    // Ps(2*Pe(y) - y) - Pe(y)
                 SecondY = FirstY.Add(SecondY);       // Ps(2*Pe(y) - y) - Pe(y) + y
                 step = SecondY.Comparator(Ps, temp);
-                //if (loop == 52 || loop == 53)
-                //{
-                //    SecondY.StepPrinting(SecondY);
-                //}
-                if (loop == 52)
-                {
-                    int[,] array = SecondY.SudokuAnswer(temp);
-                    for (int i = 0; i < 9; i++)
-                    {
-                        Console.WriteLine("\n");
-                        for (int j = 0; j < 9; j++)
-                        {
-                            Console.Write(" {0} ", array[i, j]);
-                        }
-                    }
-                    Console.WriteLine("\n");
-                    Console.WriteLine("{0}", loop);
-                }
                 if (!step)
                 {
-                 
+                    diff = SecondY.Difference(SecondY, FirstY);
+                    diffList.Add(diff);
                     FirstY = SecondY;
                 }
                 else
                 {
-                    int[,] array = SecondY.SudokuAnswer(temp);
-                    for (int i = 0; i < 9; i++)
-                    {
-                        Console.WriteLine("\n");
-                        for (int j = 0; j < 9; j++)
-                        {
-                            Console.Write(" {0} ",array[i,j]);
-                        }
-                    }
-                    Console.WriteLine("\n");
-                    Console.WriteLine("{0}",loop);
+                    diff = SecondY.Difference(SecondY, FirstY);
+                    diffList.Add(diff);
+                    arrayAnswer = SecondY.SudokuAnswer(temp);
                 }
+                loop += 1;
             }
-           
-            MessageBox.Show("Solved");
             return step;
         }
-        
 
-
+        public int[,] SudokuAnswerForm()
+        {
+            return arrayAnswer;
+        }
+        public List<int> diffData()
+        {
+            return diffList;
+        }
     }
 }

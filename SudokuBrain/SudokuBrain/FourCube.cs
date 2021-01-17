@@ -10,6 +10,7 @@ namespace SudokuBrain
     {
         CubeCell[,,,] cubeCells = new CubeCell[4, 9, 9, 9]; //[cube numebr] [azimuthal] [columm] [row] 
         private enum blockPart { First, Second, Third, fourth, fifth, sixth, seventh, eight, ninth}
+        int[,] returnArraySelector;
         public FourCube() { }
         public FourCube(int [,] Sudoku)
         {
@@ -451,7 +452,7 @@ namespace SudokuBrain
                                 positionOfMax = j;
                             }
                             fc.cubeCells[0, j, k, h].confidence = 0;
-                       }
+                        }
                     }
                     if (positionOfMax != -1 && isClueInAzimuthal != true)
                     {
@@ -459,6 +460,8 @@ namespace SudokuBrain
                     }
                 }
             }
+            //returnArraySelector = SudokuAnswer(fc);
+            
             //selector neuron on 2nd cube [1][][][] column axis (row selector)
             //---------------------------------------------------------------
             for (int j = 0; j < 9; j++)
@@ -735,6 +738,33 @@ namespace SudokuBrain
                 }
             }
             return array;
+        }
+
+        public int[,] returnArray()
+        {
+            return returnArraySelector;
+        }
+
+        public int Difference(FourCube fc, FourCube fc2)
+        {
+            int diff = 0;
+            for (int CubeNr = 0; CubeNr < 4; CubeNr++)
+            {
+                for (int azimuthal = 0; azimuthal < 9; azimuthal++)
+                {
+                    for (int column = 0; column < 9; column++)
+                    {
+                        for (int row = 0; row < 9; row++)
+                        {
+                            if (fc.cubeCells[CubeNr, azimuthal, column, row].confidence != fc2.cubeCells[CubeNr, azimuthal, column, row].confidence)
+                                diff += 1;
+                            else
+                                continue;
+                        }
+                    }
+                }
+            }
+            return diff;
         }
     }
 
