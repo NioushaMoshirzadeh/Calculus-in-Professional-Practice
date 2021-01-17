@@ -28,14 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tb11 = new System.Windows.Forms.TextBox();
             this.btnSolve = new System.Windows.Forms.Button();
             this.btnSample1 = new System.Windows.Forms.Button();
             this.btnSample2 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnSample3 = new System.Windows.Forms.Button();
+            this.btnSample4 = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,26 +87,58 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea9.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea9);
+            legend9.Name = "Legend1";
+            this.chart1.Legends.Add(legend9);
             this.chart1.Location = new System.Drawing.Point(29, 320);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Legend = "Legend1";
+            series9.Name = "Series1";
+            this.chart1.Series.Add(series9);
             this.chart1.Size = new System.Drawing.Size(1190, 300);
             this.chart1.TabIndex = 85;
             this.chart1.Text = "chart1";
+            // 
+            // btnSample3
+            // 
+            this.btnSample3.Location = new System.Drawing.Point(302, 107);
+            this.btnSample3.Name = "btnSample3";
+            this.btnSample3.Size = new System.Drawing.Size(115, 41);
+            this.btnSample3.TabIndex = 86;
+            this.btnSample3.Text = "Sample3";
+            this.btnSample3.UseVisualStyleBackColor = true;
+            this.btnSample3.Click += new System.EventHandler(this.BtnSample3_Click);
+            // 
+            // btnSample4
+            // 
+            this.btnSample4.Location = new System.Drawing.Point(302, 154);
+            this.btnSample4.Name = "btnSample4";
+            this.btnSample4.Size = new System.Drawing.Size(115, 41);
+            this.btnSample4.TabIndex = 87;
+            this.btnSample4.Text = "Sample4";
+            this.btnSample4.UseVisualStyleBackColor = true;
+            this.btnSample4.Click += new System.EventHandler(this.BtnSample4_Click);
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox1.Location = new System.Drawing.Point(512, 12);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(256, 234);
+            this.richTextBox1.TabIndex = 88;
+            this.richTextBox1.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1500, 676);
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.btnSample4);
+            this.Controls.Add(this.btnSample3);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.btnSample2);
             this.Controls.Add(this.btnSample1);
@@ -125,6 +160,9 @@
         private System.Windows.Forms.Button btnSample1;
         private System.Windows.Forms.Button btnSample2;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Button btnSample3;
+        private System.Windows.Forms.Button btnSample4;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

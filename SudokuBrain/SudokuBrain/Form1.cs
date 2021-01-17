@@ -13,11 +13,10 @@ namespace SudokuBrain
 {
     public partial class Form1 : Form
     {
-        [System.ComponentModel.Browsable(false)]
-        public Color SelectionColor { get; set; }
-        ColorDialog colorDialog1 = new ColorDialog();
         bool isbtnSample1Clicked;
         bool isbtnSample2Clicked;
+        bool isbtnSample3Clicked;
+        bool isbtnSample4Clicked;
         public Form1()
         {
             InitializeComponent();
@@ -73,6 +72,8 @@ namespace SudokuBrain
             ShowInitialSudolu(Sample1());
             isbtnSample1Clicked = true;
             isbtnSample2Clicked = false;
+            isbtnSample3Clicked = false;
+            isbtnSample4Clicked = false;
         }
 
         private void Tb13_TextChanged(object sender, EventArgs e)
@@ -165,10 +166,24 @@ namespace SudokuBrain
             {
                 Clue = Sample1();
             }
-            else 
+            else if(isbtnSample2Clicked)
             {
                 Clue = Sample2();
-            }       
+            }
+            else if (isbtnSample3Clicked)
+            {
+                Clue = Sample3();
+            }
+            else if (isbtnSample4Clicked)
+            {
+                Clue = Sample4();
+            }
+            else
+            {
+                MessageBox.Show("please select one of the samples\n" +
+                                "other wise the default sample is selected");
+                Clue = Sample1();
+            }
             Rrr r = new Rrr(Clue);
             r.Step();
             Answer = r.SudokuAnswerForm();
@@ -206,8 +221,37 @@ namespace SudokuBrain
                 {0,8,0,9,6,0,0,0,0}
             };
             return Clue;
-
         }//endSample2
+        private int[,] Sample3()
+        {
+            int[,] Clue = new int[9, 9] {
+                {0,1,2,0,0,0,0,0,0},
+                {0,0,0,3,0,6,5,4,0},
+                {0,0,4,0,0,7,0,3,0},
+                {0,5,0,0,0,8,1,2,0},
+                {0,0,6,7,0,0,0,0,0},
+                {0,0,0,0,0,1,6,8,0},
+                {0,3,7,0,0,9,2,6,0},
+                {0,0,5,0,0,0,0,1,0},
+                {0,9,1,5,0,2,3,0,0}
+            };
+            return Clue;
+        }//endSample3
+        private int[,] Sample4()
+        {
+            int[,] Clue = new int[9, 9] {
+                {8,0,0,0,0,0,0,0,0},
+                {0,0,3,6,0,0,0,0,0},
+                {0,7,0,0,9,0,2,0,0},
+                {0,5,0,0,0,7,0,0,0},
+                {0,0,0,0,4,5,7,0,0},
+                {0,0,0,1,0,0,0,3,0},
+                {0,0,1,0,0,0,0,6,8},
+                {0,0,8,5,0,0,0,1,0},
+                {0,9,0,0,0,0,4,0,0}
+            };
+            return Clue;
+        }//endSample4
         private void ShowInitialSudolu(int[,] SudokuNewspaper)
         {
             tb11.Text = "";
@@ -230,40 +274,97 @@ namespace SudokuBrain
         }//end ShowInitialCube
         private void PrintSudokuAnswer(int[,] SudokuArray,string txt)
         {
+            int index = 0;
             int[,] sample;
             if (isbtnSample1Clicked)
             {
                 sample = Sample1();
             }
-            else
+            else if (isbtnSample2Clicked)
             {
                 sample = Sample2();
             }
+            else if (isbtnSample3Clicked)
+            {
+                sample = Sample3();
+            }
+            else if (isbtnSample4Clicked)
+            {
+                sample = Sample4();
+            }
+            else
+            {
+                sample = Sample1();
+            }
             tb11.Text = " ";
+            richTextBox1.Text = "";
             for (int row = 0; row < 9; row++)
             {
                 tb11.Text += Environment.NewLine;
+                richTextBox1.Text += Environment.NewLine;
                 for (int column = 0; column < 9; column++)
                 {
                     if (sample[row, column] != 0)
                     {
                         tb11.Text += sample[row, column].ToString();
                         tb11.Text += " ";
+                        richTextBox1.Text += sample[row, column].ToString();
+                        richTextBox1.Text += " ";
                     }
                     else
                     {
                         tb11.Text += SudokuArray[row, column].ToString();
                         tb11.Text += " ";
+                        richTextBox1.Text += SudokuArray[row, column].ToString();
+                        richTextBox1.Text += " ";
                     }
                 }
             }
+            if (isbtnSample1Clicked)
+            {
+                MakeSudokuSampleGreen(Sample1());
+            }
+            else if (isbtnSample2Clicked)
+            {
+                MakeSudokuSampleGreen(Sample2());
+            }
+            else if (isbtnSample3Clicked)
+            {
+                MakeSudokuSampleGreen(Sample3());
+            }
+            else if (isbtnSample4Clicked)
+            {
+                MakeSudokuSampleGreen(Sample4());
+            }
         }
-
+        private void MakeSudokuSampleGreen(int[,] sample)
+        {
+            int index;
+            for (int i = 1; i < 10; i++) // rich has 9 lines that the first is empty
+            {
+                for (int column = 0; column < 9; column++)
+                {
+                    if (sample[i - 1, column] != 0)
+                    {
+                        int num = Convert.ToChar(sample[i - 1, column]);
+                        string var = (num).ToString();
+                        index = richTextBox1.Lines[i].IndexOf(var);
+                        if (index != -1)
+                        {
+                            richTextBox1.Select(index + 1 + (i-1)*19, 1);
+                            richTextBox1.SelectionColor = Color.Green;
+                        }
+                    }
+                }
+             }
+        }
         private void BtnSample2_Click(object sender, EventArgs e)
         {
             ShowInitialSudolu(Sample2());
             isbtnSample1Clicked = false;
             isbtnSample2Clicked = true;
+            isbtnSample3Clicked = false;
+            isbtnSample4Clicked = false;
         }
         private void chartLoad()
         {
@@ -278,6 +379,8 @@ namespace SudokuBrain
 
             chart.AxisX.Interval = 10;
             chart.AxisY.Interval = 50;
+
+            chart1.Series[0].IsVisibleInLegend = false;
 
             chart1.Series.Add("Difference");
             chart1.Series["Difference"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -296,6 +399,24 @@ namespace SudokuBrain
             {
                 chart1.Series["Difference"].Points.AddXY(i, diff[i]);
             }
+        }
+
+        private void BtnSample3_Click(object sender, EventArgs e)
+        {
+            ShowInitialSudolu(Sample3());
+            isbtnSample3Clicked = true;
+            isbtnSample1Clicked = false;
+            isbtnSample2Clicked = false;
+            isbtnSample4Clicked = false;
+        }
+
+        private void BtnSample4_Click(object sender, EventArgs e)
+        {
+            ShowInitialSudolu(Sample4());
+            isbtnSample3Clicked = false;
+            isbtnSample1Clicked = false;
+            isbtnSample2Clicked = false;
+            isbtnSample4Clicked = true;
         }
     }
 }
