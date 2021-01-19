@@ -26,6 +26,7 @@ namespace CPP5thSemester
         int orgX ;
         int orgY ;
         List<Point> coordinates = new List<Point>();
+        List<Point> polynomialPoints = new List<Point>();
         int iNumberofClicks = 0;
         Matrix matrix;
 
@@ -37,7 +38,7 @@ namespace CPP5thSemester
             tbResult.Text = temp;
             pen = new Pen(Brushes.Black, 5.0F);
             g = pictureBox1.CreateGraphics();
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;  
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void DrawBinaryTree( IFunction x)
@@ -135,7 +136,7 @@ namespace CPP5thSemester
                     tbResult.Text = temp;
                     parsing = new Parsing();
                     root = parsing.fpa(ref s);
-                    tbResult.Text = root.ToInfix();
+                    tbResult.Text = parsing.EquationHumanReadablitly();
                     DrawBinaryTree(root);
                     tbParse.Text = s;
                     /* plot the function on the chart */
@@ -232,6 +233,7 @@ namespace CPP5thSemester
         {
             Pen pen = new Pen(Brushes.Red, 2.0f);
             Point point = new Point(e.X, e.Y);
+            polynomialPoints.Add(point);
             coordinates.Add(point);
             iNumberofClicks++;
             if (iNumberofClicks > 0)
@@ -274,88 +276,106 @@ namespace CPP5thSemester
 
         private void BtnPolynomial_Click(object sender, EventArgs e)
         {
-            
-            pictureBox1.Refresh();
-            int nrOfPoints = coordinates.Count();   
-            orgX = pictureBox1.Width / 2;
-            orgY = pictureBox1.Height / 2;
-            zoomValue = trackBar1.Value;
-            List<Point> convertedPoints = new List<Point>();
-            Point point;
-            for (int i = 0; i < nrOfPoints; i++)
+            try
             {
-                int X = (coordinates[i].X - orgX)/zoomValue; //the values rounded to its int values!!
-                int Y = (orgX - coordinates[i].Y)/zoomValue;
-                point = new Point(X, Y);
-                convertedPoints.Add(point);
-            }
-
-            matrix = new Matrix(nrOfPoints, convertedPoints);
-            double[,] AugmentedArray = matrix.solveEquation();
-            string equation = "";
-            int deg = nrOfPoints - 1;
-            for (int r = 0; r < nrOfPoints; r++)
-            {
-                var s = string.Format("{0:0.00}", AugmentedArray[r, nrOfPoints + 1]);
-                if (s.EndsWith("00"))
+                DrawGridLines();
+                pictureBox1.Refresh();
+                int nrOfPoints = coordinates.Count();
+                orgX = pictureBox1.Width / 2;
+                orgY = pictureBox1.Height / 2;
+                zoomValue = trackBar1.Value;
+                List<Point> convertedPoints = new List<Point>();
+                Point point, demoPoints;
+                for (int i = 0; i < nrOfPoints; i++)
                 {
-                    s = ((int)AugmentedArray[r, nrOfPoints + 1]).ToString();
+                    int X = (coordinates[i].X - orgX) / zoomValue; //the values rounded to its int values!!
+                    int Y = (orgX - coordinates[i].Y) / zoomValue;
+                    point = new Point(X, Y);
+                    convertedPoints.Add(point);
                 }
-                if (deg != 0)
-                {
-                    
-                    equation += s + "x^" + " (" + (deg).ToString() + ") " + " + ";
-                }
-                else
-                {
-                    equation += " (" + s + ") ";
-                }
-                deg--;
-            }
-            tbParse.Text = equation;
-            Console.WriteLine(equation);
-            pen= new Pen(Brushes.Green, 2.0F);
-            Pen grayPen = new Pen(Brushes.LightGray, 2.0F);
-            Pen blackPen = new Pen(Brushes.Black, 2.0F);
-            Pen pinki = new Pen(Brushes.Pink, 2.0F);
 
-            double Y1 = 0;
-            double Y2 = 0;
-            float X1 = 0;
-            float X2 = 0;
-            DrawGridLines();
-            
-
-            for (float i = -200; i < (pictureBox1.Height)/2; i += 0.01f)
-            {
-                int deg2 = nrOfPoints - 1;
-                for (int j = 0; j < nrOfPoints; j++)
+                matrix = new Matrix(nrOfPoints, convertedPoints);
+                double[,] AugmentedArray = matrix.solveEquation();
+                string equation = "";
+                int deg = nrOfPoints - 1;
+                for (int r = 0; r < nrOfPoints; r++)
                 {
-                    if (deg2 > 0)
+                    var s = string.Format("{0:0.00}", AugmentedArray[r, nrOfPoints + 1]);
+                    if (s.EndsWith("00"))
                     {
-                        Y1 += (float)(AugmentedArray[j, nrOfPoints + 1] * (Math.Pow(i, deg2)));
-                        Y2 += (float)(AugmentedArray[j, nrOfPoints + 1] * (Math.Pow((i + 0.01f), deg2)));
+                        s = ((int)AugmentedArray[r, nrOfPoints + 1]).ToString();
+                    }
+                    if (deg != 0)
+                    {
 
+                        equation += s + "x^" + " (" + (deg).ToString() + ") " + " + ";
                     }
                     else
                     {
-                        Y1 += (float)((AugmentedArray[j, nrOfPoints + 1]));
-                        Y2 += (float)((AugmentedArray[j, nrOfPoints + 1]));
+                        equation += " (" + s + ") ";
                     }
-                    deg2--;
+                    deg--;
                 }
-                Y1 = Math.Round(Y1, 2);
-                Y2 = Math.Round(Y2, 2);
-                Y1 = ((-1) * Y1 * zoomValue) + orgY;
-                Y2 = ((-1) * Y2 * zoomValue) + orgY;
-                X1 = (zoomValue * i) + orgX;
-                X2 = (zoomValue * (i  + 0.1f)) + orgX;
-                if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
-                    g.DrawLine(pen, X1, (float)Y1, X2, (float)Y2);
-                Y1 = Y2 = 0;
-            }
+                tbParse.Text = equation;
+                Console.WriteLine(equation);
+                pen = new Pen(Brushes.Green, 2.0F);
+                Pen grayPen = new Pen(Brushes.LightGray, 2.0F);
+                Pen blackPen = new Pen(Brushes.Black, 2.0F);
+                Pen pinki = new Pen(Brushes.Pink, 2.0F);
 
-        coordinates.Clear();
+                double Y1 = 0;
+                double Y2 = 0;
+                float X1 = 0;
+                float X2 = 0;
+                DrawGridLines();
+
+
+                for (float i = -200; i < (pictureBox1.Height) / 2; i += 0.01f)
+                {
+                    int deg2 = nrOfPoints - 1;
+                    for (int j = 0; j < nrOfPoints; j++)
+                    {
+                        if (deg2 > 0)
+                        {
+                            Y1 += (float)(AugmentedArray[j, nrOfPoints + 1] * (Math.Pow(i, deg2)));
+                            Y2 += (float)(AugmentedArray[j, nrOfPoints + 1] * (Math.Pow((i + 0.01f), deg2)));
+
+                        }
+                        else
+                        {
+                            Y1 += (float)((AugmentedArray[j, nrOfPoints + 1]));
+                            Y2 += (float)((AugmentedArray[j, nrOfPoints + 1]));
+                        }
+                        deg2--;
+                    }
+                    Y1 = Math.Round(Y1, 2);
+                    Y2 = Math.Round(Y2, 2);
+                    Y1 = ((-1) * Y1 * zoomValue) + orgY;
+                    Y2 = ((-1) * Y2 * zoomValue) + orgY;
+                    X1 = (zoomValue * i) + orgX;
+                    X2 = (zoomValue * (i + 0.1f)) + orgX;
+                    if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
+                        g.DrawLine(pen, X1, (float)Y1, X2, (float)Y2);
+                    Y1 = Y2 = 0;
+                }
+                int poinsCount = polynomialPoints.Count;
+                foreach (var item in polynomialPoints)
+                {
+                    demoPoints = item;
+                    int x = (demoPoints.X - orgX) / zoomValue;
+                    x = (zoomValue * x) + orgX;
+                    int y = (demoPoints.Y - orgX) / zoomValue;
+                    y = (zoomValue * y) + orgX;
+                    g.DrawEllipse(new Pen(Brushes.Red, 2.0F), new Rectangle(x, y, 5, 5));
+                    g.Save();
+                }
+                polynomialPoints.Clear();
+                coordinates.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void BtnMCLaurin_Click(object sender, EventArgs e)
