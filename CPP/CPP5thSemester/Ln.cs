@@ -44,9 +44,10 @@ namespace CPP5thSemester
 
         public override IFunction derivative()
         {
-            IFunction numerator, lnDerivative;
+            IFunction numerator,dev ,lnDerivative;
             numerator = Operand.derivative();
-            lnDerivative = new DevisionFunction(numerator, Operand);
+            dev = new DevisionFunction(new Numbers(1), Operand);
+            lnDerivative = new Multiplication(dev, numerator);
             return lnDerivative;
         }
         public override IFunction Simplify()

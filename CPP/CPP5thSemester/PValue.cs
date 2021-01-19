@@ -19,7 +19,7 @@ namespace CPP5thSemester
         }
         public override double Evaluate(double val)
         {
-            return val;
+            return this.value;
         }
         public override string ToInfix()
         {

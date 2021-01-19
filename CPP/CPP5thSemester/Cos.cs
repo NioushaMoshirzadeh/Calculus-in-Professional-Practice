@@ -33,15 +33,22 @@ namespace CPP5thSemester
         }
         public override double Evaluate(double val)
         {
-            double output = Math.Cos(Operand.Evaluate(val));   
+            double output;
+            if (Operand.GetType() == typeof(PValue))
+            {
+                output = Math.Cos(Operand.Evaluate(val));
+            }
+            else
+            {
+                double radian = Math.PI * ((Operand.Evaluate(val) * 55) / 180.0); //55 is the most precise number for adjusting 
+                                                                                  //the Sin and Cos values on the Canvas steps
+                output = Math.Cos(radian);
+            }
             return output;
         }
         public override IFunction derivative() 
         {
-            IFunction s, minusS;
-            s = new Sin(Operand);
-            minusS = new Multiplication(new Numbers(-1), s);
-            return minusS;
+            return new Multiplication(Operand.derivative(), new Multiplication(new Numbers(-1), new Sin(Operand)));
         }
         public override IFunction Simplify()
         {

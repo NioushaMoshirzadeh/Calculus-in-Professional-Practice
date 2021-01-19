@@ -37,20 +37,18 @@ namespace CPP5thSemester
         public override double Evaluate(double val)
         {
             
-            if (Operand == null)
-            {
-                return eValue;
-            }
+            //if (Operand == null)
+            //{
+            //    return eValue;
+            //}
             double output = Math.Exp(Operand.Evaluate(val));
             return output;
         }
 
         public override IFunction derivative() 
         {
-            IFunction exp, inExp, result;
-            inExp  = Operand.derivative();
-            exp = new Expotential(Operand);
-            result = new Multiplication(exp,inExp); 
+            IFunction  result; 
+            result = new Multiplication(new Expotential(Operand), Operand.derivative());
             return result;
         }
         public override IFunction Simplify()

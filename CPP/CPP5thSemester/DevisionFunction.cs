@@ -52,7 +52,7 @@ namespace CPP5thSemester
             leftabove = new Multiplication(Toleft.derivative(), ToRight);
             rightabove = new Multiplication(Toleft, ToRight.derivative());
             minusAboveDevision= new MinusFunction(leftabove,rightabove);
-            powerDown = new Power(Toleft, new Numbers(2));
+            powerDown = new Power(ToRight, new Numbers(2));
             devisionDderivative = new DevisionFunction(minusAboveDevision, powerDown);
             return devisionDderivative;
         }

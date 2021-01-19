@@ -34,9 +34,9 @@ namespace CPP5thSemester
         public override string BinaryTree()
         {
             String temp = "\nnode" + this.Id + " [ label = \"*\" ][shape=polygon,sides=6,peripheries=3,color=lightpink,style=filled]\n";
-            temp += "node" + this.Id + " -- node" + Toleft.Id + "[style=dotted,color=purple]\n";
+            temp += "node" + this.Id + " -- node" + Toleft.Id + "[style=dotted,color=purple]\n"; 
             temp += Toleft.BinaryTree();
-            temp += "node" + this.Id + " -- node" + ToRight.Id + "[shape=record,color=purple]\n";
+            temp += "node" + this.Id + " -- node" + ToRight.Id + "[shape=record,color=purple]\n"; 
             temp += ToRight.BinaryTree();
             return temp;
         }
