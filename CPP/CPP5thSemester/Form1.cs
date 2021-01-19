@@ -18,7 +18,7 @@ namespace CPP5thSemester
     public partial class Form1 : Form
     {
         Parsing parsing;
-        private IFunction root;
+        private IFunction root , deri;
         string s , temp;
         Graphics g;
         Pen pen, derivativePen;
@@ -51,7 +51,6 @@ namespace CPP5thSemester
             dot.WaitForExit();
             picBox_tree.ImageLocation = "abc.png";
         }
-
         private void DrawBinaryTreeMCLauran(IFunction x) // draw McLaurin on the .PNG file
         {
             GraphVize.SaveDotFile(x, "abcd");
@@ -136,6 +135,7 @@ namespace CPP5thSemester
                     tbResult.Text = temp;
                     parsing = new Parsing();
                     root = parsing.fpa(ref s);
+                    deri = root;
                     tbResult.Text = parsing.EquationHumanReadablitly();
                     DrawBinaryTree(root);
                     tbParse.Text = s;
@@ -148,36 +148,28 @@ namespace CPP5thSemester
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show(ex.Message);
                 }
             }
-                
         }
-
         /* not tochable *///-----------------------------------becarefull-----------------------------------------------
         private void PicBox_tree_Click(object sender, EventArgs e)
         {
 
         }
-
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
-        
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             
         }
-       
-
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
         
         }
         /* not tochable *///----------------------------------------------------------------------------------
-
         private void Button1_Click(object sender, EventArgs e)         /*plot derivative*/
         {
             if (coordinates != null)
@@ -185,7 +177,6 @@ namespace CPP5thSemester
                 {
                     coordinates.Remove(item);
                 }
-
             /*plot on the pictureBox*/
             zoomValue = trackBar1.Value;
             orgX = pictureBox1.Width / 2;
@@ -205,14 +196,7 @@ namespace CPP5thSemester
                 double X2 = (zoomValue * i) + orgX + 0.01f;
                 if (Y1 <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y1 >= 0 && Y2 >= 0)
                     g.DrawLine(derivativePen, (float)X, (float)Y1, (float)X2, (float)Y2);
-                /*****/
-                //double h = 0.0001d;
-                //float Y1 = (((float)root.Evaluate(i + h) - (float)root.Evaluate(i)) / (float)h) * zoomValue; //f(x+h) - f(x) / h
-                //float Y2 = (((float)root.Evaluate(i + (0.01) + h) - (float)root.Evaluate(i + (0.01))) / (float)h) * zoomValue;
-                //if (Y1 <= pictureBox1.Height/2 && Y2 <= pictureBox1.Height/2 && Y1 >= -200 && Y2 >= -200)
-                //    g.DrawLine(derivativePen, (i * zoomValue) + orgX, orgY - Y1, orgX + (i * zoomValue) + 0.01f, orgY - Y2);
             }
-
             /* plot the Analytical derivative and plotting the tree*/
             IFunction p;
             p = root.derivative();
@@ -226,9 +210,7 @@ namespace CPP5thSemester
                 if (Y <= pictureBox1.Height / 2 && Y2 <= pictureBox1.Height / 2 && Y >= -200 && Y2 >= -200)
                     g.DrawLine(derivativePen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
             }
-
         }
-
         private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
             Pen pen = new Pen(Brushes.Red, 2.0f);
@@ -244,7 +226,6 @@ namespace CPP5thSemester
             g.DrawEllipse(pen, new Rectangle(e.X, e.Y, 5, 5));
             g.Save();
         }
-
         private void BtnIntegral_Click(object sender, EventArgs e)
         {
             orgX = pictureBox1.Width / 2;
@@ -261,19 +242,17 @@ namespace CPP5thSemester
                 Console.WriteLine("Points calculated are : " + X1.ToString() + "\t" + X2.ToString());
                 float Y1 = 0;
                 float integral = 0;
-
-                for (float i = X1; i <= X2; i += 0.1f)
+                for (float i = X1; i <= X2; i += 0.001f)
                 {
-                    double X = (double)i;
+                    float X = i;
                     Y1 = (float)root.Evaluate(X);
                     integral += (0.1f * Y1);
-                    g.DrawLine(darkblue, (i * zoomValue) + orgX, orgX, (i * zoomValue) + orgX, orgY - (Y1 * zoomValue));
+                    g.DrawLine(darkblue, (i * zoomValue) + orgX, orgX, (i * zoomValue) + orgX, orgX - (Y1 * zoomValue)); 
                 }
                 Console.WriteLine("integral value is : " + integral.ToString() + "\n");
                 coordinates.Clear();
             } 
         }
-
         private void BtnPolynomial_Click(object sender, EventArgs e)
         {
             try
@@ -328,8 +307,6 @@ namespace CPP5thSemester
                 float X1 = 0;
                 float X2 = 0;
                 DrawGridLines();
-
-
                 for (float i = -200; i < (pictureBox1.Height) / 2; i += 0.01f)
                 {
                     int deg2 = nrOfPoints - 1;
@@ -377,7 +354,6 @@ namespace CPP5thSemester
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void BtnMCLaurin_Click(object sender, EventArgs e)
         {
             double result = 0;
@@ -422,7 +398,6 @@ namespace CPP5thSemester
                             coefficient[i] = result;
                     }
                 }
-
                 //DrawBinaryTreeMCLauran(root);
                 DrawGridLines();
                 for (int i = 7; i >= 0; i--)
@@ -463,7 +438,6 @@ namespace CPP5thSemester
                 MessageBox.Show(ex.Message);
             }
         }
-
         private double Factorial(int number)
         {
             if (number == 1)
@@ -475,7 +449,6 @@ namespace CPP5thSemester
                 return number * Factorial(number - 1);
             }
         }
-
         private void DrawGridLines()
         {
             pictureBox1.Refresh();
@@ -505,13 +478,10 @@ namespace CPP5thSemester
             g.DrawLine(blackPen, 0, orgY, pictureBox1.Width, orgY);
             g.DrawLine(blackPen, orgX, 0, orgY, pictureBox1.Height);
         }
-
-
         private void Label1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void BtnPicPlot_Click(object sender, EventArgs e)
         {
             try
@@ -540,17 +510,6 @@ namespace CPP5thSemester
                     float X2 = (zoomValue * i) + orgX + 0.01f;
                     if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y >= 0 && Y2 >= 0)
                         g.DrawLine(pen, (float)X, Y, X2, Y2);
-
-                    /*Second option*/
-                    //double X = (double)i;
-                    //float Y = (float)root.Evaluate(X) * zoomValue;
-                    //float Y2 = ((float)root.Evaluate(i + 0.1) * zoomValue);
-                    //Y = orgY - Y;
-                    //X = (float)(X * zoomValue) + orgX;
-                    //float X2 = (float)(orgX + (X * zoomValue) + 0.1);
-                    //Y2 = orgY - Y2;
-                    //if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height && Y >= 0 && Y2 >= 0)
-                    //    g.DrawLine(pen, (float)X, Y, X2, Y2);
                     /*first option*/
                     //double X = (double)i;
                     //float Y = (float)root.Evaluate(X) * zoomValue;
@@ -558,13 +517,11 @@ namespace CPP5thSemester
                     //if (Y <= pictureBox1.Height && Y2 <= pictureBox1.Height )
                     //    g.DrawLine(pen, (float)(X * zoomValue) + orgX, orgY - Y, (float)(orgX + (X * zoomValue) + 0.1), orgY - Y2);
                 }
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }
-            
+            }   
         }
     }
 }

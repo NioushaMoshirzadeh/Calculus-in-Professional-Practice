@@ -62,7 +62,6 @@ namespace CPP5thSemester
                 {
                     return ToRight;
                 }
-                
             }
             if (ToRight.GetType() == typeof(Numbers))
             {

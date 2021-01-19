@@ -271,7 +271,6 @@ namespace CPP5thSemester
             }
             return null;
         }
-
         public string EquationHumanReadablitly()
         {
             return function;
